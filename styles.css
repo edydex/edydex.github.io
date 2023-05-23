@@ -12,9 +12,13 @@ header {
 /* Add styling for the link list */
 #link-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Create 3 columns */
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
   grid-gap: 20px; /* Add gap between links */
   padding: 20px;
+}
+
+.column h3 {
+  font-size: 24px; /* Increase font size for column headers */
 }
 
 .link-item {
@@ -26,6 +30,7 @@ header {
   cursor: pointer;
   position: relative;
   padding-right: 20px;
+  font-size: 18px; /* Decrease font size for link headers */
   text-decoration: underline;
 }
 

@@ -1,53 +1,75 @@
-// Load links from local storage or initialize an empty array
-let links = JSON.parse(localStorage.getItem('links')) || [];
+let links = [
+  {
+    name: 'Link 1',
+    url: 'https://www.example.com/referral1',
+    description: 'Description for Link 1',
+    category: 'Finances'
+  },
+  {
+    name: 'Link 2',
+    url: 'https://www.example.com/referral2',
+    description: 'Description for Link 2',
+    category: 'Games'
+  },
+  {
+    name: 'Link 3',
+    url: 'https://www.example.com/referral3',
+    description: 'Description for Link 3',
+    category: 'Services'
+  },
+  {
+    name: 'Link 4',
+    url: 'https://www.example.com/referral4',
+    description: 'Description for Link 4',
+    category: 'Others'
+  }
+];
 
-// Add your referral links below
-links.push({
-  name: 'Camp',
-  url: 'https://www.eventbrite.com/e/faith-check-2023-tickets-632837683547',
-  description: "We're going to camp fr fr"
-});
-
-links.push({
-  name: 'Link 2',
-  url: 'https://www.example.com/referral2',
-  description: 'Description for Link 2'
-});
-
-// Function to render the link list
 function renderLinks() {
-  const linkList = document.getElementById('link-list');
-  linkList.innerHTML = '';
+  // Clear existing content
+  document.getElementById('link-list').innerHTML = '';
 
-  links.forEach(function (link) {
-    const linkItem = document.createElement('div');
-    linkItem.classList.add('link-item');
+  // Create columns
+  const categories = ['Finances', 'Games', 'Services', 'Others'];
+  categories.forEach(category => {
+    const columnDiv = document.createElement('div');
+    columnDiv.classList.add('column');
 
-    const heading = document.createElement('h2');
-    heading.textContent = link.name;
-    linkItem.appendChild(heading);
+    const columnHeading = document.createElement('h3');
+    columnHeading.textContent = category;
+    columnDiv.appendChild(columnHeading);
 
-    const content = document.createElement('div');
-    content.classList.add('link-content');
+    // Filter links by category
+    const filteredLinks = links.filter(link => link.category === category);
 
-    const linkAnchor = document.createElement('a');
-    linkAnchor.href = link.url;
-    linkAnchor.textContent = 'Link';
-    content.appendChild(linkAnchor);
+    // Create links for the current category
+    filteredLinks.forEach(link => {
+      const linkItem = document.createElement('div');
+      linkItem.classList.add('link-item');
 
-    const description = document.createElement('p');
-    description.textContent = link.description;
-    content.appendChild(description);
+      const linkHeading = document.createElement('h2');
+      linkHeading.textContent = link.name;
+      linkItem.appendChild(linkHeading);
 
-    linkItem.appendChild(content);
-    linkList.appendChild(linkItem);
+      const linkContent = document.createElement('div');
+      linkContent.classList.add('link-content');
 
-    // Add event listener to toggle the content visibility
-    heading.addEventListener('click', function () {
-      content.classList.toggle('show');
+      const linkURL = document.createElement('a');
+      linkURL.href = link.url;
+      linkURL.textContent = 'Go to link';
+      linkContent.appendChild(linkURL);
+
+      const linkDescription = document.createElement('p');
+      linkDescription.textContent = link.description;
+      linkContent.appendChild(linkDescription);
+
+      linkItem.appendChild(linkContent);
+      columnDiv.appendChild(linkItem);
     });
+
+    // Append the column to the main link-list element
+    document.getElementById('link-list').appendChild(columnDiv);
   });
 }
 
-// Call the renderLinks function initially
 renderLinks();
