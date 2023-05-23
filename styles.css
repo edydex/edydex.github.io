@@ -2,14 +2,15 @@
 body {
   background-color: black;
   color: white;
-  padding-top: 20px; /* Add padding to the top of the screen */
-  padding-left: 20px; /* Add padding to the left edge of the screen */
-  padding-right: 20px; /* Add padding to the right edge of the screen */
+  padding-top: 40px; /* Add padding to the top of the screen */
+  padding-left: 40px; /* Add padding to the left edge of the screen */
+  padding-right: 40px; /* Add padding to the right edge of the screen */
 }
 
 /* Center the "Referral Links" heading */
 header {
   text-align: center;
+  font-size: 24px; /* Adjust the font size to your desired value */
 }
 
 /* Add styling for the link list */
@@ -17,7 +18,7 @@ header {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
   grid-gap: 20px; /* Add gap between links */
-  padding: 20px;
+  padding: 40px;
 }
 
 .column {
@@ -27,7 +28,7 @@ header {
 }
 
 .column h3 {
-  font-size: 24px; /* Increase font size for column headers */
+  font-size: 32px; /* Increase font size for column headers */
   margin-top: 10px; /* Adjust top margin for better spacing */
 }
 
