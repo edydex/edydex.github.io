@@ -65,6 +65,12 @@ function renderLinks() {
 
       linkItem.appendChild(linkContent);
       columnDiv.appendChild(linkItem);
+
+      // Add event listener to toggle link content visibility
+      linkHeading.addEventListener('click', () => {
+        linkContent.classList.toggle('show');
+        linkHeading.classList.toggle('collapsed');
+      });
     });
 
     // Append the column to the main link-list element

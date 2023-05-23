@@ -2,6 +2,9 @@
 body {
   background-color: black;
   color: white;
+  padding-top: 20px; /* Add padding to the top of the screen */
+  padding-left: 20px; /* Add padding to the left edge of the screen */
+  padding-right: 20px; /* Add padding to the right edge of the screen */
 }
 
 /* Center the "Referral Links" heading */
@@ -17,8 +20,15 @@ header {
   padding: 20px;
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align headers to the middle */
+}
+
 .column h3 {
   font-size: 24px; /* Increase font size for column headers */
+  margin-top: 10px; /* Adjust top margin for better spacing */
 }
 
 .link-item {
@@ -32,6 +42,7 @@ header {
   padding-right: 20px;
   font-size: 18px; /* Decrease font size for link headers */
   text-decoration: underline;
+  text-align: center; /* Align link headers to the middle */
 }
 
 .link-item h2::after {
@@ -47,9 +58,15 @@ header {
   transform: translateY(-50%);
 }
 
+.link-item h2.collapsed::after {
+  border-width: 0 5px 5px 5px;
+  transform: translateY(-50%) rotate(180deg);
+}
+
 .link-content {
   display: none;
   padding-left: 20px;
+  text-align: center; /* Center the link and description */
 }
 
 .link-content.show {
