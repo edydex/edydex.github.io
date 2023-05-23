@@ -1,8 +1,14 @@
 let links = [
   {
-    name: 'Link 1',
-    url: 'https://www.example.com/referral1',
-    description: 'Description for Link 1',
+    name: 'Cash App',
+    url: 'https://f5kbvc75.r.us-west-2.awstrack.me/L0/https:%2F%2Fcash.app%2Fdownload/1/010101884aacdccb-30cd9258-3fdd-4cb8-b0b1-b94dd4c016bc-000000/L25gBJWWPWo-hmk7mMZSb-ZboZ8=324',
+    description: 'Enter the code "DGMTXVG" when you sign up and we both will get $5',
+    category: 'Finances'
+  },
+  {
+    name: 'Venmo',
+    url: 'https://get.venmo.com/ayBXLT9V2zb',
+    description: 'Use code "ayBXLT9V2zb" to get $10 after you send at least $5 to another person using Venmo. If you are looking for someone to send it to - send it to me :) @edydex',
     category: 'Finances'
   },
   {
@@ -22,7 +28,8 @@ let links = [
     url: 'https://www.example.com/referral4',
     description: 'Description for Link 4',
     category: 'Others'
-  }
+  },
+  // Add more links here using the same structure
 ];
 
 function renderLinks() {
@@ -69,7 +76,6 @@ function renderLinks() {
       // Add event listener to toggle link content visibility
       linkHeading.addEventListener('click', () => {
         linkContent.classList.toggle('show');
-        linkHeading.classList.toggle('collapsed');
       });
     });
 

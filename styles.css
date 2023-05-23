@@ -36,36 +36,16 @@ header {
 }
 
 .link-item h2 {
-  margin: 0;
+  margin: 5px 0; /* Add vertical padding */
   cursor: pointer;
-  position: relative;
-  padding-right: 20px;
   font-size: 18px; /* Decrease font size for link headers */
   text-decoration: underline;
   text-align: center; /* Align link headers to the middle */
 }
 
-.link-item h2::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 5px 5px 0 5px;
-  border-color: #ffffff transparent transparent transparent;
-  transform: translateY(-50%);
-}
-
-.link-item h2.collapsed::after {
-  border-width: 0 5px 5px 5px;
-  transform: translateY(-50%) rotate(180deg);
-}
-
 .link-content {
   display: none;
-  padding-left: 20px;
+  padding-left: 10px;
   text-align: center; /* Center the link and description */
 }
 
