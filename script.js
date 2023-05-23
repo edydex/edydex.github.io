@@ -1,6 +1,19 @@
 // Load links from local storage or initialize an empty array
 let links = JSON.parse(localStorage.getItem('links')) || [];
 
+// Add your referral links below
+links.push({
+  name: 'Camp',
+  url: 'https://www.eventbrite.com/e/faith-check-2023-tickets-632837683547',
+  description: "We're going to camp fr fr"
+});
+
+links.push({
+  name: 'Link 2',
+  url: 'https://www.example.com/referral2',
+  description: 'Description for Link 2'
+});
+
 // Function to render the link list
 function renderLinks() {
   const linkList = document.getElementById('link-list');
