@@ -5,7 +5,7 @@ body {
   padding: 0;
 }
 
-header, main, footer {
+header, main {
   padding: 20px;
 }
 
@@ -13,44 +13,28 @@ h1 {
   margin: 0;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+.link-item {
+  margin-bottom: 20px;
 }
 
-li {
-  margin-bottom: 10px;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 10% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
+.link-item h2 {
+  margin: 0;
   cursor: pointer;
+}
+
+.link-content {
+  display: none;
+  padding-left: 20px;
+}
+
+.link-content.show {
+  display: block;
+}
+
+.link-content a {
+  margin-right: 10px;
+}
+
+.link-content p {
+  margin: 10px 0;
 }
