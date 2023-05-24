@@ -50,6 +50,7 @@ header {
 .link-item h2 {
   margin: 5px 0; /* Add vertical padding */
   cursor: pointer;
+  user-select: none;
   font-size: 18px; /* Decrease font size for link headers */
   text-decoration: underline;
   text-align: center; /* Align link headers to the middle */
