@@ -27,6 +27,15 @@ header {
   align-items: center; /* Align headers to the middle */
 }
 
+.centered-text {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  max-width: 800px; /* Set the maximum width as needed */
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .column h3 {
   font-size: 32px; /* Increase font size for column headers */
   margin-top: 10px; /* Adjust top margin for better spacing */
