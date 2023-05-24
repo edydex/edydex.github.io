@@ -18,7 +18,7 @@ let links = [
     category: 'Games'
   },
   {
-    name: 'Link 3',
+    name: 'Uber, Door dash and such',
     url: 'https://www.example.com/referral3',
     description: 'Description for Link 3',
     category: 'Services'
@@ -35,6 +35,12 @@ let links = [
     description: 'Description for Link 3',
     category: 'Others'
   },
+  { 
+     name: 'Brave Browser here', 
+     url: 'https://www.example.com/referral3', 
+     description: 'Description for Link 3', 
+     category: 'Others' 
+   },
   // Add more links here using the same structure
 ];
 
