@@ -8,7 +8,7 @@ let links = [
   {
     name: 'Venmo',
     url: 'https://get.venmo.com/ayBXLT9V2zb',
-    description: 'Use code "ayBXLT9V2zb" to get $10 after you send at least $5 to another person using Venmo. If you are looking for someone to send it to - send it to me :) @edydex',
+    description: 'Use code "ayBXLT9V2zb" to get $10 after you send at least $5 to another person using Venmo. Can be added even after you created your account. If you are looking for someone to send money to - send it to me - @edydex :)',
     category: 'Finances'
   },
   {
