@@ -15,7 +15,7 @@ let links = [
     name: 'BitSkins',
     url: 'bskn.co/?ref_alias=5SA78YdnDi4',
     description: 'Use code "5SA78YdnDi4", I earn 1% from your purchases. You can also see my for-sale inventory at https://bskn.co/inventory?alias=5SA78YdnDi4&app_id=730 ',
-    category: 'Games Related'
+    category: 'Games'
   },
   {
     name: 'Link 3',
@@ -27,7 +27,7 @@ let links = [
     name: 'D-Market',
     url: 'https://dmarket.com?ref=QEwdU8FHZo',
     description: 'Buy and Sell CS2 skins. I get 0.5-1% from the things you sell or buy. ',
-    category: 'Games Related'
+    category: 'Games'
   },
   {
     name: 'Placeholder',
@@ -43,7 +43,7 @@ function renderLinks() {
   document.getElementById('link-list').innerHTML = '';
 
   // Create columns
-  const categories = ['Finances', 'Games Related', 'Services', 'Others'];
+  const categories = ['Finances', 'Games', 'Services', 'Others'];
   categories.forEach(category => {
     const columnDiv = document.createElement('div');
     columnDiv.classList.add('column');
