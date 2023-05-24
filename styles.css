@@ -68,8 +68,30 @@ header {
 
 .link-content a {
   margin-right: 10px;
+  color: lightgray; /* Change link color to light gray */
 }
 
 .link-content p {
   margin: 10px 0;
+}
+
+.link-content .link-description {
+  margin-top: 10px; /* Add margin to separate link and description */
+}
+
+.link-content .link-url {
+  display: block; /* Set the link as a block element */
+}
+
+/* Checkbox hack for expand/collapse */
+.link-item input[type="checkbox"] {
+  display: none;
+}
+
+.link-item input[type="checkbox"] ~ .link-content {
+  display: none;
+}
+
+.link-item input[type="checkbox"]:checked ~ .link-content {
+  display: block;
 }
