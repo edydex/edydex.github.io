@@ -1,10 +1,11 @@
 /* Set page background to black and text color to white */
 body {
   background-color: black;
-  color: white;
+  color: #fff;
   padding-top: 40px; /* Add padding to the top of the screen */
   padding-left: 40px; /* Add padding to the left edge of the screen */
   padding-right: 40px; /* Add padding to the right edge of the screen */
+  font-family: monospace;
 }
 
 /* Center the "Referral Links" heading */
@@ -25,6 +26,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center; /* Align headers to the middle */
+  position: relative;
 }
 
 .centered-text {
@@ -51,6 +53,7 @@ header {
   font-size: 18px; /* Decrease font size for link headers */
   text-decoration: underline;
   text-align: center; /* Align link headers to the middle */
+  color: white;
 }
 
 .link-content {
