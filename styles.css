@@ -116,6 +116,7 @@ header {
 /* Style the QA items */
 .qa-item {
   margin-bottom: 10px;
+  font-size: 24px;
 }
 
 /* Style the question label */
@@ -131,12 +132,14 @@ header {
 /* Style the toggle icon */
 .qa-item .toggle-icon {
   margin-right: 5px;
+  font-size: 24px;
 }
 
 /* Initially hide the answers */
 .qa-item .answer {
   display: none;
   padding-left: 20px;
+  font-size: 18px;
 }
 
 /* Show the answers when the associated checkbox is checked */
