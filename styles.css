@@ -49,6 +49,7 @@ header {
   text-align: center;
   font-size: 18px;
   margin-top: 20px;
+  margin-bottom: 60px;
   max-width: 800px; /* Set the maximum width as needed */
   margin-left: auto;
   margin-right: auto;
@@ -56,7 +57,7 @@ header {
 
 .column h3 {
   font-size: 32px; /* Increase font size for column headers */
-  margin-top: 10px; /* Adjust top margin for better spacing */
+  margin-top: -40px; /* Adjust top margin for better spacing */
 }
 
 .link-item {
@@ -112,14 +113,22 @@ header {
 .link-item input[type="checkbox"]:checked ~ .link-content {
   display: block;
 }
+/* Individual Referral page CSS begins /* /* Individual Referral page CSS begins /* /* Individual Referral page CSS begins /* /* Individual Referral page CSS begins */
 
+/*Set the content to display off the edges of the screen */
+.container {
+  max-width: 920px; /* Set the maximum width of the container */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px; /* Add horizontal padding to center the content */
+}
 /* Style the QA items */
 .qa-item {
   margin-bottom: 10px;
-  font-size: 24px;
+  font-size: 24px; /*question title size */
 }
 
-/* Style the question label */
+/* Style the question label (Question title)*/
 .qa-item .question {
   cursor: pointer;
   font-weight: bold;
@@ -129,13 +138,13 @@ header {
   user-select: none;
 }
 
-/* Style the toggle icon */
+/* Style the toggle icon (+ normal and flipped) */
 .qa-item .toggle-icon {
   margin-right: 5px;
   font-size: 24px;
 }
 
-/* Initially hide the answers */
+/* Initially hide the answers (collapsed answers)*/
 .qa-item .answer {
   display: none;
   padding-left: 20px;
@@ -162,11 +171,4 @@ header {
   margin: -1px;
   padding: 0;
   border: 0;
-}
-
-.container {
-  max-width: 920px; /* Set the maximum width of the container */
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 20px; /* Add horizontal padding to center the content */
 }
