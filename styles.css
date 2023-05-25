@@ -125,6 +125,7 @@ header {
   margin-bottom: 5px;
   display: flex;
   align-items: center;
+  user-select: none;
 }
 
 /* Style the toggle icon */
@@ -158,4 +159,11 @@ header {
   margin: -1px;
   padding: 0;
   border: 0;
+}
+
+.container {
+  max-width: 920px; /* Set the maximum width of the container */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px; /* Add horizontal padding to center the content */
 }
