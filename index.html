@@ -1,126 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Referral Links</title>
+  <title>Landing Page</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Referral Links</h1>
-    <p class="centered-text">Thank you for choosing to support me by using my referral codes. Let me know if any of those don't work at omayo@duck.com. Have a blessed day. Need to add a menu at the top. Put links under the description. Should also include the referral terms and conditions.</p>
-    <!-- Add the centered text -->
-
-    <!-- Add the button-like text -->
-    <a class="button-link" href="https://referrals.mayo.onl">← Back</a>
-  </header>
-  <main id="link-list">
-    <!-- Link columns and content here -->
-  </main>
-</body>
-<html>
-
-  <main id="link-list">
-    <div class="column">
-      <h3>Finances</h3>
-      <div class="link-item">
-        <h2>
-          <label for="link1">Cash App</label>
-        </h2>
-        <input type="checkbox" id="link1">
-        <div class="link-content">
-          <p>Enter the code "DGMTXVG" when you sign up and we both will get $5</p>
-          <a href="https://f5kbvc75.r.us-west-2.awstrack.me/L0/https:%2F%2Fcash.app%2Fdownload/1/010101884aacdccb-30cd9258-3fdd-4cb8-b0b1-b94dd4c016bc-000000/L25gBJWWPWo-hmk7mMZSb-ZboZ8=324">Go to link</a>  <a href="https://www.example.com">Details</a>
-        </div>
-      </div>
-      <div class="link-item"> <!-- copy-paste starts here, change link to /\ + 4-->
-        <h2>
-          <label for="link5">Venmo</label>
-        </h2>
-        <input type="checkbox" id="link5">
-        <div class="link-content">
-          <p>Use code "ayBXLT9V2zb" to get $10 after you send $5 (funded from your bank account). My Venmo tag is @edydex. </p>
-          <a href="https://get.venmo.com/ayBXLT9V2zb">Go to link</a>  <a href="https://edydex.github.io/venmo.html">Details</a>
-        </div>
-      </div> <!--copy-paste ends here -->
-      <!-- Add more links here -->
-    </div>
-    <div class="column">
-      <h3>Games</h3>
-      <div class="link-item">
-        <h2>
-          <label for="link2">BitSkins</label>
-        </h2>
-        <input type="checkbox" id="link2">
-        <div class="link-content">
-          <p>First time visitors only, I earn 1% from your purchases. My go-to website when their currency is on sale. You can see my for-sale inventory at <a href="https://bskn.co/inventory?alias=5SA78YdnDi4&app_id=730">this link</a>.</p>
-          <a href="bskn.co/?ref_alias=5SA78YdnDi4">Go to link</a>  <a href="https://www.example.com">Details</a>
-        </div>
-      </div>
-      <div class="link-item">
-        <h2>
-          <label for="link6">D-Market</label>
-        </h2>
-        <input type="checkbox" id="link6">
-        <div class="link-content">
-          <p>Buy and Sell CS2 skins. I get 0.5-1% from the things you sell or buy.</p>
-          <a href="https://dmarket.com?ref=QEwdU8FHZo">Go to link</a>  <a href="https://www.example.com">Details</a>
-        </div> 
-      </div>
-      <!-- Add more links here -->
-    </div>
-    <div class="column">
-      <h3>Services</h3>
-      <div class="link-item">
-        <h2>
-          <label for="link3">Uber, Door dash and such</label>
-        </h2>
-        <input type="checkbox" id="link3">
-        <div class="link-content">
-          <p>Description for Link 3</p>
-          <a href="https://www.example.com/referral3">Go to link</a>  <a href="https://www.example.com">Details</a>
-        </div>
-      </div>
-      <!-- Add more links here -->
-    </div>
-    <div class="column">
-      <h3>Others</h3>
-      <div class="link-item">
-        <h2>
-          <label for="link4">Steam Trade link</label>
-        </h2>
-        <input type="checkbox" id="link4">
-        <div class="link-content">
-          <p>Feel free to send me trade offers or donations. I got some interesting things in there. Everything is for sale for the right price :) </p>
-          <a href="https://steamcommunity.com/tradeoffer/new/?partner=194779487&token=yCHjDL88">Go to link</a>  <a href="https://www.example.com">Details</a>
-        </div> 
-      </div>
-      <div class="link-item"> <!-- copy-paste starts here, change link to /\ + 4-->
-        <h2>
-          <label for="link8">Brave</label>
-        </h2>
-        <input type="checkbox" id="link8">
-        <div class="link-content">
-          <p>I don't have the affiliate thingymajig yet, maybe I will some day. </p>
-          <a href="https://www.example.com">Referral Link</a> <a href="https://www.example.com">Details</a>
-        </div>
-      </div> <!--copy-paste ends here -->
-      <!-- Add more links here -->
-    </div>
-    <!-- Add more columns here -->
-  </main>
-
-  <script>
-    // Get all the checkboxes and link contents
-    const checkboxes = document.querySelectorAll('.link-item input[type="checkbox"]');
-    const linkContents = document.querySelectorAll('.link-item .link-content');
-
-    // Add click event listener to each checkbox
-    checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener('click', function () {
-        const linkContent = this.nextElementSibling;
-        linkContent.classList.toggle('show');
-      });
-    });
-  </script>
+  <div class="container">
+    <header>
+      <h1 class="centered-text">Oles Maiovskyi</h1>
+      <ul class="menu-bar">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#placeholder">Placeholder</a></li>
+        <li><a href="#about-me">About Me</a></li>
+        <li><a href="#support-me">Support Me</a></li>
+        <li><a href="#contact-me">Contact Me</a></li>
+      </ul>
+    </header>
+    <main>
+      <section id="projects" class="content-section">
+        <h2>Projects</h2>
+        <!-- Add project content here -->
+      </section>
+      <section id="placeholder" class="content-section">
+        <h2>Placeholder</h2>
+        <!-- Add placeholder content here -->
+      </section>
+      <section id="about-me" class="content-section">
+        <h2>About Me</h2>
+        <p>Add your about me text here.</p>
+      </section>
+      <section id="support-me" class="content-section">
+        <h2>Support Me</h2>
+        <p>Add your general information about support here.</p>
+		<p>For referral links and more details, click the button below:</p>
+		<a href="referrals.html" class="support-button-link">Referral Page</a>
+      </section>
+        <!-- Add support me buttons/links here -->
+      </section>
+      <section id="contact-me" class="content-section">
+        <h2>Contact Me</h2>
+        <p>Add your contact me text here.</p>
+        <!-- Add contact me buttons/links here -->
+      </section>
+    </main>
+  </div>
 </body>
 </html>

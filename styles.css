@@ -172,3 +172,70 @@ header {
   padding: 0;
   border: 0;
 }
+
+/*landing page css */
+
+
+/* Add styling for the menu bar */
+.menu-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  list-style-type: none;
+}
+
+.menu-bar li {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.menu-bar li a {
+  color: white; /* Set link color to white */
+  text-decoration: none; /* Remove underline */
+}
+
+.menu-bar li:hover {
+  background-color: #333;
+}
+
+.menu-bar li.active {
+  background-color: #333;
+}
+
+/* Add styling for the content sections */
+.content-section {
+  display: none;
+  padding: 20px;
+  background-color: black;
+  text-align: center;
+}
+
+.content-section h2 {
+  color: #fff;
+}
+
+/* Show the selected content section */
+.content-section:target {
+  display: block;
+}
+
+/*button link */
+.support-button-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.support-button-link:hover {
+  background-color: #333;
+}
