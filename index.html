@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Landing Page</title>
+  <title>OMAYO</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    .menu-bar li.active > a {
+      background-color: #343434;
+      /* Add your desired styles for the active tab here */
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1 class="centered-text">Oles Maiovskyi</h1>
+      <h1 class="header">Oles Maiovskyi</h1>
       <ul class="menu-bar">
         <li><a href="#projects">Projects</a></li>
         <li><a href="#placeholder">Placeholder</a></li>
@@ -32,10 +38,8 @@
       <section id="support-me" class="content-section">
         <h2>Support Me</h2>
         <p>Add your general information about support here.</p>
-		<p>For referral links and more details, click the button below:</p>
-		<a href="referrals.html" class="support-button-link">Referral Page</a>
-      </section>
-        <!-- Add support me buttons/links here -->
+        <p>For referral links and more details, click the button below:</p>
+        <a href="referrals.html" class="support-button-link">Referral Page</a>
       </section>
       <section id="contact-me" class="content-section">
         <h2>Contact Me</h2>
@@ -44,5 +48,20 @@
       </section>
     </main>
   </div>
+
+  <script>
+    // Add an event listener to the menu items
+    var menuItems = document.querySelectorAll('.menu-bar li a');
+    menuItems.forEach(function(item) {
+      item.addEventListener('click', function(event) {
+        // Remove the 'active' class from all menu items
+        menuItems.forEach(function(item) {
+          item.parentElement.classList.remove('active');
+        });
+        // Add the 'active' class to the clicked menu item
+        event.target.parentElement.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>

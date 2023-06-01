@@ -180,7 +180,7 @@ header {
 .menu-bar {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 5px;
   background-color: black;
   color: white;
   border-top: 1px solid white;
@@ -190,7 +190,7 @@ header {
 
 .menu-bar li {
   cursor: pointer;
-  padding: 10px;
+  padding: 5px;
 }
 
 .menu-bar li a {
