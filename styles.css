@@ -234,8 +234,154 @@ header {
   color: white;
   text-decoration: none;
   transition: background-color 0.3s ease;
+  display: inline-block;
+  width: auto;
 }
 
 .support-button-link:hover {
   background-color: #333;
+}
+
+/*landing page css */
+/* Add appropriate styles from the References List and Reference Details pages */
+
+.menu-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-top: 1px solid white;
+}
+.tab-container label.tab-name {
+  padding: 20px 40px;
+  cursor: pointer;
+}
+.tab-content {
+  font-size: 1.5rem;
+  border-top: 1px solid white;
+  display: none;
+  flex-basis: 100%;
+}
+.tab-container input[type="radio"] {
+  display: none;
+  
+}
+.tab-container input[type="radio"]:checked + label {
+  background-color: #343434;
+  color: white;
+}
+.tab-container input#tab-link-01[type="radio"]:checked ~ #tab-content-01 {
+  display: block;
+}
+.tab-container input#tab-link-02[type="radio"]:checked ~ #tab-content-02 {
+  display: block;
+}
+.tab-container input#tab-link-03[type="radio"]:checked ~ #tab-content-03 {
+  display: block;
+}
+.tab-container input#tab-link-04[type="radio"]:checked ~ #tab-content-04 {
+  display: block;
+}
+
+
+/* Set page background to black and text color to white */
+body {
+  background-color: black;
+  color: #fff;
+  padding-top: 40px; /* Add padding to the top of the screen */
+  padding-left: 40px; /* Add padding to the left edge of the screen */
+  padding-right: 40px; /* Add padding to the right edge of the screen */
+  font-family: monospace;
+}
+
+/* Center the "Referral Links" heading */
+h1.header {
+  text-align: center;
+  font-size: 36px; /* Adjust the font size to your desired value */
+  margin-bottom: 108px; /* Add bottom margin for spacing */
+}
+
+/* Add styling for the link list */
+#link-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+  grid-gap: 20px; /* Add gap between links */
+  padding: 40px;
+}
+
+
+.support-button-link {
+  font-size: 20px;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none; /* Remove text underline */
+}
+.support-button-link:hover {
+  background-color: #333;
+  font-size: 20px;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 20px;
+  user-select: none;
+  border-top: 1px solid white;
+}
+.tab-container label.tab-name {
+  padding: 10px 40px;
+  cursor: pointer;
+}
+.tab-content {
+  font-size: 1.5rem;
+  text-align: center;
+  display: none;
+  flex-basis: 100%;
+  border-top: 1px solid white;
+  font-size: 16px;
+}
+
+.tab-content h2 {
+  font-size: 24px; /* Adjust the font size to your desired value */
+}
+
+.tab-container input[type="radio"] {
+  display: none;
+  
+}
+.tab-container input[type="radio"]:checked + label {
+  background-color: #343434;
+  color: white;
+}
+.tab-container input#tab-link-01[type="radio"]:checked ~ #tab-content-01 {
+  display: block;
+}
+.tab-container input#tab-link-02[type="radio"]:checked ~ #tab-content-02 {
+  display: block;
+}
+.tab-container input#tab-link-03[type="radio"]:checked ~ #tab-content-03 {
+  display: block;
+}
+.tab-container input#tab-link-04[type="radio"]:checked ~ #tab-content-04 {
+  display: block;
+}
+.tab-container input#tab-link-05[type="radio"]:checked ~ #tab-content-05 {
+  display: block;
 }
