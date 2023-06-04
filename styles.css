@@ -276,11 +276,12 @@ h1.header {
   font-size: 20px;
   user-select: none;
   border-top: 1px solid white;
-  flex-basis: 20%;
+  box-sizing:border-box;
 }
 .tab-container label.tab-name {
   padding: 10px 40px;
   cursor: pointer;
+  flex-basis: 20%;
 }
 .tab-content {
   font-size: 1.5rem;
