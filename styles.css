@@ -280,8 +280,10 @@ h1.header {
 }
 .tab-container label.tab-name {
   padding: 10px 40px;
+  justify-content: center;
+  display: flex; 
   cursor: pointer;
-  flex-basis: 20%;
+  flex-basis: 5%;
 }
 .tab-content {
   font-size: 1.5rem;
