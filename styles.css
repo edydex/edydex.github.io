@@ -321,3 +321,25 @@ h1.header {
 .tab-container input#tab-link-05[type="radio"]:checked ~ #tab-content-05 {
   display: block;
 }
+
+/* phone looks try 1 */
+@media (max-width: 767px) {
+  .tab-container label.tab-name {
+    padding: 10px;
+    flex-basis: 25%;
+    max-width: 25%;
+    text-align: center;
+  }
+  
+  .tab-container input[type="radio"]:checked + label {
+    font-size: 18px;
+  }
+  
+  .tab-content {
+    font-size: 14px;
+  }
+  
+  .tab-content h2 {
+    font-size: 20px;
+  }
+}
