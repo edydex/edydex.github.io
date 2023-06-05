@@ -237,7 +237,7 @@ header {
   transition: background-color 0.3s ease;
   display: inline-block;
   width: auto;
-  box-shadow: 0 0 4px #666; /* Add box-shadow with dark gray color */
+  border: 1px solid #333; /* Add this line to set the border */
 }
 
 
