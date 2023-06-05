@@ -327,7 +327,6 @@ h1.header {
 /* phone looks try 1 */
 @media (max-width: 480px) {
   body {
-    background-color: blue;
 	padding-left: 20px; /* Add padding to the left edge of the screen */
     padding-right: 20px; /* Add padding to the right edge of the screen */
   }
@@ -340,4 +339,13 @@ h1.header {
     user-select: none;
     border-top: 1px solid white;
     box-sizing:border-box;
+  }
+  .tab-container label.tab-name {
+    padding: 10px 5px;
+    justify-content: center;
+    display: flex; 
+    cursor: pointer;
+    flex-basis: 15%;
+    text-align: center;
+  }
 }
