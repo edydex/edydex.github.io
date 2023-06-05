@@ -321,6 +321,56 @@ h1.header {
 .tab-container input#tab-link-05[type="radio"]:checked ~ #tab-content-05 {
   display: block;
 }
+/* "other" subsections */
+/* Style the QA items */
+.subsection {
+  margin-bottom: 10px;
+  font-size: 24px; /*question title size */
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* Style the question label (Question title)*/
+.subsection .question {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+  text-align: center; /* Center vertically */
+  user-select: none;
+}
+
+
+/* Style the toggle icon (+ normal and flipped) */
+.subsection .toggle-icon {
+  margin-right: 5px;
+  font-size: 24px;
+  align-items: center;
+  text-align: center;
+}
+
+/* Initially hide the answers (collapsed answers)*/
+.subsection .answer {
+  display: none;
+  padding-left: 20px;
+  font-size: 18px;
+  align-items: center;
+  text-align: center;
+}
+
+/* Show the answers when the associated checkbox is checked */
+.subsection .question-toggle:checked ~ .answer {
+  display: block;
+}
+
+/* Rotate the toggle icon to 45 degrees when the answer is expanded */
+.subsection .question-toggle:checked ~ .question .toggle-icon {
+  transform: rotate(45deg);
+}
 
 /* phone looks try 1 */
 @media (max-width: 480px) {
@@ -347,6 +397,8 @@ h1.header {
     text-align: center;
   }
 }
+
+/*half screen looks */
 @media (max-width: 1200px) {
   body {
 	padding-left: 20px; /* Add padding to the left edge of the screen */
