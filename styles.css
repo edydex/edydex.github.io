@@ -279,11 +279,12 @@ h1.header {
   box-sizing:border-box;
 }
 .tab-container label.tab-name {
-  padding: 10px 0px;
+  padding: 10px 5px;
   justify-content: center;
   display: flex; 
   cursor: pointer;
-  flex-basis: 13%;
+  flex-basis: 10%;
+  text-align: center;
 }
 .tab-content {
   font-size: 1.5rem;
@@ -326,8 +327,8 @@ h1.header {
 @media (max-width: 767px) {
   .tab-container label.tab-name {
     padding: 10px;
-    flex-basis: 25%;
-    max-width: 25%;
+    flex-basis: 20%;
+    max-width: 20%;
     text-align: center;
   }
   
