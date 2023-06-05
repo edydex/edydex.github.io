@@ -347,3 +347,7 @@ h1.header {
     text-align: center;
   }
 }
+@media (max-width: 1200px) {
+  .tab-container {
+    font-size: 16px;
+  }
