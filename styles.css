@@ -325,8 +325,8 @@ h1.header {
 /* phone looks try 1 */
 @media (max-width: 480px) {
   body {
-	padding-left: 20px; /* Add padding to the left edge of the screen */
-    padding-right: 20px; /* Add padding to the right edge of the screen */
+	padding-left: 10px; /* Add padding to the left edge of the screen */
+    padding-right: 10px; /* Add padding to the right edge of the screen */
   }
   .tab-container {
     display: flex;
@@ -348,7 +348,13 @@ h1.header {
   }
 }
 @media (max-width: 1200px) {
+  body {
+	padding-left: 20px; /* Add padding to the left edge of the screen */
+    padding-right: 20px; /* Add padding to the right edge of the screen */
+  }
   .tab-container {
     font-size: 16px;
   }
+  .tab-container label.tab-name {
+  flex-basis: 15%;
 }
