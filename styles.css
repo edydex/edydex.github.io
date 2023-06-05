@@ -279,11 +279,11 @@ h1.header {
   box-sizing:border-box;
 }
 .tab-container label.tab-name {
-  padding: 10px 40px;
+  padding: 10px 0px;
   justify-content: center;
   display: flex; 
   cursor: pointer;
-  flex-basis: 5%;
+  flex-basis: 13%;
 }
 .tab-content {
   font-size: 1.5rem;
