@@ -247,7 +247,7 @@ header {
 h1.header {
   text-align: center;
   font-size: 36px; /* Adjust the font size to your desired value */
-  margin-bottom: 108px; /* Add bottom margin for spacing */
+  margin-bottom: 72px; /* Add bottom margin for spacing */
 }
 
 /* Add styling for the link list */
