@@ -1,0 +1,413 @@
+/* Set page background to black and text color to white */
+/* phone looks try 1 */
+body {
+  background-color: black;
+  color: #fff;
+  padding-top: 40px; /* Add padding to the top of the screen */
+  padding-left: 40px; /* Add padding to the left edge of the screen */
+  padding-right: 40px; /* Add padding to the right edge of the screen */
+  font-family: monospace;
+}
+
+/* Center the "Referral Links" heading */
+header {
+  text-align: center;
+  font-size: 24px; /* Adjust the font size to your desired value */
+}
+
+/* Add styling for the link list */
+#link-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+  grid-gap: 20px; /* Add gap between links */
+  padding: 40px;
+}
+
+.button-link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+  background-color: #333;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align headers to the middle */
+  position: relative;
+}
+
+.centered-text {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  max-width: 800px; /* Set the maximum width as needed */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.column h3 {
+  font-size: 32px; /* Increase font size for column headers */
+  margin-top: -40px; /* Adjust top margin for better spacing */
+}
+
+.link-item {
+  margin-bottom: 20px;
+}
+
+.link-item h2 {
+  margin: 5px 0; /* Add vertical padding */
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px; /* Decrease font size for link headers */
+  text-decoration: underline;
+  text-align: center; /* Align link headers to the middle */
+  color: white;
+}
+
+.link-content {
+  display: none;
+  padding-left: 10px;
+  text-align: center; /* Center the link and description */
+}
+
+.link-content.show {
+  display: block;
+}
+
+.link-content a {
+  margin-right: 10px;
+  color: lightgray; /* Change link color to light gray */
+}
+
+.link-content p {
+  margin: 10px 0;
+}
+
+.link-content .link-description {
+  margin-top: 10px; /* Add margin to separate link and description */
+}
+
+.link-content .link-url {
+  display: block; /* Set the link as a block element */
+}
+
+/* Checkbox hack for expand/collapse */
+.link-item input[type="checkbox"] {
+  display: none;
+}
+
+.link-item input[type="checkbox"] ~ .link-content {
+  display: none;
+}
+
+.link-item input[type="checkbox"]:checked ~ .link-content {
+  display: block;
+}
+/* Individual Referral page CSS begins /* /* Individual Referral page CSS begins /* /* Individual Referral page CSS begins /* /* Individual Referral page CSS begins */
+
+/*Set the content to display off the edges of the screen */
+.container {
+  max-width: 920px; /* Set the maximum width of the container */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px; /* Add horizontal padding to center the content */
+}
+/* Style the QA items */
+.qa-item {
+  margin-bottom: 10px;
+  font-size: 24px; /*question title size */
+}
+
+/* Style the question label (Question title)*/
+.qa-item .question {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+/* Style the toggle icon (+ normal and flipped) */
+.qa-item .toggle-icon {
+  margin-right: 5px;
+  font-size: 24px;
+}
+
+/* Initially hide the answers (collapsed answers)*/
+.qa-item .answer {
+  display: none;
+  padding-left: 20px;
+  font-size: 18px;
+}
+
+/* Show the answers when the associated checkbox is checked */
+.qa-item .question-toggle:checked ~ .answer {
+  display: block;
+}
+
+/* Rotate the toggle icon to 45 degrees when the answer is expanded */
+.qa-item .question-toggle:checked ~ .question .toggle-icon {
+  transform: rotate(45deg);
+}
+
+/* Hide the visually-hidden checkbox */
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+/*landing page css */
+
+
+/* Add styling for the menu bar */
+.menu-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background-color: black;
+  color: white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  list-style-type: none;
+}
+
+.menu-bar li {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.menu-bar li a {
+  color: white; /* Set link color to white */
+  text-decoration: none; /* Remove underline */
+}
+
+.menu-bar li:hover {
+  background-color: #333;
+}
+
+.menu-bar li.active {
+  background-color: #333;
+}
+
+/* Add styling for the content sections */
+.content-section {
+  display: none;
+  padding: 20px;
+  background-color: black;
+  text-align: center;
+}
+
+.content-section h2 {
+  color: #fff;
+}
+
+/* Show the selected content section */
+.content-section:target {
+  display: block;
+}
+
+/*button link */
+.support-button-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  width: auto;
+  border: 1px solid #333; /* Add this line to set the border */
+}
+
+
+/*landing page css */
+/* Add appropriate styles from the References List and Reference Details pages */
+
+h1.header {
+  text-align: center;
+  font-size: 36px; /* Adjust the font size to your desired value */
+  margin-bottom: 108px; /* Add bottom margin for spacing */
+}
+
+/* Add styling for the link list */
+#link-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+  grid-gap: 20px; /* Add gap between links */
+  padding: 40px;
+}
+
+.support-button-link:hover {
+  background-color: #333;
+  font-size: 20px;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 20px;
+  user-select: none;
+  border-top: 1px solid white;
+  box-sizing:border-box;
+}
+.tab-container label.tab-name {
+  padding: 10px 5px;
+  justify-content: center;
+  display: flex; 
+  cursor: pointer;
+  flex-basis: 10%;
+  text-align: center;
+}
+.tab-content {
+  font-size: 1.5rem;
+  text-align: center;
+  display: none;
+  flex-basis: 100%;
+  border-top: 1px solid white;
+  font-size: 16px;
+}
+
+.tab-content h2 {
+  font-size: 24px; /* Adjust the font size to your desired value */
+}
+
+.tab-container input[type="radio"] {
+  display: none;
+  
+}
+.tab-container input[type="radio"]:checked + label {
+  background-color: #343434;
+  color: white;
+}
+.tab-container input#tab-link-01[type="radio"]:checked ~ #tab-content-01 {
+  display: block;
+}
+.tab-container input#tab-link-02[type="radio"]:checked ~ #tab-content-02 {
+  display: block;
+}
+.tab-container input#tab-link-03[type="radio"]:checked ~ #tab-content-03 {
+  display: block;
+}
+.tab-container input#tab-link-04[type="radio"]:checked ~ #tab-content-04 {
+  display: block;
+}
+.tab-container input#tab-link-05[type="radio"]:checked ~ #tab-content-05 {
+  display: block;
+}
+/* "other" subsections */
+/* Style the QA items */
+.subsection {
+  margin-bottom: 10px;
+  font-size: 24px; /*question title size */
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* Style the question label (Question title)*/
+.subsection .question {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+  text-align: center; /* Center vertically */
+  user-select: none;
+}
+
+
+/* Style the toggle icon (+ normal and flipped) */
+.subsection .toggle-icon {
+  margin-right: 5px;
+  font-size: 24px;
+  align-items: center;
+  text-align: center;
+}
+
+/* Initially hide the answers (collapsed answers)*/
+.subsection .answer {
+  display: none;
+  padding-left: 20px;
+  font-size: 18px;
+  align-items: center;
+  text-align: center;
+}
+
+/* Show the answers when the associated checkbox is checked */
+.subsection .question-toggle:checked ~ .answer {
+  display: block;
+}
+
+/* Rotate the toggle icon to 45 degrees when the answer is expanded */
+.subsection .question-toggle:checked ~ .question .toggle-icon {
+  transform: rotate(45deg);
+}
+
+/* phone looks try 1 */
+@media (max-width: 480px) {
+  body {
+	padding-left: 10px; /* Add padding to the left edge of the screen */
+    padding-right: 10px; /* Add padding to the right edge of the screen */
+  }
+  .tab-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 10px;
+    user-select: none;
+    border-top: 1px solid white;
+    box-sizing:border-box;
+  }
+  .tab-container label.tab-name {
+    padding: 10px 5px;
+    justify-content: center;
+    display: flex; 
+    cursor: pointer;
+    flex-basis: 25%;
+    text-align: center;
+  }
+}
+
+/*half screen looks */
+@media (max-width: 1200px) {
+  body {
+	padding-left: 20px; /* Add padding to the left edge of the screen */
+    padding-right: 20px; /* Add padding to the right edge of the screen */
+  }
+  .tab-container {
+    font-size: 16px;
+  }
+  .tab-container label.tab-name {
+  flex-basis: 25%;
+}
+/* 18006427676 - windows support phone number */
