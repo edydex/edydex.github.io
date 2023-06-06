@@ -399,7 +399,7 @@ h1.header {
 }
 
 /*half screen looks */
-@media (max-width: 1200px) {
+@media (min-width: 481px) and (max-width: 1000px) {
   body {
 	padding-left: 20px; /* Add padding to the left edge of the screen */
     padding-right: 20px; /* Add padding to the right edge of the screen */
