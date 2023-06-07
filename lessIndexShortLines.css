@@ -1,12 +1,12 @@
 /* Set page background to black and text color to white */
 /* phone looks try 1 */
 body {
-  background-color: black;
-  color: #fff;
-  padding-top: 40px; /* Add padding to the top of the screen */
-  padding-left: 40px; /* Add padding to the left edge of the screen */
-  padding-right: 40px; /* Add padding to the right edge of the screen */
-  font-family: monospace;
+    background-color: #191919;
+    color: white;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-family: monospace;
 }
 
 /* Center the "Referral Links" heading */
@@ -226,18 +226,18 @@ header {
 
 /*button link */
 .support-button-link {
-  display: block;
-  text-align: center;
-  margin-top: 20px;
-  font-size: 20px;
-  padding: 10px 20px;
-  background-color: black;
-  color: white;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  display: inline-block;
-  width: auto;
-  border: 1px solid #333; /* Add this line to set the border */
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: #262626;
+    color: #ffefef;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    width: auto;
+    border: 1px solid #333;
 }
 
 
@@ -273,7 +273,6 @@ h1.header {
   flex-wrap: wrap;
   justify-content: center;
   font-size: 24px;
-  user-select: none;
   /*border-top: 1px solid white; /* white line size the size of the whole screen, not just tabs */
   box-sizing:border-box;
 }
@@ -284,6 +283,7 @@ h1.header {
   cursor: pointer;
   flex-basis: 20%;
   text-align: center;
+  user-select: none;
   position: relative;
 }
 
@@ -347,7 +347,7 @@ h1.header {
 /* Style the QA items */
 .subsection {
   margin-bottom: 10px;
-  font-size: 24px; /*question title size */
+  font-size: 18px; /*question title size */
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -370,7 +370,7 @@ h1.header {
 /* Style the toggle icon (+ normal and flipped) */
 .subsection .toggle-icon {
   margin-right: 5px;
-  font-size: 24px;
+  font-size: 18px;
   align-items: center;
   text-align: center;
 }
