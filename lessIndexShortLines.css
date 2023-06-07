@@ -2,7 +2,7 @@
 /* phone looks try 1 */
 body {
   background-color: black;
-  color: #e8e4db;
+  color: #F5F5F5;
   padding-top: 40px; /* Add padding to the top of the screen */
   padding-left: 40px; /* Add padding to the left edge of the screen */
   padding-right: 40px; /* Add padding to the right edge of the screen */
@@ -232,7 +232,7 @@ header {
   font-size: 20px;
   padding: 10px 20px;
   background-color: black;
-  color: white;
+  color: F5F5F5;
   text-decoration: none;
   transition: background-color 0.3s ease;
   display: inline-block;
