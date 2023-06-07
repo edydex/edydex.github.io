@@ -1,7 +1,7 @@
 /* Set page background to black and text color to white */
 /* phone looks try 1 */
 body {
-  background-color: black;
+  background-color: #191919;
   color: #fff;
   padding-top: 40px; /* Add padding to the top of the screen */
   padding-left: 40px; /* Add padding to the left edge of the screen */
@@ -231,7 +231,7 @@ header {
   margin-top: 20px;
   font-size: 20px;
   padding: 10px 20px;
-  background-color: black;
+  background-color: #262626;
   color: white;
   text-decoration: none;
   transition: background-color 0.3s ease;
