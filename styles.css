@@ -353,15 +353,6 @@ a {
   background-color: #1b1a19;
   text-decoration: none;
 }
-
-img {
-  width: 50px;
-  height: 50px;
-}
-
-a:hover {
-  background-color: #1b1a19;
-}
 /*contact me buttons styling */
 .button-wrapper {
   display: flex;
@@ -408,6 +399,8 @@ a:hover {
     flex-basis: 30%;
     text-align: center;
   }
+  .button-wrapper {
+  background-color: #000;
 }
 
 /*half screen looks */
