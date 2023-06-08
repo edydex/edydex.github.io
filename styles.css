@@ -349,8 +349,8 @@ h1.header {
 /* contact me buttons */
 a {
   display: inline-block;
-  padding: 10px;
-  background-color: #ccc;
+  padding: 0px;
+  background-color: #1b1a19;
   text-decoration: none;
 }
 
@@ -360,7 +360,31 @@ img {
 }
 
 a:hover {
+  background-color: #1b1a19;
+}
+/*contact me buttons styling */
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px; /* Adjust the desired width */
+  height: 50px; /* Adjust the desired height */
+  background-color: #1b1a19;
+  text-decoration: none;
+}
+
+.button-wrapper:hover {
   background-color: #aaa;
+}
+
+.button-icon {
+  width: 100%; /* Occupy the full width of the button */
+  height: 100%; /* Occupy the full height of the button */
+}
+
+.button-wrapper-large {
+  width: 60px; /* Adjust the desired width for the second button */
+  height: 60px; /* Adjust the desired height for the second button */
 }
 
 
