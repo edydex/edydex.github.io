@@ -22,8 +22,8 @@ header {
   grid-gap: 20px; /* Add gap between links */
   padding: 40px;
 }
-
-.button-link {
+/*Back button */
+.button-link { 
   position: absolute;
   top: 10px;
   left: 10px;
@@ -38,7 +38,7 @@ header {
 .button-link:hover {
   background-color: #333;
 }
-
+/*column setup */
 .column {
   display: flex;
   flex-direction: column;
@@ -177,53 +177,6 @@ header {
 /*landing page css */
 
 
-/* Add styling for the menu bar */
-.menu-bar {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px;
-  background-color: black;
-  color: white;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  list-style-type: none;
-}
-
-.menu-bar li {
-  cursor: pointer;
-  padding: 5px;
-}
-
-.menu-bar li a {
-  color: white; /* Set link color to white */
-  text-decoration: none; /* Remove underline */
-}
-
-.menu-bar li:hover {
-  background-color: #333;
-}
-
-.menu-bar li.active {
-  background-color: #333;
-}
-
-/* Add styling for the content sections */
-.content-section {
-  display: none;
-  padding: 20px;
-  background-color: black;
-  text-align: center;
-}
-
-.content-section h2 {
-  color: #fff;
-}
-
-/* Show the selected content section */
-.content-section:target {
-  display: block;
-}
-
 /*button link */
 .support-button-link {
   display: block;
@@ -242,11 +195,9 @@ header {
 
 
 /*landing page css */
-/* Add appropriate styles from the References List and Reference Details pages */
-
 h1.header {
   text-align: center;
-  font-size: 36px; /* Adjust the font size to your desired value */
+  font-size: 36px; 
   margin-bottom: 72px; /* Add bottom margin for spacing */
 }
 
@@ -337,14 +288,16 @@ h1.header {
 .tab-container input#tab-link-03[type="radio"]:checked ~ #tab-content-03 {
   display: block;
 }
+/*useless leftover and stale code:*/
 .tab-container input#tab-link-04[type="radio"]:checked ~ #tab-content-04 {
   display: block;
 }
 .tab-container input#tab-link-05[type="radio"]:checked ~ #tab-content-05 {
   display: block;
 }
-/* "other" subsections */
-/* Style the QA items */
+
+/* subsections */
+/* Style the items */
 .subsection {
   margin-bottom: 10px;
   font-size: 18px; /*question title size */
