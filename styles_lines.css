@@ -304,10 +304,7 @@ h1.header {
   text-align: center;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid #ccc;
-  max-width: 50%;
-  margin-left: auto; /* Add this line to center the subsection */
-  margin-right: auto; /* Add this line to center the subsection */
+
 }
 
 /* Style the question label (Question title)*/
