@@ -299,7 +299,7 @@ h1.header {
 /* subsections */
 /* Style the items */
 .subsection {
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   font-size: 18px; /*question title size */
   text-align: center;
   align-items: center;
@@ -311,6 +311,7 @@ h1.header {
 .subsection .question {
   cursor: pointer;
   font-weight: bold;
+  margin-top: 40px;
   margin-bottom: 5px;
   display: flex;
   align-items: center;
