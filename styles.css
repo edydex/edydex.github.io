@@ -346,14 +346,18 @@ h1.header {
 .subsection .question-toggle:checked ~ .question .toggle-icon {
   transform: rotate(45deg);
 }
+
 /* contact me buttons */
 a {
   display: inline-block;
   padding: 0px;
   background-color: #1b1a19;
   text-decoration: none;
+  position: relative;
+  overflow: hidden; /* Ensure the button only shows its content */
 }
-/*contact me buttons styling */
+
+/* contact me buttons styling */
 .button-wrapper {
   display: flex;
   justify-content: center;
@@ -362,6 +366,8 @@ a {
   height: 50px; /* Adjust the desired height */
   background-color: #1b1a19;
   text-decoration: none;
+  position: relative;
+  clip-path: polygon(0 0, 0 50px, 50px 50px, 50px 0); /* Define a custom shape for the hover area */
 }
 
 .button-wrapper:hover {
