@@ -368,6 +368,7 @@ a {
   text-decoration: none;
   position: relative;
   clip-path: polygon(0 0, 0 50px, 50px 50px, 50px 0); /* Define a custom shape for the hover area */
+  border-radius: 8px; /* Adjust the radius value to make the corners more or less rounded */
 }
 
 .button-wrapper:hover {
@@ -383,6 +384,7 @@ a {
   width: 60px; /* Adjust the desired width for the second button */
   height: 60px; /* Adjust the desired height for the second button */
 }
+
 
 
 
