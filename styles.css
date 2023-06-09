@@ -182,7 +182,7 @@ header {
   display: block;
   text-align: center;
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 18px;
   padding: 10px 20px;
   background-color: #262626;
   color: #fbfcfa;
@@ -300,7 +300,7 @@ h1.header {
 /* Style the items */
 .subsection {
   margin-bottom: 50px;
-  font-size: 18px; /*question title size */
+  font-size: 12px; /*question title size */
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -321,6 +321,8 @@ h1.header {
   justify-content: center; /* Center horizontally */
   text-align: center; /* Center vertically */
   user-select: none;
+  font-size: 22px; /*question title size */
+
 }
 
 
