@@ -182,7 +182,7 @@ header {
   display: block;
   text-align: center;
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 16px;
   padding: 10px 20px;
   background-color: #262626;
   color: #fbfcfa;
@@ -211,7 +211,7 @@ h1.header {
 
 .support-button-link:hover {
   background-color: #333;
-  font-size: 20px;
+  font-size: 16px;
   padding: 10px 20px;
   color: white;
   text-decoration: none;
