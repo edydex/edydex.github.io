@@ -390,7 +390,9 @@ a {
   width: 60px; /* Adjust the desired width for the second button */
   height: 60px; /* Adjust the desired height for the second button */
 }
-
+.padding-element {
+  padding: 25px; /* Adjust the padding size as per your requirement */
+}
 
 
 
@@ -419,6 +421,9 @@ a {
 a {
   background-color: #000;
 }
+.subsection {
+  max-width: 90%;
+}
 }
 
 /*half screen looks */
@@ -432,4 +437,8 @@ a {
   }
   .tab-container label.tab-name {
   flex-basis: 20%;
+}
+.subsection {
+  max-width: 60%;
 } 
+}

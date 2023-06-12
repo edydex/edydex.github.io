@@ -428,3 +428,6 @@ a {
   .tab-container label.tab-name {
   flex-basis: 20%;
 } 
+.padding-element {
+  padding: 200px; /* Adjust the padding size as per your requirement */
+}
