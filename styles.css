@@ -227,6 +227,11 @@ h1.header {
   /*border-top: 1px solid white; /* white line size the size of the whole screen, not just tabs */
   box-sizing:border-box;
 }
+.text-container {
+    width: 35%;
+    text-align: center;
+    margin: 0 auto; /* Add this line to horizontally center the container */
+}
 .tab-container label.tab-name {
   padding: 8px 5px;
   justify-content: center;
