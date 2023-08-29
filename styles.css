@@ -428,6 +428,11 @@ a {
 .subsection {
   max-width: 90%;
 }
+.text-container {
+    width: 90%;
+    text-align: justify;
+    margin: 0 auto; /* Add this line to horizontally center the container */
+}
 }
 
 /*half screen looks */
@@ -445,4 +450,9 @@ a {
 .subsection {
   max-width: 60%;
 } 
+.text-container {
+    width: 90%;
+    text-align: justify;
+    margin: 0 auto; /* Add this line to horizontally center the container */
+}
 }
