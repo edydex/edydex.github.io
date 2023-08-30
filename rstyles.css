@@ -1,0 +1,177 @@
+body {
+  background-color: #1b1a19;
+  color: #fbfcfa;
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-family: monospace;
+}
+
+header {
+  text-align: center;
+  font-size: 24px;
+}
+
+#link-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 40px;
+}
+
+.button-link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+  background-color: #333;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.centered-text {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.column h3 {
+  font-size: 32px;
+  margin-top: -40px;
+}
+
+.link-item {
+  margin-bottom: 20px;
+}
+
+.link-item h2 {
+  margin: 5px 0;
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+  text-decoration: underline;
+  text-align: center;
+  color: #fff;
+}
+
+.link-content {
+  display: none;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.link-content.show {
+  display: block;
+}
+
+.link-content a {
+  margin-right: 10px;
+  color: #d3d3d3;
+}
+
+.link-content p {
+  margin: 10px 0;
+}
+
+.link-content .link-description {
+  margin-top: 10px;
+}
+
+.link-item input[type="checkbox"] {
+  display: none;
+}
+
+.link-item input[type="checkbox"]~.link-content {
+  display: none;
+}
+
+.link-item input[type="checkbox"]:checked~.link-content {
+  display: block;
+}
+
+.support-button-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #262626;
+  color: #fbfcfa;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  width: auto;
+  border: 1px solid #333;
+}
+
+h1.header {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 72px;
+}
+
+#link-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 40px;
+}
+
+.support-button-link:hover {
+  background-color: #333;
+  font-size: 16px;
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+a {
+  display: inline-block;
+  padding: 0;
+  background-color: #1b1a19;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-icon {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #000;
+    color: #f5f5f5;
+  }
+  a {
+    background-color: #000;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1200px) {
+  body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

@@ -1,0 +1,458 @@
+/* Set page background to black and text color to white */
+/* phone looks try 1 */
+body {
+  background-color: #1b1a19;
+  color: #fbfcfa;
+  padding-top: 40px; /* Add padding to the top of the screen */
+  padding-left: 40px; /* Add padding to the left edge of the screen */
+  padding-right: 40px; /* Add padding to the right edge of the screen */
+  font-family: monospace;
+}
+
+/* Center the "Referral Links" heading */
+header {
+  text-align: center;
+  font-size: 24px; /* Adjust the font size to your desired value */
+}
+
+/* Add styling for the link list */
+#link-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+  grid-gap: 20px; /* Add gap between links */
+  padding: 40px;
+}
+/*Back button */
+.button-link { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+  background-color: #333;
+}
+/*column setup */
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align headers to the middle */
+  position: relative;
+}
+
+.centered-text {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  max-width: 800px; /* Set the maximum width as needed */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.column h3 {
+  font-size: 32px; /* Increase font size for column headers */
+  margin-top: -40px; /* Adjust top margin for better spacing */
+}
+
+.link-item {
+  margin-bottom: 20px;
+}
+
+.link-item h2 {
+  margin: 5px 0; /* Add vertical padding */
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px; /* Decrease font size for link headers */
+  text-decoration: underline;
+  text-align: center; /* Align link headers to the middle */
+  color: white;
+}
+
+.link-content {
+  display: none;
+  padding-left: 10px;
+  text-align: center; /* Center the link and description */
+}
+
+.link-content.show {
+  display: block;
+}
+
+.link-content a {
+  margin-right: 10px;
+  color: lightgray; /* Change link color to light gray */
+}
+
+.link-content p {
+  margin: 10px 0;
+}
+
+.link-content .link-description {
+  margin-top: 10px; /* Add margin to separate link and description */
+}
+
+.link-content .link-url {
+  display: block; /* Set the link as a block element */
+}
+
+/* Checkbox hack for expand/collapse */
+.link-item input[type="checkbox"] {
+  display: none;
+}
+
+.link-item input[type="checkbox"] ~ .link-content {
+  display: none;
+}
+
+.link-item input[type="checkbox"]:checked ~ .link-content {
+  display: block;
+}
+/* Individual Referral page CSS begins /* /* Individual Referral page CSS begins /* /* Individual Referral page CSS begins /* /* Individual Referral page CSS begins */
+
+/*Set the content to display off the edges of the screen */
+.container {
+  max-width: 920px; /* Set the maximum width of the container */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px; /* Add horizontal padding to center the content */
+}
+/* Style the QA items */
+.qa-item {
+  margin-bottom: 10px;
+  font-size: 24px; /*question title size */
+}
+
+/* Style the question label (Question title)*/
+.qa-item .question {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+/* Style the toggle icon (+ normal and flipped) */
+.qa-item .toggle-icon {
+  margin-right: 5px;
+  font-size: 24px;
+}
+
+/* Initially hide the answers (collapsed answers)*/
+.qa-item .answer {
+  display: none;
+  padding-left: 20px;
+  font-size: 18px;
+}
+
+/* Show the answers when the associated checkbox is checked */
+.qa-item .question-toggle:checked ~ .answer {
+  display: block;
+}
+
+/* Rotate the toggle icon to 45 degrees when the answer is expanded */
+.qa-item .question-toggle:checked ~ .question .toggle-icon {
+  transform: rotate(45deg);
+}
+
+/* Hide the visually-hidden checkbox */
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+/*landing page css */
+
+
+/*button link */
+.support-button-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #262626;
+  color: #fbfcfa;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  width: auto;
+  border: 1px solid #333; /* Add this line to set the border */
+}
+
+
+/*landing page css */
+h1.header {
+  text-align: center;
+  font-size: 36px; 
+  margin-bottom: 72px; /* Add bottom margin for spacing */
+}
+
+/* Add styling for the link list */
+#link-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+  grid-gap: 20px; /* Add gap between links */
+  padding: 40px;
+}
+
+.support-button-link:hover {
+  background-color: #333;
+  font-size: 16px;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 24px;
+  /*border-top: 1px solid white; /* white line size the size of the whole screen, not just tabs */
+  box-sizing:border-box;
+}
+.text-container {
+    width: 35%;
+    text-align: center;
+    margin: 0 auto; /* Add this line to horizontally center the container */
+}
+.tab-container label.tab-name {
+  padding: 8px 5px;
+  justify-content: center;
+  display: flex; 
+  cursor: pointer;
+  flex-basis: 20%;
+  text-align: center;
+  position: relative;
+}
+
+.tab-container label.tab-name::before {
+  content: "";
+  position: absolute;
+  top: -3px; /* Adjust this value to make the border longer */
+  left: -5px; /* Adjust this value to control the extension length */
+  width: calc(100% + 10px); /* Adjust this value to account for the negative margin */
+  height: 1px;
+  background-color: #F5F5F5;
+}
+
+.tab-container label.tab-name::after {
+  content: "";
+  position: absolute;
+  bottom: -3px; /* Adjust this value to make the border longer */
+  right: -5px; /* Adjust this value to control the extension length */
+  width: calc(100% + 10px); /* Adjust this value to account for the negative margin */
+  height: 1px;
+  background-color: #F5F5F5;
+}
+
+.tab-content {
+  font-size: 1.5rem;
+  text-align: center;
+  display: none;
+  flex-basis: 100%;
+  /*border-top: 1px solid white; /* white line size the size of the whole screen, not just tabs */
+  font-size: 16px;
+}
+
+.tab-content h2 {
+  font-size: 24px; /* Adjust the font size to your desired value */
+}
+
+.tab-container input[type="radio"] {
+  display: none;
+  
+}
+.tab-container input[type="radio"]:checked + label {
+  background-color: #343434;
+  color: white;
+}
+.tab-container input#tab-link-01[type="radio"]:checked ~ #tab-content-01 {
+  display: block;
+}
+.tab-container input#tab-link-02[type="radio"]:checked ~ #tab-content-02 {
+  display: block;
+}
+.tab-container input#tab-link-03[type="radio"]:checked ~ #tab-content-03 {
+  display: block;
+}
+/*useless leftover and stale code:*/
+.tab-container input#tab-link-04[type="radio"]:checked ~ #tab-content-04 {
+  display: block;
+}
+.tab-container input#tab-link-05[type="radio"]:checked ~ #tab-content-05 {
+  display: block;
+}
+
+/* subsections */
+/* Style the items */
+.subsection {
+  margin-bottom: 50px;
+  font-size: 12px; /*question title size */
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #ccc;
+  max-width: 50%;
+  margin-left: auto; /* Add this line to center the subsection */
+  margin-right: auto; /* Add this line to center the subsection */
+}
+
+/* Style the question label (Question title)*/
+.subsection .question {
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+  text-align: center; /* Center vertically */
+  user-select: none;
+  font-size: 22px; /*question title size */
+
+}
+
+
+/* Style the toggle icon (+ normal and flipped) */
+.subsection .toggle-icon {
+  margin-right: 5px;
+  font-size: 18px;
+  align-items: center;
+  text-align: center;
+}
+
+/* Initially hide the answers (collapsed answers)*/
+.subsection .answer {
+  display: none;
+  padding-left: 20px;
+  font-size: 18px;
+  align-items: center;
+  text-align: center;
+}
+
+/* Show the answers when the associated checkbox is checked */
+.subsection .question-toggle:checked ~ .answer {
+  display: block;
+}
+
+/* Rotate the toggle icon to 45 degrees when the answer is expanded */
+.subsection .question-toggle:checked ~ .question .toggle-icon {
+  transform: rotate(45deg);
+}
+
+/* contact me buttons */
+a {
+  display: inline-block;
+  padding: 0px;
+  background-color: #1b1a19;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden; /* Ensure the button only shows its content */
+}
+
+/* contact me buttons styling */
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px; /* Adjust the desired width */
+  height: 50px; /* Adjust the desired height */
+  background-color: #1b1a19;
+  text-decoration: none;
+  position: relative;
+  clip-path: polygon(0 0, 0 50px, 50px 50px, 50px 0); /* Define a custom shape for the hover area */
+  border-radius: 8px; /* Adjust the radius value to make the corners more or less rounded */
+}
+
+.button-wrapper:hover {
+  background-color: #aaa;
+}
+
+.button-icon {
+  width: 100%; /* Occupy the full width of the button */
+  height: 100%; /* Occupy the full height of the button */
+}
+
+.button-wrapper-large {
+  width: 60px; /* Adjust the desired width for the second button */
+  height: 60px; /* Adjust the desired height for the second button */
+}
+.padding-element {
+  padding: 25px; /* Adjust the padding size as per your requirement */
+}
+
+
+
+/* resolution specific looks:*/
+@media (max-width: 480px) {
+  body {
+	padding-left: 10px; /* Add padding to the left edge of the screen */
+    padding-right: 10px; /* Add padding to the right edge of the screen */
+	background-color: black;
+	color: #F5F5F5;
+  }
+  .tab-container {
+    font-size: 14px;
+  }
+  .tab-container label.tab-name {
+    padding: 10px 5px;
+    justify-content: center;
+    display: flex; 
+    cursor: pointer;
+    flex-basis: 30%;
+    text-align: center;
+  }
+  .button-wrapper {
+  background-color: #000;
+  }
+a {
+  background-color: #000;
+}
+.subsection {
+  max-width: 90%;
+}
+.text-container {
+    width: 90%;
+    text-align: justify;
+    margin: 0 auto; /* Add this line to horizontally center the container */
+}
+}
+
+/*half screen looks */
+@media (min-width: 481px) and (max-width: 1200px) {
+  body {
+	padding-left: 20px; /* Add padding to the left edge of the screen */
+    padding-right: 20px; /* Add padding to the right edge of the screen */
+  }
+  .tab-container {
+    font-size: 16px;
+  }
+  .tab-container label.tab-name {
+  flex-basis: 20%;
+}
+.subsection {
+  max-width: 60%;
+} 
+.text-container {
+    width: 90%;
+    text-align: justify;
+    margin: 0 auto; /* Add this line to horizontally center the container */
+}
+}

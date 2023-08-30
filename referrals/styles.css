@@ -1,0 +1,170 @@
+body {
+  background-color: #1b1a19;
+  color: #fbfcfa;
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-family: monospace;
+}
+
+header {
+  text-align: center;
+  font-size: 24px;
+}
+
+#link-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 40px;
+}
+
+.button-link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+  background-color: #333;
+}
+
+.centered-text {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.link-item {
+  margin-bottom: 20px;
+}
+
+.link-item h2 {
+  margin: 5px 0;
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+  text-decoration: underline;
+  text-align: center;
+  color: #fff;
+}
+
+.link-item input[type="checkbox"] {
+  display: none;
+}
+
+.container {
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.qa-item {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.qa-item .question {
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.qa-item .toggle-icon {
+  margin-right: 5px;
+  font-size: 24px;
+}
+
+.qa-item .answer {
+  display: none;
+  padding-left: 20px;
+  font-size: 18px;
+}
+
+.qa-item .question-toggle:checked~.answer {
+  display: block;
+}
+
+.qa-item .question-toggle:checked~.question .toggle-icon {
+  transform: rotate(45deg);
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+h1.header {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 72px;
+}
+
+.text-container {
+  width: 35%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+a {
+  display: inline-block;
+  padding: 0;
+  background-color: #1b1a19;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-icon {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #000;
+    color: #f5f5f5;
+  }
+  a {
+    background-color: #000;
+  }
+  .text-container {
+    width: 90%;
+    text-align: justify;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1200px) {
+  body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .text-container {
+    width: 90%;
+    text-align: justify;
+    margin: 0 auto;
+  }
+}
