@@ -152,7 +152,8 @@ h1.header {
     color: #fff;
 }
 .text-container {
-    width: 35%;
+    width: 90%;
+	max-width: 520px;
     text-align: center;
     margin: 0 auto; /* Add this line to horizontally center the container */
 }
