@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    text-align: center;
+    text-align: left;
     font-size: 24px;
 }
 
@@ -44,10 +44,9 @@ header {
 }
 
 .container {
-    max-width: 920px;
+    max-width: 520px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 20px;
 }
 
 .visually-hidden {
@@ -95,40 +94,42 @@ h1.header {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    font-size: 24px;
+    justify-content: left;
+    font-size: 18px;
     box-sizing: border-box;
+	max-width: 520px
 }
 
 .tab-container label.tab-name {
-    padding: 8px 5px;
-    justify-content: center;
+    padding: 8px 15px;
+    justify-content: left;
     display: flex;
     cursor: pointer;
     flex-basis: 20%;
-    text-align: center;
+    text-align: left;
     position: relative;
 }
 
+/* Add a separator line using ::before pseudo-element */
 .tab-container label.tab-name::before {
     content: "";
     position: absolute;
-    top: -3px;
-    left: -5px;
-    width: calc(100% + 10px);
-    height: 1px;
-    background-color: #f5f5f5;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1px; /* Adjust the width of the separator line */
+    background-color: #f5f5f5; /* Color of the separator line */
 }
-
 .tab-container label.tab-name::after {
     content: "";
     position: absolute;
-    bottom: -3px;
-    right: -5px;
-    width: calc(100% + 10px);
-    height: 1px;
+    bottom: 0px;
+    right: 0px;
+    width: calc(100%);
+    height: 0px; /* change this to change the thickness of the bottom line , or 0 to remove it */
     background-color: #f5f5f5;
 }
+
 
 .tab-content {
     font-size: 1.5rem;
@@ -152,9 +153,9 @@ h1.header {
     color: #fff;
 }
 .text-container {
-    width: 90%;
+    width: 100%;
 	max-width: 520px;
-    text-align: center;
+    text-align: left;
     margin: 0 auto; /* Add this line to horizontally center the container */
 }
 /* Define tab content display for each input radio */
@@ -247,51 +248,308 @@ a {
 
 .padding-element {
     padding: 25px;
-	text-align: justify;
+	text-align: left;
 }
+
+
+
 
 /* Media Queries */
 @media (max-width: 480px) {
-    body {
-        padding-left: 10px;
-        padding-right: 10px;
-        background-color: #000;
-        color: #f5f5f5;
-    }
-    .tab-container {
-        font-size: 14px;
-    }
-    .tab-container label.tab-name {
-        padding: 10px 5px;
-        justify-content: center;
-        display: flex;
-        cursor: pointer;
-        flex-basis: 30%;
-        text-align: center;
-    }
-    .button-wrapper {
-        background-color: #000;
-    }
-    a {
-        background-color: #000;
-    }
-    .subsection {
-        max-width: 90%;
-    }
+body {
+    background-color: #000;
+    color: #f5f5f5a;
+    padding-top: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-@media (min-width: 481px) and (max-width: 1200px) {
-    body {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .tab-container {
-        font-size: 16px;
-    }
-    .tab-container label.tab-name {
-        flex-basis: 20%;
-    }
-    .subsection {
-        max-width: 60%;
-    }
+header {
+    text-align: center;
+    font-size: 24px;
+}
+
+.button-link {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+    background-color: #333;
+}
+
+.link-content {
+    display: none;
+    padding-left: 10px;
+    text-align: center;
+}
+
+.link-content a {
+    margin-right: 10px;
+    color: #d3d3d3;
+}
+
+.link-content p {
+    margin: 10px 0;
+}
+
+.container {
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+.visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+.support-button-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #262626;
+    color: #fbfcfa;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    width: auto;
+    border: 1px solid #333;
+}
+
+h1.header {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 72px;
+}
+
+.support-button-link:hover {
+    background-color: #333;
+    font-size: 16px;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.tab-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.tab-container label.tab-name {
+    padding: 10px 5px;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+    flex-basis: 30%;
+    text-align: center;
+    position: relative;
+}
+
+.tab-container label.tab-name::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: 1px;
+    background-color: #f5f5f5;
+}
+
+.tab-container label.tab-name::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    right: -5px;
+    width: calc(100% + 10px);
+    height: 1px;
+    background-color: #f5f5f5;
+}
+
+.tab-content {
+    font-size: 1.5rem;
+    text-align: center;
+    display: none;
+    flex-basis: 100%;
+    font-size: 16px;
+	
+}
+
+.tab-content h2 {
+    font-size: 24px;
+}
+
+.tab-container input[type=radio] {
+    display: none;
+}
+
+.tab-container input[type=radio]:checked + label {
+    background-color: #343434;
+    color: #fff;
+}
+.text-container {
+    width: 90%;
+	max-width: 520px;
+    text-align: justify;
+    margin: 0 auto; /* Add this line to horizontally center the container */
+}
+/* Define tab content display for each input radio */
+.tab-container input#tab-link-01[type=radio]:checked ~ #tab-content-01,
+.tab-container input#tab-link-02[type=radio]:checked ~ #tab-content-02,
+.tab-container input#tab-link-03[type=radio]:checked ~ #tab-content-03,
+.tab-container input#tab-link-04[type=radio]:checked ~ #tab-content-04,
+.tab-container input#tab-link-05[type=radio]:checked ~ #tab-content-05 {
+    display: block;
+}
+
+.subsection {
+    margin-bottom: 50px;
+    font-size: 12px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #ccc;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subsection .question {
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    user-select: none;
+    font-size: 22px;
+}
+
+.subsection .toggle-icon {
+    margin-right: 5px;
+    font-size: 18px;
+    align-items: center;
+    text-align: center;
+}
+
+.subsection .answer {
+    display: none;
+    padding-left: 20px;
+    font-size: 18px;
+    align-items: center;
+    text-align: center;
+}
+
+.subsection .question-toggle:checked ~ .answer {
+    display: block;
+}
+
+.subsection .question-toggle:checked ~ .question .toggle-icon {
+    transform: rotate(45deg);
+}
+
+a {
+    display: inline-block;
+    padding: 0;
+    background-color: #000;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #000;
+    text-decoration: none;
+    position: relative;
+    clip-path: polygon(0 0, 0 50px, 50px 50px, 50px 0);
+    border-radius: 8px;
+}
+
+.button-wrapper:hover {
+    background-color: #aaa;
+}
+
+.button-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.padding-element {
+    padding: 25px;
+	text-align: justify;
+}
+}
+
+.project {
+  width: 520px;
+  max-height:100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  box-sizing: border-box;
+}
+.project:hover {
+  border: 1px solid white;
+  padding-right: -5px;
+}
+
+.line {
+  width: 1px;
+  height: 100px;
+  background-color: white;
+}
+
+.content {
+  margin-left: 20px;
+  text-align: left;
+  max-width: 400px;
+}
+
+
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+p {
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 1px;
+}
+
+#my-svg {
+  margin: 0 auto;
+  width: 99px;
+  height: 99px;
 }
