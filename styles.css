@@ -252,7 +252,67 @@ a {
 }
 
 
+.project {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  box-sizing: border-box;
+  position: relative; /* Add position: relative; to .project */
+}
+.project:hover {
+  outline: 1px solid gray;
+  margin:0px;
+}
 
+.line {
+  width: 1px;
+  height: 100%; /* Set the height to 100% */
+  background-color: white;
+  margin: 0px;
+  box-sizing: border-box;
+  position: absolute; /* Add position: absolute; to .line */
+}
+
+
+.content {
+  margin-left: 20px;
+  text-align: left;
+  max-width: 70%;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+p {
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 1px;
+}
+
+
+
+.project-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 20%;
+    max-height: 20%;
+    text-decoration: none;
+    position: relative;
+	margin-left:10px;
+	width: 70px;
+	align-self: flex-end; /* Align to the bottom */
+}
+.project-button svg {
+  width: 100%;
+  height: 100%;
+  transform: translateY(1px); /* Shift 1px down */
+}
 
 /* Media Queries */
 @media (max-width: 505px) {
@@ -507,66 +567,8 @@ a {
     padding: 25px;
 	text-align: justify;
 }
-}
-
-.project {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex: 1;
-  box-sizing: border-box;
-  position: relative; /* Add position: relative; to .project */
-}
-.project:hover {
-  outline: 1px solid gray;
-  margin:0px;
-}
-
-.line {
-  width: 1px;
-  height: 100%; /* Set the height to 100% */
-  background-color: white;
-  margin: 0px;
-  box-sizing: border-box;
-  position: absolute; /* Add position: absolute; to .line */
-}
-
-
-.content {
-  margin-left: 20px;
-  text-align: left;
-  max-width: 70%;
-}
-
-h3 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 1px;
-  margin-bottom: 1px;
-}
-
-p {
-  font-size: 14px;
-  margin-top: 4px;
-  margin-bottom: 1px;
-}
-
-
-
 .project-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 20%;
-    max-height: 20%;
-    text-decoration: none;
-    position: relative;
-	margin-left:10px;
-	width: 70px;
-	align-self: flex-end; /* Align to the bottom */
+	align-self: center; /* Align to the bottom */
 }
-.project-button svg {
-  width: 100%;
-  height: 100%;
-  transform: translateY(1px); /* Shift 1px down */
 }
+
