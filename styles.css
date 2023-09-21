@@ -513,13 +513,11 @@ a {
   max-height:100px;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex: 1;
   box-sizing: border-box;
 }
 .project:hover {
-  border: 1px solid gray;
-  padding-right: -5px;
+  outline: 1px solid gray;
   margin:0px;
 }
 
@@ -530,16 +528,11 @@ a {
   margin: 0px;
   box-sizing: border-box;
 }
-.line:hover {
-  margin: -1px;
-}
+
 .content {
   margin-left: 20px;
   text-align: left;
   max-width: 400px;
-}
-.content:hover {
-  margin-left:19px;
 }
 
 h3 {
