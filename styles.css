@@ -250,7 +250,10 @@ a {
     padding: 25px;
 	text-align: left;
 }
-
+.small-padding {
+    padding: 10px;
+	text-align: left;
+}
 
 .project {
   width: 100%;
@@ -293,9 +296,6 @@ p {
   margin-top: 4px;
   margin-bottom: 1px;
 }
-
-
-
 .project-button {
     display: flex;
     justify-content: center;
