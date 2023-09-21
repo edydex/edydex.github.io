@@ -305,12 +305,12 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 20%;
-    max-height: 20%;
+    max-width: 25%;
+    max-height: 25%;
     text-decoration: none;
     position: relative;
 	margin-left:10px;
-	width: 70px;
+	width: 100px;
 	align-self: flex-end; /* Align to the bottom */
 }
 .project-button svg {
