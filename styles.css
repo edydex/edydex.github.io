@@ -285,20 +285,20 @@ a {
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
   margin-top: 1px;
   margin-bottom: 1px;
 }
 
 p {
-  font-size: 14px;
+  font-size: 24px;
   margin-top: 4px;
   margin-bottom: 1px;
   
 }
 .content p {
-  font-size: 10px;
+  font-size: 20px;
 }
 
 .project-button {
@@ -575,6 +575,21 @@ a {
 }
 .project-button {
 	align-self: center; /* Align to the bottom */
+}
+.content p {
+  font-size: 10px;
+}
+p {
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 1px;
+  
+}
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 }
 
