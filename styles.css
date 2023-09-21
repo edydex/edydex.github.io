@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    text-align: left;
+    text-align: center;
     font-size: 24px;
 }
 
@@ -44,7 +44,7 @@ header {
 }
 
 .container {
-    max-width: 520px;
+    max-width: 720px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -76,7 +76,7 @@ header {
 }
 
 h1.header {
-    text-align: Left;
+    text-align: center;
     font-size: 36px;
     margin-bottom: 72px;
 }
@@ -97,7 +97,7 @@ h1.header {
     justify-content: left;
     font-size: 18px;
     box-sizing: border-box;
-	max-width: 520px
+
 }
 
 .tab-container label.tab-name {
@@ -154,9 +154,8 @@ h1.header {
 }
 .text-container {
     width: 100%;
-	max-width: 520px;
     text-align: left;
-    margin: 0 auto; /* Add this line to horizontally center the container */
+    margin: 0 ; /* Add this line to horizontally center the container */
 }
 /* Define tab content display for each input radio */
 .tab-container input#tab-link-01[type=radio]:checked ~ #tab-content-01,
@@ -266,6 +265,7 @@ a {
 .project:hover {
   outline: 1px solid gray;
   margin:0px;
+
 }
 
 .line {
@@ -295,7 +295,12 @@ p {
   font-size: 14px;
   margin-top: 4px;
   margin-bottom: 1px;
+  
 }
+.content p {
+  font-size: 10px;
+}
+
 .project-button {
     display: flex;
     justify-content: center;
@@ -328,7 +333,9 @@ header {
     text-align: center;
     font-size: 24px;
 }
-
+.content {
+  margin-left: 10px;
+}
 .button-link {
     position: absolute;
     top: 10px;
@@ -471,9 +478,8 @@ h1.header {
 }
 .text-container {
     width: 90%;
-	max-width: 520px;
-    text-align: justify;
-    margin: 0 auto; /* Add this line to horizontally center the container */
+    text-align: left;
+    margin: 0 ; /* Add this line to horizontally center the container */
 }
 /* Define tab content display for each input radio */
 .tab-container input#tab-link-01[type=radio]:checked ~ #tab-content-01,
