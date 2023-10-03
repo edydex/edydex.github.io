@@ -76,7 +76,7 @@ header {
 }
 
 h1.header {
-    text-align: center;
+    text-align: left;
     font-size: 36px;
     margin-bottom: 72px;
 }
@@ -101,11 +101,11 @@ h1.header {
 }
 
 .tab-container label.tab-name {
-    padding: 8px 15px;
+    padding: 8px 5px;
     justify-content: left;
     display: flex;
     cursor: pointer;
-    flex-basis: 20%;
+    flex-basis: 15%;
     text-align: left;
     position: relative;
 }
