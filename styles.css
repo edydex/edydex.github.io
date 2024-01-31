@@ -152,10 +152,26 @@ h1.header {
     background-color: #343434;
     color: #fff;
 }
+
+/*Body text settings */
 .text-container {
     width: 100%;
     text-align: left;
     margin: 0 ; /* Add this line to horizontally center the container */
+}
+
+.text-container u {
+    color: white; /* inherit the color from the parent element */
+    vertical-align: baseline; 
+	
+}
+.text-container {
+    width: 100%;
+    text-align: left;
+    margin: 0 ; /* Add this line to horizontally center the container */
+}
+.bible {
+	text-align: right;
 }
 /* Define tab content display for each input radio */
 .tab-container input#tab-link-01[type=radio]:checked ~ #tab-content-01,
@@ -215,12 +231,13 @@ h1.header {
 }
 
 a {
-    display: inline-block;
+
     padding: 0;
     background-color: #1b1a19;
     text-decoration: none;
     position: relative;
     overflow: hidden;
+	vertical-align: baseline;
 }
 
 .button-wrapper {
@@ -481,6 +498,9 @@ h1.header {
     text-align: left;
     margin: 0 ; /* Add this line to horizontally center the container */
 }
+.bible {
+	text-align: right;
+}
 /* Define tab content display for each input radio */
 .tab-container input#tab-link-01[type=radio]:checked ~ #tab-content-01,
 .tab-container input#tab-link-02[type=radio]:checked ~ #tab-content-02,
@@ -539,7 +559,7 @@ h1.header {
 }
 
 a {
-    display: inline-block;
+
     padding: 0;
     background-color: #000;
     text-decoration: none;
