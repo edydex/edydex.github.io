@@ -280,7 +280,7 @@ a {
   position: relative; /* Add position: relative; to .project */
 }
 .project:hover {
-  outline: 1px solid gray;
+  outline: 0px solid gray; /* change 0 to 1 to add outline to project boxes on hover*/
   margin:0px;
 
 }
@@ -307,7 +307,12 @@ h3 {
   margin-top: 1px;
   margin-bottom: 1px;
 }
-
+h3 a {
+color: white;
+}
+h3 a:hover {
+border-bottom: 1px solid #fff;
+}
 p {
   font-size: 24px;
   margin-top: 4px;
