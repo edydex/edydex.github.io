@@ -3,32 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dune Faction Tracker</title>
+    <title>Dune - Atreides Sheet</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 15px; }
+        body { font-family: Arial, sans-serif; padding: 15px; font-size: 16px;}
         .container { display: flex; justify-content: space-around; flex-wrap: wrap; }
-        .faction { border: 1px solid #000; padding: 0px; width: 15%; min-width: 175px; }
-        .card-pool { margin: 15px 0; padding: 1px; border: 1px solid black; display: flex; flex-wrap: wrap; }
-        .card-column { flex: 1; min-width: 50%; }
-        h2 { text-align: center; }
-        button { margin: 5px; display: block; }
-        input, select { width: 85%; }
+        .faction { border: 1px solid #000; padding: 1px; width: 15%; min-width: 175px; }
+.card-pool {
+    margin: 10px auto;
+    padding: 1px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center everything */
+    max-width: 400px; /* Prevent columns from spreading too far apart */
+}
+
+.card-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center columns */
+    gap: 10px; /* Add spacing between columns */
+    width: 100%;
+}
+
+.card-column {
+    flex: 1;
+    min-width: 45%; /* Keep two columns even on small screens */
+}
+
 		.money-controls { display: flex; gap: 5px; justify-content: center; }
         
         @media (max-width: 500px) {
+			body {font-size: 15px; }
             .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0px; justify-content: center; }
             .faction { width: 175px; }
         }
     </style>
 </head>
 <body>
-    <h1>Dune Faction Tracker</h1>
+    <h1>Atreides Tracker Sheet</h1>
     
-    <div class="card-pool">
-        <h2>Treachery Card Pool</br></h2>
+<div class="card-pool">
+    <h2>Treachery Card Pool</h2>
+    <div class="card-columns">
         <div class="card-column" id="cardPool1"></div>
         <div class="card-column" id="cardPool2"></div>
     </div>
+</div>
+
     
     <div class="container">
         <script>
@@ -75,17 +97,38 @@
                 }
             }
             
-            function addCard(faction) {
-                let dropdown = document.getElementById(`cardDropdown-${faction}`);
-                let cardName = dropdown.value;
-                if (cardName && cardPool[cardName] > 0) {
-                    let li = document.createElement('li');
-                    li.textContent = cardName;
-                    document.getElementById(`cardList-${faction}`).appendChild(li);
-                    cardPool[cardName]--;
-                    updateCardPool();
-                }
-            }
+function addCard(faction) {
+    let dropdown = document.getElementById(`cardDropdown-${faction}`);
+    let cardName = dropdown.value;
+    if (cardName && cardPool[cardName] > 0) {
+        let li = document.createElement('li');
+        li.textContent = cardName;
+
+        let returnBtn = document.createElement('button');
+        returnBtn.textContent = " [Return]";
+        returnBtn.style.marginLeft = "10px";
+        returnBtn.onclick = function () {
+            returnCard(faction, cardName, li);
+        };
+
+        li.appendChild(returnBtn);
+        document.getElementById(`cardList-${faction}`).appendChild(li);
+        cardPool[cardName]--;
+        updateCardPool();
+    }
+}
+
+function returnCard(faction, cardName, cardElement) {
+    // Increase the count in the pool
+    cardPool[cardName]++;
+
+    // Remove card from player's list
+    cardElement.remove();
+
+    // Update the Treachery Card Pool
+    updateCardPool();
+}
+
             
             function adjustMoney(faction, amount) {
                 let moneyElement = document.getElementById(`money-${faction}`);
@@ -133,5 +176,38 @@
             updateCardPool();
         </script>
     </div>
+    <div style="margin-top: 20px; margin-bottom: 50px;">
+        <h2>Other Notes</h2>
+        <textarea id="miscNotes" placeholder="Write your notes here..." 
+                  style="width: 100%; min-height: 100px; padding: 10px; font-size: 16px; resize: none; overflow: hidden;"></textarea>
+    </div>
+
+    <script>
+        const notesBox = document.getElementById("miscNotes");
+
+        // Auto-expand function
+        notesBox.addEventListener("input", function () {
+            this.style.height = "auto"; // Reset height
+            this.style.height = this.scrollHeight + "px"; // Set to new height
+        });
+
+        // Add bottom space
+        document.body.style.paddingBottom = "50px";
+    </script>
+
+
+
 </body>
+    <footer style="
+        width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+        border-top: 1px solid #ccc;
+        margin-top: 20px;">
+        Made by oMayo
+    </footer>
+
+
 </html>
