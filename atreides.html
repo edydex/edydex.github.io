@@ -18,6 +18,19 @@
     align-items: center; /* Center everything */
     max-width: 400px; /* Prevent columns from spreading too far apart */
 }
+.faction h2 {
+
+    border-bottom: 4px solid; /* Thick underline */
+    padding-bottom: 5px; /* Adds spacing between underline and text */
+}
+
+#atreides h2 { border-color: green; }
+#gesserit h2 { border-color: blue; }
+#emperor h2 { border-color: red; }
+#fremen h2 { border-color: yellow; }
+#guild h2 { border-color: orange; }
+#harkonnen h2 { border-color: black; }
+
 
 .card-columns {
     display: flex;
@@ -35,7 +48,7 @@
         width: 85%; /* Default width */
     }
 
-		.money-controls { display: flex; gap: 5px; justify-content: center; }
+		.money-controls { display: flex; gap: 15px; justify-content: center; }
         
         @media (max-width: 500px) {
 			body {font-size: 15px; }
@@ -45,6 +58,7 @@
 				width: 70%; /* Make it smaller on phones */
         }
 	}
+
     </style>
 </head>
 <body>
@@ -161,10 +175,11 @@ function returnCard(faction, cardName, cardElement) {
                         <h2>${faction.charAt(0).toUpperCase() + faction.slice(1)}</h2>
                         <h3>Money: <span id="money-${faction}">${factionMoney[faction]}</span></h3>
                         <div class="money-controls">
-                            <button onclick="adjustMoney('${faction}', 1)">+1</button>
-                            <button onclick="adjustMoney('${faction}', -1)">-1</button>
-                            <button onclick="adjustMoney('${faction}', 5)">+5</button>
                             <button onclick="adjustMoney('${faction}', -5)">-5</button>
+                            <button onclick="adjustMoney('${faction}', -1)">-1</button>
+                            <button onclick="adjustMoney('${faction}', 1)">+1</button>
+                            <button onclick="adjustMoney('${faction}', 5)">+5</button>
+
                         </div>
                         <h3>Treachery Cards</h3>
                         <select id="cardDropdown-${faction}">
@@ -185,8 +200,9 @@ function returnCard(faction, cardName, cardElement) {
     </div>
     <div style="margin-top: 20px; margin-bottom: 50px;">
         <h2>Other Notes</h2>
-        <textarea id="miscNotes" placeholder="Write your notes here..." 
-                  style="width: 100%; min-height: 100px; padding: 10px; font-size: 16px; resize: none; overflow: hidden;"></textarea>
+       <textarea id="miscNotes" placeholder="Write your notes here..." 
+			style="width: 95%; max-width: 800px; min-height: 100px; padding: 10px; font-size: 16px; resize: none; overflow: hidden; display: block; margin: 0 auto 20px auto;"></textarea>
+
     </div>
 
     <script>
@@ -213,7 +229,7 @@ function returnCard(faction, cardName, cardElement) {
         font-size: 14px;
         border-top: 1px solid #ccc;
         margin-top: 20px;">
-        Made by oMayo
+        Made by <a href="https://mayo.onl" title=""><u>oMayo</u></a>
     </footer>
 
 
