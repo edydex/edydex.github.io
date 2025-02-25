@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dune Faction Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 15px; }
+        .container { display: flex; justify-content: space-around; flex-wrap: wrap; }
+        .faction { border: 1px solid #000; padding: 0px; width: 15%; min-width: 175px; }
+        .card-pool { margin: 15px 0; padding: 1px; border: 1px solid black; display: flex; flex-wrap: wrap; }
+        .card-column { flex: 1; min-width: 50%; }
+        h2 { text-align: center; }
+        button { margin: 5px; display: block; }
+        input, select { width: 85%; }
+		.money-controls { display: flex; gap: 5px; justify-content: center; }
+        
+        @media (max-width: 500px) {
+            .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0px; justify-content: center; }
+            .faction { width: 175px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Dune Faction Tracker</h1>
+    
+    <div class="card-pool">
+        <h2>Treachery Card Pool</br></h2>
+        <div class="card-column" id="cardPool1"></div>
+        <div class="card-column" id="cardPool2"></div>
+    </div>
+    
+    <div class="container">
+        <script>
+            let cardPool = {
+                "Worthless": 5,
+                "Weapon- Projectile": 4,
+                "Defense- Projectile": 4,
+                "Weapon- Poison": 4,
+                "Defense- Poison": 4,
+                "Lasgun": 1,
+                "Cheap Hero": 3,
+                "Family Atomics": 1,
+                "Hajr (movement)": 1,
+                "Karama": 2,
+                "Ghola (HeroHeal)": 1,
+                "Truthtrance": 2,
+                "Weather Control": 1
+            };
+            
+            let factionMoney = {
+                "atreides": 10,
+                "gesserit": 5,
+                "emperor": 10,
+                "fremen": 3,
+                "guild": 5,
+                "harkonnen": 10
+            };
+            
+            function updateCardPool() {
+                let pool1 = document.getElementById('cardPool1');
+                let pool2 = document.getElementById('cardPool2');
+                pool1.innerHTML = '';
+                pool2.innerHTML = '';
+                let index = 0;
+                for (let card in cardPool) {
+                    let li = document.createElement('li');
+                    li.textContent = `${card}: ${cardPool[card]}`;
+                    if (index % 2 === 0) {
+                        pool1.appendChild(li);
+                    } else {
+                        pool2.appendChild(li);
+                    }
+                    index++;
+                }
+            }
+            
+            function addCard(faction) {
+                let dropdown = document.getElementById(`cardDropdown-${faction}`);
+                let cardName = dropdown.value;
+                if (cardName && cardPool[cardName] > 0) {
+                    let li = document.createElement('li');
+                    li.textContent = cardName;
+                    document.getElementById(`cardList-${faction}`).appendChild(li);
+                    cardPool[cardName]--;
+                    updateCardPool();
+                }
+            }
+            
+            function adjustMoney(faction, amount) {
+                let moneyElement = document.getElementById(`money-${faction}`);
+                let money = parseInt(moneyElement.textContent) + amount;
+                moneyElement.textContent = money;
+            }
+            
+            function addTraitor(faction) {
+                let traitorInput = document.getElementById(`traitorInput-${faction}`);
+                let traitorName = traitorInput.value;
+                if (traitorName) {
+                    let li = document.createElement('li');
+                    li.textContent = traitorName;
+                    document.getElementById(`traitorList-${faction}`).appendChild(li);
+                    traitorInput.value = '';
+                }
+            }
+            
+            const factions = ['atreides', 'gesserit', 'emperor', 'fremen', 'guild', 'harkonnen'];
+            factions.forEach(faction => {
+                document.write(`
+                    <div class="faction" id="${faction}">
+                        <h2>${faction.charAt(0).toUpperCase() + faction.slice(1)}</h2>
+                        <h3>Money: <span id="money-${faction}">${factionMoney[faction]}</span></h3>
+                        <div class="money-controls">
+                            <button onclick="adjustMoney('${faction}', 1)">+1</button>
+                            <button onclick="adjustMoney('${faction}', -1)">-1</button>
+                            <button onclick="adjustMoney('${faction}', 5)">+5</button>
+                            <button onclick="adjustMoney('${faction}', -5)">-5</button>
+                        </div>
+                        <h3>Treachery Cards</h3>
+                        <select id="cardDropdown-${faction}">
+                            ${Object.keys(cardPool).map(card => `<option value="${card}">${card}</option>`).join('')}
+                        </select>
+                        <button onclick="addCard('${faction}')">Add Card</button>
+                        <ul id="cardList-${faction}"></ul>
+                        <h3>Traitors</h3>
+                        <input type="text" id="traitorInput-${faction}" placeholder="Enter traitor name">
+                        <button onclick="addTraitor('${faction}')">Add Traitor</button>
+                        <ul id="traitorList-${faction}"></ul>
+                    </div>
+                `);
+            });
+            
+            updateCardPool();
+        </script>
+    </div>
+</body>
+</html>
