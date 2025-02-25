@@ -31,6 +31,9 @@
     flex: 1;
     min-width: 45%; /* Keep two columns even on small screens */
 }
+    input[type="text"] {
+        width: 85%; /* Default width */
+    }
 
 		.money-controls { display: flex; gap: 5px; justify-content: center; }
         
@@ -38,7 +41,10 @@
 			body {font-size: 15px; }
             .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0px; justify-content: center; }
             .faction { width: 175px; }
+			input[type="text"] {
+				width: 70%; /* Make it smaller on phones */
         }
+	}
     </style>
 </head>
 <body>
