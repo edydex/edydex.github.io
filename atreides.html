@@ -217,10 +217,146 @@ function returnCard(faction, cardName, cardElement) {
         // Add bottom space
         document.body.style.paddingBottom = "50px";
     </script>
+<script>
+    function saveData() {
+        const factions = ['atreides', 'gesserit', 'emperor', 'fremen', 'guild', 'harkonnen'];
+
+        let gameState = {
+            money: {},
+            treacheryCards: {},
+            traitors: {},
+            notes: document.getElementById("miscNotes").value,
+            cardPool: {}
+        };
+
+        // Save money values
+        factions.forEach(faction => {
+            gameState.money[faction] = parseInt(document.getElementById(`money-${faction}`).textContent);
+        });
+
+        // Save Treachery Cards for each faction (including return buttons)
+        factions.forEach(faction => {
+            let cardList = document.getElementById(`cardList-${faction}`);
+            gameState.treacheryCards[faction] = Array.from(cardList.children).map(li => li.textContent.replace(" [Return]", ""));
+        });
+
+        // Save Traitor names for each faction
+        factions.forEach(faction => {
+            let traitorList = document.getElementById(`traitorList-${faction}`);
+            gameState.traitors[faction] = Array.from(traitorList.children).map(li => li.textContent);
+        });
+
+        // Save current Treachery Card Pool counts
+        for (let card in cardPool) {
+            gameState.cardPool[card] = cardPool[card];
+        }
+
+        localStorage.setItem("duneTrackerData", JSON.stringify(gameState));
+    }
+
+    function loadData() {
+        let savedData = localStorage.getItem("duneTrackerData");
+        if (!savedData) return;
+        savedData = JSON.parse(savedData);
+
+        // Restore Money
+        for (let faction in savedData.money) {
+            document.getElementById(`money-${faction}`).textContent = savedData.money[faction];
+        }
+
+        // Restore Treachery Cards for each faction
+        for (let faction in savedData.treacheryCards) {
+            let cardList = document.getElementById(`cardList-${faction}`);
+            cardList.innerHTML = ""; // Clear previous content
+            savedData.treacheryCards[faction].forEach(cardName => {
+                addCardToFaction(faction, cardName);
+            });
+        }
+
+        // Restore Traitor List
+        for (let faction in savedData.traitors) {
+            let traitorList = document.getElementById(`traitorList-${faction}`);
+            traitorList.innerHTML = ""; // Clear previous content
+            savedData.traitors[faction].forEach(name => {
+                let li = document.createElement('li');
+                li.textContent = name;
+                traitorList.appendChild(li);
+            });
+        }
+
+        // Restore Treachery Card Pool counts
+        if (savedData.cardPool) {
+            cardPool = savedData.cardPool;
+            updateCardPool(); // Ensure the displayed pool matches saved values
+        }
+
+        // Restore Misc. Notes
+        document.getElementById("miscNotes").value = savedData.notes;
+    }
+
+    function resetData() {
+        if (confirm("Are you sure you want to reset all data? This action cannot be undone!")) {
+            localStorage.removeItem("duneTrackerData");
+            location.reload(); // Reload the page to reset all fields
+        }
+    }
+
+    // Function to add card to a faction (ensuring return button exists)
+    function addCardToFaction(faction, cardName) {
+        let li = document.createElement('li');
+        li.textContent = cardName;
+
+        let returnBtn = document.createElement('button');
+        returnBtn.textContent = " [Return]";
+        returnBtn.style.marginLeft = "10px";
+        returnBtn.onclick = function () {
+            returnCard(faction, cardName, li);
+        };
+
+        li.appendChild(returnBtn);
+        document.getElementById(`cardList-${faction}`).appendChild(li);
+    }
+
+    // Function to add a card from pool to faction
+    function addCard(faction) {
+        let dropdown = document.getElementById(`cardDropdown-${faction}`);
+        let cardName = dropdown.value;
+        if (cardName && cardPool[cardName] > 0) {
+            addCardToFaction(faction, cardName);
+            cardPool[cardName]--; // Decrease from pool
+            updateCardPool();
+            saveData(); // Save state immediately
+        }
+    }
+
+    // Function to return a card to the pool
+    function returnCard(faction, cardName, cardElement) {
+        cardPool[cardName]++; // Return card to pool
+        cardElement.remove(); // Remove from faction list
+        updateCardPool();
+        saveData(); // Save state immediately
+    }
+
+    // Auto-save every 2 seconds
+    setInterval(saveData, 2000);
+
+    // Load data when the page loads
+    window.onload = loadData;
+	
+
+</script>
+
 
 
 
 </body>
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="resetData()" style="padding: 10px; font-size: 16px; background-color: red; color: white; border: none; cursor: pointer; border-radius: 5px;">
+        Reset Game Data
+    </button>
+</div>
+
+
     <footer style="
         width: 100%;
         background-color: #f1f1f1;
