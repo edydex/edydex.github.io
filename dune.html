@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dune - Atreides Sheet</title>
 	<link rel="icon" type="image/jpg" href="favicon.jpg">
+	<link rel="manifest" href="manifest.json">
     <style>
         body { font-family: Arial, sans-serif; padding: 15px; font-size: 16px;}
         .container { display: flex; justify-content: space-around; flex-wrap: wrap; }
@@ -403,6 +404,18 @@ updateWormChances();
     </div>
 </div>
 
+<!-- Service Worker for PWA -->
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(registration => {
+                console.log("Service Worker registered:", registration);
+            })
+            .catch(error => {
+                console.log("Service Worker registration failed:", error);
+            });
+    }
+</script>
 
 
 </body>

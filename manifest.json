@@ -1,0 +1,16 @@
+{
+    "name": "Dune - Atreides Sheet",
+    "short_name": "Atreides Tracker",
+    "description": "A faction tracking sheet for Dune board game",
+    "start_url": "./dune.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4CAF50",
+    "icons": [
+        {
+            "src": "dune_x1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        }
+    ]
+}
