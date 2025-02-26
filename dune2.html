@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dune - Atreides Sheet</title>
+	<link rel="icon" type="image/jpg" href="favicon.jpg">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 15px; font-size: 16px;}
+        .container { display: flex; justify-content: space-around; flex-wrap: wrap; }
+        .faction { border: 1px solid #000; padding: 1px; width: 15%; min-width: 175px; }
+.card-pool {
+    margin: 10px auto;
+    padding: 1px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center everything */
+    max-width: 400px; /* Prevent columns from spreading too far apart */
+}
+.faction h2 {
+
+    border-bottom: 4px solid; /* Thick underline */
+    padding-bottom: 5px; /* Adds spacing between underline and text */
+}
+
+#atreides h2 { border-color: green; }
+#gesserit h2 { border-color: blue; }
+#emperor h2 { border-color: red; }
+#fremen h2 { border-color: yellow; }
+#guild h2 { border-color: orange; }
+#harkonnen h2 { border-color: black; }
+
+
+.card-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center columns */
+    gap: 10px; /* Add spacing between columns */
+    width: 100%;
+}
+
+.card-column {
+    flex: 1;
+    min-width: 45%; /* Keep two columns even on small screens */
+}
+    input[type="text"] {
+        width: 85%; /* Default width */
+    }
+
+		.money-controls { display: flex; gap: 15px; justify-content: center; }
+        
+        @media (max-width: 500px) {
+			body {font-size: 15px; }
+            .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0px; justify-content: center; }
+            .faction { width: 175px; }
+			input[type="text"] {
+				width: 70%; /* Make it smaller on phones */
+        }
+	}
+
+    </style>
+</head>
+<body>
+    <h1>Atreides Tracker Sheet</h1>
+    <div>
+    <label for="factionSelect"><strong>Add a Faction:</strong></label>
+    <select id="factionSelect">
+        <option value="" disabled selected>Select a faction</option>
+        <option value="gesserit">Bene Gesserit</option>
+        <option value="emperor">Emperor</option>
+        <option value="fremen">Fremen</option>
+        <option value="guild">Spacing Guild</option>
+        <option value="harkonnen">Harkonnen</option>
+        <option value="ecaz">Ecaz</option>
+        <option value="moritani">Moritani</option>
+        <option value="ixians">Ixians</option>
+        <option value="tleilaxu">Tleilaxu</option>
+        <option value="choam">Choam</option>
+        <option value="richese">Richese</option>
+    </select>
+    <button onclick="addFaction()">Add</button>
+</div>
+
+<div class="card-pool">
+    <h2>Treachery Card Pool</h2>
+    <div class="card-columns">
+        <div class="card-column" id="cardPool1"></div>
+        <div class="card-column" id="cardPool2"></div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        <script>
+            let cardPool = {
+                "Worthless": 5,
+                "Weapon- Projectile": 4,
+                "Defense- Projectile": 4,
+                "Weapon- Poison": 4,
+                "Defense- Poison": 4,
+                "Lasgun": 1,
+                "Cheap Hero": 3,
+                "Family Atomics": 1,
+                "Hajr (movement)": 1,
+                "Karama": 2,
+                "Ghola (HeroHeal)": 1,
+                "Truthtrance": 2,
+                "Weather Control": 1
+            };
+            
+            let factionMoney = {
+                "atreides": 10,
+                "gesserit": 5,
+                "emperor": 10,
+                "fremen": 3,
+                "guild": 5,
+                "harkonnen": 10
+            };
+            
+            function updateCardPool() {
+                let pool1 = document.getElementById('cardPool1');
+                let pool2 = document.getElementById('cardPool2');
+                pool1.innerHTML = '';
+                pool2.innerHTML = '';
+                let index = 0;
+                for (let card in cardPool) {
+                    let li = document.createElement('li');
+                    li.textContent = `${card}: ${cardPool[card]}`;
+                    if (index % 2 === 0) {
+                        pool1.appendChild(li);
+                    } else {
+                        pool2.appendChild(li);
+                    }
+                    index++;
+                }
+            }
+            
+function addCard(faction) {
+    let dropdown = document.getElementById(`cardDropdown-${faction}`);
+    let cardName = dropdown.value;
+    if (cardName && cardPool[cardName] > 0) {
+        let li = document.createElement('li');
+        li.textContent = cardName;
+
+        let returnBtn = document.createElement('button');
+        returnBtn.textContent = " [Return]";
+        returnBtn.style.marginLeft = "10px";
+        returnBtn.onclick = function () {
+            returnCard(faction, cardName, li);
+        };
+
+        li.appendChild(returnBtn);
+        document.getElementById(`cardList-${faction}`).appendChild(li);
+        cardPool[cardName]--;
+        updateCardPool();
+    }
+}
+
+function returnCard(faction, cardName, cardElement) {
+    // Increase the count in the pool
+    cardPool[cardName]++;
+
+    // Remove card from player's list
+    cardElement.remove();
+
+    // Update the Treachery Card Pool
+    updateCardPool();
+}
+
+            
+            function adjustMoney(faction, amount) {
+                let moneyElement = document.getElementById(`money-${faction}`);
+                let money = parseInt(moneyElement.textContent) + amount;
+                moneyElement.textContent = money;
+            }
+            
+            function addTraitor(faction) {
+                let traitorInput = document.getElementById(`traitorInput-${faction}`);
+                let traitorName = traitorInput.value;
+                if (traitorName) {
+                    let li = document.createElement('li');
+                    li.textContent = traitorName;
+                    document.getElementById(`traitorList-${faction}`).appendChild(li);
+                    traitorInput.value = '';
+                }
+            }
+            
+const defaultFactions = ['atreides'];
+const allFactions = {
+    "atreides": { color: "green", spice: 10 },
+    "gesserit": { color: "blue", spice: 5 },
+    "emperor": { color: "red", spice: 10 },
+    "fremen": { color: "yellow", spice: 3 },
+    "guild": { color: "orange", spice: 5 },
+    "harkonnen": { color: "black", spice: 10 },
+    "ecaz": { color: "pink", spice: 12 },
+    "moritani": { color: "teal", spice: 12 },
+    "ixians": { color: "greige", spice: 10 },
+    "tleilaxu": { color: "purple", spice: 5 },
+    "choam": { color: "red/black striped", spice: 2 },
+    "richese": { color: "lightgray", spice: 5 }
+};
+
+// Function to create faction UI dynamically
+function createFactionCard(faction) {
+    let container = document.querySelector('.container');
+    let factionDiv = document.createElement('div');
+    factionDiv.classList.add('faction');
+    factionDiv.id = faction;
+    factionDiv.innerHTML = `
+        <h2 style="border-bottom: 4px solid ${allFactions[faction].color};">${faction.charAt(0).toUpperCase() + faction.slice(1)}</h2>
+        <h3>Money: <span id="money-${faction}">${allFactions[faction].spice}</span></h3>
+        <div class="money-controls">
+            <button onclick="adjustMoney('${faction}', -5)">-5</button>
+            <button onclick="adjustMoney('${faction}', -1)">-1</button>
+            <button onclick="adjustMoney('${faction}', 1)">+1</button>
+            <button onclick="adjustMoney('${faction}', 5)">+5</button>
+        </div>
+        <h3>Treachery Cards</h3>
+        <select id="cardDropdown-${faction}">
+            ${Object.keys(cardPool).map(card => `<option value="${card}">${card}</option>`).join('')}
+        </select>
+        <button onclick="addCard('${faction}')">Add Card</button>
+        <ul id="cardList-${faction}"></ul>
+        <h3>Traitors</h3>
+        <input type="text" id="traitorInput-${faction}" placeholder="Enter traitor name">
+        <button onclick="addTraitor('${faction}')">Add Traitor</button>
+        <ul id="traitorList-${faction}"></ul>
+    `;
+    container.appendChild(factionDiv);
+}
+
+// Load only Atreides at start
+defaultFactions.forEach(createFactionCard);
+
+            
+            updateCardPool();
+        </script>
+    </div>
+    <div style="margin-top: 20px; margin-bottom: 50px;">
+        <h2>Other Notes</h2>
+       <textarea id="miscNotes" placeholder="Write your notes here..." 
+			style="width: 95%; max-width: 800px; min-height: 100px; padding: 10px; font-size: 16px; resize: none; overflow: hidden; display: block; margin: 0 auto 20px auto;"></textarea>
+
+    </div>
+
+    <script>
+        const notesBox = document.getElementById("miscNotes");
+
+        // Auto-expand function
+        notesBox.addEventListener("input", function () {
+            this.style.height = "auto"; // Reset height
+            this.style.height = this.scrollHeight + "px"; // Set to new height
+        });
+
+        // Add bottom space
+        document.body.style.paddingBottom = "50px";
+    </script>
+<script>
+    function saveData() {
+        const factions = ['atreides', 'gesserit', 'emperor', 'fremen', 'guild', 'harkonnen'];
+
+        let gameState = {
+            money: {},
+            treacheryCards: {},
+            traitors: {},
+            notes: document.getElementById("miscNotes").value,
+            cardPool: {}
+        };
+
+        // Save money values
+        factions.forEach(faction => {
+            gameState.money[faction] = parseInt(document.getElementById(`money-${faction}`).textContent);
+        });
+
+        // Save Treachery Cards for each faction (including return buttons)
+        factions.forEach(faction => {
+            let cardList = document.getElementById(`cardList-${faction}`);
+            gameState.treacheryCards[faction] = Array.from(cardList.children).map(li => li.textContent.replace(" [Return]", ""));
+        });
+
+        // Save Traitor names for each faction
+        factions.forEach(faction => {
+            let traitorList = document.getElementById(`traitorList-${faction}`);
+            gameState.traitors[faction] = Array.from(traitorList.children).map(li => li.textContent);
+        });
+
+        // Save current Treachery Card Pool counts
+        for (let card in cardPool) {
+            gameState.cardPool[card] = cardPool[card];
+        }
+
+        localStorage.setItem("duneTrackerData", JSON.stringify(gameState));
+    }
+
+    function loadData() {
+        let savedData = localStorage.getItem("duneTrackerData");
+        if (!savedData) return;
+        savedData = JSON.parse(savedData);
+
+        // Restore Money
+        for (let faction in savedData.money) {
+            document.getElementById(`money-${faction}`).textContent = savedData.money[faction];
+        }
+
+        // Restore Treachery Cards for each faction
+        for (let faction in savedData.treacheryCards) {
+            let cardList = document.getElementById(`cardList-${faction}`);
+            cardList.innerHTML = ""; // Clear previous content
+            savedData.treacheryCards[faction].forEach(cardName => {
+                addCardToFaction(faction, cardName);
+            });
+        }
+
+        // Restore Traitor List
+        for (let faction in savedData.traitors) {
+            let traitorList = document.getElementById(`traitorList-${faction}`);
+            traitorList.innerHTML = ""; // Clear previous content
+            savedData.traitors[faction].forEach(name => {
+                let li = document.createElement('li');
+                li.textContent = name;
+                traitorList.appendChild(li);
+            });
+        }
+
+        // Restore Treachery Card Pool counts
+        if (savedData.cardPool) {
+            cardPool = savedData.cardPool;
+            updateCardPool(); // Ensure the displayed pool matches saved values
+        }
+
+        // Restore Misc. Notes
+        document.getElementById("miscNotes").value = savedData.notes;
+    }
+
+    function resetData() {
+        if (confirm("Are you sure you want to reset all data? This action cannot be undone!")) {
+            localStorage.removeItem("duneTrackerData");
+            location.reload(); // Reload the page to reset all fields
+        }
+    }
+
+    // Function to add card to a faction (ensuring return button exists)
+    function addCardToFaction(faction, cardName) {
+        let li = document.createElement('li');
+        li.textContent = cardName;
+
+        let returnBtn = document.createElement('button');
+        returnBtn.textContent = " [Return]";
+        returnBtn.style.marginLeft = "10px";
+        returnBtn.onclick = function () {
+            returnCard(faction, cardName, li);
+        };
+
+        li.appendChild(returnBtn);
+        document.getElementById(`cardList-${faction}`).appendChild(li);
+    }
+
+    // Function to add a card from pool to faction
+    function addCard(faction) {
+        let dropdown = document.getElementById(`cardDropdown-${faction}`);
+        let cardName = dropdown.value;
+        if (cardName && cardPool[cardName] > 0) {
+            addCardToFaction(faction, cardName);
+            cardPool[cardName]--; // Decrease from pool
+            updateCardPool();
+            saveData(); // Save state immediately
+        }
+    }
+
+    // Function to return a card to the pool
+    function returnCard(faction, cardName, cardElement) {
+        cardPool[cardName]++; // Return card to pool
+        cardElement.remove(); // Remove from faction list
+        updateCardPool();
+        saveData(); // Save state immediately
+    }
+
+    // Auto-save every 2 seconds
+    setInterval(saveData, 2000);
+	
+	function addFaction() {
+    let factionSelect = document.getElementById("factionSelect");
+    let selectedFaction = factionSelect.value;
+
+    if (!selectedFaction || document.getElementById(selectedFaction)) {
+        return;
+    }
+
+    createFactionCard(selectedFaction);
+    saveData(); // Save new faction to localStorage
+}
+
+    // Load data when the page loads
+    window.onload = loadData;
+	
+
+</script>
+
+
+
+
+</body>
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="resetData()" style="padding: 10px; font-size: 16px; background-color: red; color: white; border: none; cursor: pointer; border-radius: 5px;">
+        Reset Game Data
+    </button>
+</div>
+
+
+    <footer style="
+        width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+        border-top: 1px solid #ccc;
+        margin-top: 20px;">
+        Made by <a href="https://mayo.onl" title=""><u>oMayo</u></a>
+    </footer>
+
+
+</html>
