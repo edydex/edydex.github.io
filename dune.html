@@ -338,14 +338,15 @@ function returnCard(faction, cardName, cardElement) {
     }
 
     // Auto-save every 2 seconds
-    setInterval(saveData, 2000);
+    intervalFix = setInterval(saveData, 2000);
 
     // Load data when the page loads
     window.onload = loadData;
 	
 	function resetData() {
     if (confirm("Are you sure you want to reset all data? This will erase everything!")) {
-        localStorage.clear(); // Fully clears localStorage
+		clearInterval(intervalFix);
+        localStorage.removeItem("duneTrackerData"); // Fully clears localStorage
         location.reload(); // Reloads the page to apply reset
     }
 }
