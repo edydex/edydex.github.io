@@ -349,9 +349,58 @@ function returnCard(faction, cardName, cardElement) {
         location.reload(); // Reloads the page to apply reset
     }
 }
+// Initialize deck
+let totalCards = 21;
+let totalWorms = 6;
+let cardsDrawn = 0;
+let wormsLeft = totalWorms;
+
+// Function to update the displayed percentages
+function updateWormChances() {
+    let cardsLeft = totalCards - cardsDrawn;
+    if (cardsLeft <= 0) return;
+
+    let nextCardChance = (wormsLeft / cardsLeft) * 100;
+    let withinTwoChance = (1 - ((cardsLeft - wormsLeft) / cardsLeft) * ((cardsLeft - wormsLeft - 1) / (cardsLeft - 1))) * 100;
+
+    document.getElementById("nextCardChance").textContent = nextCardChance.toFixed(2) + "%";
+    document.getElementById("withinTwoChance").textContent = withinTwoChance.toFixed(2) + "%";
+    document.getElementById("cardsDrawn").textContent = cardsDrawn;
+    document.getElementById("cardsLeft").textContent = cardsLeft;
+}
+
+// Function to handle card draw
+function drawCard(isWorm) {
+    if (cardsDrawn >= totalCards) return; // Stop if all cards are drawn
+
+    cardsDrawn++; // Increase drawn count
+    if (isWorm) wormsLeft--; // Reduce worm count if a worm is drawn
+
+    updateWormChances(); // Refresh UI
+}
+
+// Initial update on page load
+updateWormChances();
+
 
 </script>
 
+<div class="worm-tracker" style="
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid black;
+    max-width: 400px;
+    text-align: center;">
+    <h2>Worm Tracker</h2>
+    <p>Next Card: <span id="nextCardChance">28.57%</span></p>
+    <p>Within Two: <span id="withinTwoChance">48.69%</span></p>
+    <p>Cards Drawn: <span id="cardsDrawn">0</span></p>
+    <p>Cards Left: <span id="cardsLeft">21</span></p>
+    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+        <button onclick="drawCard(true)" style="padding: 10px; font-size: 16px; background-color: #C4A484; color: white; border: none; cursor: pointer; border-radius: 5px;">Worm</button>
+        <button onclick="drawCard(false)" style="padding: 10px; font-size: 16px; background-color: orange; color: white; border: none; cursor: pointer; border-radius: 5px;">Spice</button>
+    </div>
+</div>
 
 
 
