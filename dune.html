@@ -52,7 +52,7 @@
         
         @media (max-width: 500px) {
 			body {font-size: 15px; }
-            .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0px; justify-content: center; }
+            .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; justify-content: center; }
             .faction { width: 175px; }
 			input[type="text"] {
 				width: 70%; /* Make it smaller on phones */
@@ -357,22 +357,22 @@ function returnCard(faction, cardName, cardElement) {
 
 </body>
 <div style="text-align: center; margin-top: 20px;">
-    <button onclick="resetData()" style="padding: 10px; font-size: 16px; background-color: red; color: white; border: none; cursor: pointer; border-radius: 5px;">
+    <button onclick="resetData()" style="padding: 10px; font-size: 16px; background-color: red; color: white; margin-bottom: 20px; border: none; cursor: pointer; border-radius: 5px;">
         Reset Game Data
     </button>
 </div>
-
-
     <footer style="
         width: 100%;
-        background-color: #f1f1f1;
+        /* background-color: #f1f1f1; */
         text-align: center;
         padding: 10px;
         font-size: 14px;
-        border-top: 1px solid #ccc;
+        /* border-top: 1px solid #ccc;
         margin-top: 20px;">
         Made by <a href="https://mayo.onl" title=""><u>oMayo</u></a>
     </footer>
+
+
 
 
 </html>
