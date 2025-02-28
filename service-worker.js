@@ -1,6 +1,7 @@
 const CACHE_NAME = "dune-tracker-v1";
 const urlsToCache = [
     "./dune.html",
+	".dune_homerule.html",
     "./favicon.jpg",
     "./manifest.json",
     "./dune_x1024.png"

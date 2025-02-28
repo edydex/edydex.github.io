@@ -1,8 +1,8 @@
 {
-    "name": "Dune - Atreides Sheet",
-    "short_name": "Atreides Tracker",
+    "name": "Atreides Tracker (HR)",
+    "short_name": "Atreides HR",
     "description": "A faction tracking sheet for Dune board game",
-    "start_url": "./dune.html",
+    "start_url": "./dune_homerule.html",
     "display": "fullscreen",
     "background_color": "#ffffff",
     "theme_color": "#4CAF50",
