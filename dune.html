@@ -64,12 +64,11 @@
 .discard-pile {
     margin: 20px auto;
     padding: 1px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 400px;
-    background-color: #f8f8f8;
+
 }
 
 .discard-pile h2 {
@@ -161,7 +160,7 @@ input[name="tab-selector"] {
 </head>
 <body>
     <h1>Atreides Tracker Sheet</h1>
-    
+<!-- Treachery and Discard Piles tabs -->
 <div class="tab-container">
   <input name="tab-selector" type="radio" id="tab-link-01" checked>
   <label for="tab-link-01" class="tab-name">Treachery Pile</label>
@@ -196,168 +195,170 @@ input[name="tab-selector"] {
 </div>
     
     <div class="container">
-        <script>
-            let cardPool = {
-                "Worthless": 5,
-                "Weapon- Projectile": 4,
-                "Defense- Projectile": 4,
-                "Weapon- Poison": 4,
-                "Defense- Poison": 4,
-                "Lasgun": 1,
-                "Cheap Hero": 3,
-                "Family Atomics": 1,
-                "Hajr (movement)": 1,
-                "Karama": 2,
-                "Ghola (HeroHeal)": 1,
-                "Truthtrance": 2,
-                "Weather Control": 1
-            };
-            
-            // New object to track discarded cards
-            let discardPile = {};
-            
-            // Initialize discard pile with 0 counts
-            for (let card in cardPool) {
-                discardPile[card] = 0;
-            }
-            
-            let factionMoney = {
-                "atreides": 10,
-                "gesserit": 5,
-                "emperor": 10,
-                "fremen": 3,
-                "guild": 5,
-                "harkonnen": 10
-            };
-            
-            function updateCardPool() {
-    let pool1 = document.getElementById('cardPool1');
-    let pool2 = document.getElementById('cardPool2');
-    pool1.innerHTML = '';
-    pool2.innerHTML = '';
-    let index = 0;
-    for (let card in cardPool) {
-        let li = document.createElement('li');
-        let cardText = document.createElement('span');
-        cardText.textContent = `${card}: ${cardPool[card]}`;
-        cardText.style.cursor = 'pointer';
-        cardText.onclick = function() {
-            showCardSvg(card);
+	<!-- JS code begins -->
+    <script>
+		//Card pool contents
+        let cardPool = {
+            "Worthless": 5,
+            "Weapon- Projectile": 4,
+            "Defense- Projectile": 4,
+            "Weapon- Poison": 4,
+            "Defense- Poison": 4,
+            "Lasgun": 1,
+            "Cheap Hero": 3,
+            "Family Atomics": 1,
+            "Hajr (movement)": 1,
+            "Karama": 2,
+            "Ghola (HeroHeal)": 1,
+            "Truthtrance": 2,
+            "Weather Control": 1
         };
-        li.appendChild(cardText);
-        if (index % 2 === 0) {
-            pool1.appendChild(li);
-        } else {
-            pool2.appendChild(li);
-        }
-        index++;
-    }
-}
+        
+        // Track discarded cards
+        let discardPile = {};
             
-            // Function to update the discard pile display
-            function updateDiscardPile() {
-                let pool1 = document.getElementById('discardPool1');
-                let pool2 = document.getElementById('discardPool2');
-                pool1.innerHTML = '';
-                pool2.innerHTML = '';
-                let index = 0;
-                let hasCards = false;
-                
-                for (let card in discardPile) {
-                    if (discardPile[card] > 0) {
-                        hasCards = true;
-                        let li = document.createElement('li');
-                        li.textContent = `${card}: ${discardPile[card]}`;
-                        if (index % 2 === 0) {
-                            pool1.appendChild(li);
-                        } else {
-                            pool2.appendChild(li);
-                        }
-                        index++;
+        // Initialize discard pile with 0 counts
+        for (let card in cardPool) {
+            discardPile[card] = 0;
+        }
+        // Default starting money per faction
+        let factionMoney = {
+            "atreides": 10,
+            "gesserit": 5,
+            "emperor": 10,
+            "fremen": 3,
+            "guild": 5,
+            "harkonnen": 10
+        };
+        // Card functions I don't understand, but they work
+        function updateCardPool() {
+			let pool1 = document.getElementById('cardPool1');
+			let pool2 = document.getElementById('cardPool2');
+			pool1.innerHTML = '';
+			pool2.innerHTML = '';
+			let index = 0;
+			for (let card in cardPool) {
+			let li = document.createElement('li');
+			let cardText = document.createElement('span');
+			cardText.textContent = `${card}: ${cardPool[card]}`;
+			cardText.style.cursor = 'pointer';
+			cardText.onclick = function() {
+				showCardSvg(card);
+			};
+			li.appendChild(cardText);
+			if (index % 2 === 0) {
+				pool1.appendChild(li);
+			} else {
+				pool2.appendChild(li);
+			}
+			index++;
+			}
+		}
+            
+        // Function to update the discard pile display
+        function updateDiscardPile() {
+            let pool1 = document.getElementById('discardPool1');
+            let pool2 = document.getElementById('discardPool2');
+            pool1.innerHTML = '';
+            pool2.innerHTML = '';
+            let index = 0;
+            let hasCards = false;
+            
+            for (let card in discardPile) {
+                if (discardPile[card] > 0) {
+                    hasCards = true;
+                    let li = document.createElement('li');
+                    li.textContent = `${card}: ${discardPile[card]}`;
+                    if (index % 2 === 0) {
+                        pool1.appendChild(li);
+                    } else {
+                       pool2.appendChild(li);
                     }
+                    index++;
                 }
-                
-                // If no cards in discard pile, show a message
+            }
+                // If no cards in discard pile, show a message (doesn't seem to work)
                 if (!hasCards) {
                     let li = document.createElement('li');
                     li.textContent = "No cards discarded";
                     pool1.appendChild(li);
                 }
             }
-            
-function addCard(faction) {
-    let dropdown = document.getElementById(`cardDropdown-${faction}`);
-    let cardName = dropdown.value;
-    if (cardName && cardPool[cardName] > 0) {
-        let li = document.createElement('li');
-        li.textContent = cardName;
+			
+        // Assigning cards to each faction
+		function addCard(faction) {
+			let dropdown = document.getElementById(`cardDropdown-${faction}`);
+			let cardName = dropdown.value;
+			if (cardName && cardPool[cardName] > 0) {
+			let li = document.createElement('li');
+			li.textContent = cardName;
 
-        let returnBtn = document.createElement('button');
-        returnBtn.textContent = " [Return]";
-        returnBtn.style.marginLeft = "10px";
-        returnBtn.onclick = function () {
-            returnCard(faction, cardName, li);
-        };
+			let returnBtn = document.createElement('button');
+			returnBtn.textContent = " [Return]";
+			returnBtn.style.marginLeft = "10px";
+			returnBtn.onclick = function () {
+				returnCard(faction, cardName, li);
+			};
 
-        li.appendChild(returnBtn);
-        document.getElementById(`cardList-${faction}`).appendChild(li);
-        cardPool[cardName]--;
-        updateCardPool();
-    }
-}
+			li.appendChild(returnBtn);
+			document.getElementById(`cardList-${faction}`).appendChild(li);
+			cardPool[cardName]--;
+			updateCardPool();
+			}
+		}
 
-// Modified to send card to discard pile instead of directly back to pool
-function returnCard(faction, cardName, cardElement) {
-    // Increase the count in the discard pile
-    discardPile[cardName]++;
+		// Send card to discard pile instead of directly back to Treachery pool
+		function returnCard(faction, cardName, cardElement) {
+			// Increase the count in the discard pile
+			discardPile[cardName]++;
 
-    // Remove card from player's list
-    cardElement.remove();
+			// Remove card from player's list
+			cardElement.remove();
 
-    // Update the discard pile display
-    updateDiscardPile();
+			// Update the discard pile display
+			updateDiscardPile();
     
-    // Update the Treachery Card Pool display (unchanged card counts)
-    updateCardPool();
+			// Update the Treachery Card Pool display (unchanged card counts)
+			updateCardPool();
     
-    // Save the game state
-    saveData();
-}
+			// Save the game state
+			saveData();
+		}
 
-// Function to restore all cards from discard pile to the main pool
-function restoreAllCards() {
-    for (let card in discardPile) {
-        if (discardPile[card] > 0) {
+		// Function to restore all cards from discard pile to the main pool
+		function restoreAllCards() {
+			for (let card in discardPile) {
+			if (discardPile[card] > 0) {
             cardPool[card] += discardPile[card];
             discardPile[card] = 0;
+			}
+			}
+			// Update both displays
+			updateCardPool();
+			updateDiscardPile();
+    
+			// Save the game state
+			saveData();
+		}
+		
+        // Function to keep track of Money
+        function adjustMoney(faction, amount) {
+            let moneyElement = document.getElementById(`money-${faction}`);
+            let money = parseInt(moneyElement.textContent) + amount;
+            moneyElement.textContent = money;
         }
-    }
-    
-    // Update both displays
-    updateCardPool();
-    updateDiscardPile();
-    
-    // Save the game state
-    saveData();
-}
-            
-            function adjustMoney(faction, amount) {
-                let moneyElement = document.getElementById(`money-${faction}`);
-                let money = parseInt(moneyElement.textContent) + amount;
-                moneyElement.textContent = money;
+        // Function to add Traitors
+        function addTraitor(faction) {
+            let traitorInput = document.getElementById(`traitorInput-${faction}`);
+            let traitorName = traitorInput.value;
+            if (traitorName) {
+                let li = document.createElement('li');
+                li.textContent = traitorName;
+                document.getElementById(`traitorList-${faction}`).appendChild(li);
+                traitorInput.value = '';
             }
-            
-            function addTraitor(faction) {
-                let traitorInput = document.getElementById(`traitorInput-${faction}`);
-                let traitorName = traitorInput.value;
-                if (traitorName) {
-                    let li = document.createElement('li');
-                    li.textContent = traitorName;
-                    document.getElementById(`traitorList-${faction}`).appendChild(li);
-                    traitorInput.value = '';
-                }
-            }
-            
+        }
+        // Function for Money, Treachery, and Traitor Controls
             const factions = ['atreides', 'gesserit', 'emperor', 'fremen', 'guild', 'harkonnen'];
             factions.forEach(faction => {
                 document.write(`
@@ -390,8 +391,13 @@ function restoreAllCards() {
             
             // Add event listener for the restore button
             document.getElementById('restoreAllCards').addEventListener('click', restoreAllCards);
-        </script>
-    </div>
+			
+    </script>
+	<!-- Script for Faction Cards and Treachery Pile over -->
+	</div>
+	<!-- div for main content container over -->
+	
+	<!-- "Other Notes" block code -->
     <div style="margin-top: 20px; margin-bottom: 50px;">
         <h2>Other Notes</h2>
        <textarea id="miscNotes" placeholder="Write your notes here..." 
@@ -411,7 +417,10 @@ function restoreAllCards() {
         // Add bottom space
         document.body.style.paddingBottom = "50px";
     </script>
-<script>
+	<!-- "Other Notes" code over -->
+	
+	<!-- Script for Saving Data begins -->
+	<script>
     function saveData() {
         const factions = ['atreides', 'gesserit', 'emperor', 'fremen', 'guild', 'harkonnen'];
 
@@ -453,7 +462,7 @@ function restoreAllCards() {
 
         localStorage.setItem("duneTrackerData", JSON.stringify(gameState));
     }
-
+	// Fuction to Restore localStorage data
     function loadData() {
         let savedData = localStorage.getItem("duneTrackerData");
         if (!savedData) return;
@@ -498,14 +507,7 @@ function restoreAllCards() {
 
         // Restore Misc. Notes
         document.getElementById("miscNotes").value = savedData.notes;
-    }
-
-    function resetData() {
-        if (confirm("Are you sure you want to reset all data? This action cannot be undone!")) {
-            localStorage.removeItem("duneTrackerData");
-            location.reload(); // Reload the page to reset all fields
-        }
-    }
+    }  
 
     // Function to add card to a faction (ensuring return button exists)
     function addCardToFaction(faction, cardName) {
@@ -544,6 +546,7 @@ function restoreAllCards() {
         updateDiscardPile(); // Make sure discard pile is initialized
     };
 	
+	// "Big Red Button" to reset/ nuke/ erase all localStorage
 	function resetData() {
     if (confirm("Are you sure you want to reset all data? This will erase everything!")) {
 		clearInterval(intervalFix);
@@ -581,7 +584,7 @@ function drawCard(isWorm) {
     updateWormChances(); // Refresh UI
 }
 
-// Add these functions to your JavaScript
+// Function to display cards when they are clicked in the Treachery Pool
 function showCardSvg(cardName) {
     const modal = document.getElementById('cardModal');
     const svgContainer = document.getElementById('cardSvgContainer');
@@ -703,14 +706,11 @@ updateWormChances();
         width: 100%;
         /* background-color: #f1f1f1; */
         text-align: center;
-        padding: 10px;
+        padding: 0px;
         font-size: 14px;
         /* border-top: 1px solid #ccc;
         margin-top: 20px;">
         Made by <a href="https://mayo.onl" target="none" title=""><u>oMayo</u></a>
     </footer>
-
-
-
 
 </html>
