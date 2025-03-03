@@ -4,7 +4,7 @@
     "target": {
       "namespace": "android_app",
       "package_name": "atreides",
-      "sha256_cert_fingerprints": ["23:BD:93:6E:E5:7D:E2:07:D8:89:8A:2F:A1:90:81:4A:A9:82:D5:43:BC:D1:A2:40:21:2E:ED:5B:AD:D7:7A:DB"]
+      "sha256_cert_fingerprints": ["5A:26:0F:C1:32:A3:0B:3B:0B:F1:00:9C:6B:86:DD:4F:22:A7:8B:CE:E2:35:4B:24:FD:47:1B:D4:F7:EA:B6:0C"]
     }
   }
 ]
