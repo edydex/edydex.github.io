@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "atreides",
+      "package_name": "onl.mayo.www.twa",
       "sha256_cert_fingerprints": ["5A:26:0F:C1:32:A3:0B:3B:0B:F1:00:9C:6B:86:DD:4F:22:A7:8B:CE:E2:35:4B:24:FD:47:1B:D4:F7:EA:B6:0C"]
     }
   }
