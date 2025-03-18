@@ -1,43 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Atreides App closed-test</title>
+  <title>Atreides App Closed Test</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
   <link rel="icon" type="image/jpg" href="favicon.jpg">
+  <style>
+    /* Styling for larger email input */
+    input[type="email"] {
+      width: 100%;
+      max-width: 400px; /* Adjust width as needed */
+      height: 40px;
+      font-size: 30px;
+      padding: 8px;
+    }
+
+    /* Styling for larger radio buttons */
+    input[type="radio"] {
+      transform: scale(1.5); /* Makes the radio button bigger */
+      margin-right: 10px;
+    }
+
+    label.radio-label {
+      font-size: 40px; /* Makes text next to radio button bigger */
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Styling for larger button */
+    button {
+      width: 150px;
+      height: 50px;
+      font-size: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Atreides App Closed Test Signup</h1>
-      <p class="centered-text"><!--text here if needed --></p>
-      <!--<a class="button-link" href="../referrals.html">← Back</a> -->
     </header>
     <main id="qa-list">
-	<h1> Thank you for showing insterest in Android closed test of my app. Please fill out this short form if you'd like to get access to the app. All I need is 20 "testers" who have the app installed for 15 days.</h1>
-	<!-- modify this form HTML and place wherever you want your form -->
-<form
-  action="https://formspree.io/f/mrbpbole"
-  method="POST"
->
-  <label>
-    <h1>Your email: </br>
-    <input type="email" name="email"></h1>
-  </label>
-  <label>
-    <h1>Would you be willing to help test my other apps?<h1>
-        <input type="radio" name="future_apps" value="yes" required> Yes
-    </label>
-    
-    <label>
-        <input type="radio" name="future_apps" value="no" required> No
-    </label>
-	</br>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
-</form>
+      <h1>Thank you for showing interest in the Android closed test of my app. Please fill out this short form if you'd like to get access. I need 12 testers who will keep the app installed for 15 days.</h1> </br>
 
+      <form action="https://formspree.io/f/mrbpbole" method="POST">
+        <label>
+          <h2>Your email:</h2>
+          <input type="email" name="email" required>
+        </label>
+
+        <h2>Would you be willing to help test my other apps?</h2>
+        <label class="radio-label">
+          <input type="radio" name="future_apps" value="yes" required> Yes
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="future_apps" value="no" required> No
+        </label>
+        
+        <br><br>
+        <button type="submit">Send</button>
+      </form>
     </main>
   </div>
 </body>
-
 </html>
