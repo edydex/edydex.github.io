@@ -4,70 +4,136 @@
   <title>Atreides App Closed Test</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
   <link rel="icon" type="image/jpg" href="favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Styling for larger email input */
+    /* General styles */
+    body {
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Header styling */
+    .page-title {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Description text styling */
+    .description-text {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    
+    /* Form element styling */
+    .form-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    /* Styling for email input */
     input[type="email"] {
       width: 100%;
-      max-width: 400px; /* Adjust width as needed */
+      max-width: 400px;
       height: 40px;
-      font-size: 30px;
+      font-size: 1.2rem;
       padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-
-    /* Styling for larger radio buttons */
+    
+    /* Styling for radio buttons */
+    .radio-options {
+      margin-top: 0.5rem;
+    }
+    
     input[type="radio"] {
-      transform: scale(1.5); /* Makes the radio button bigger */
+      transform: scale(1.5);
       margin-right: 10px;
     }
-
+    
     label.radio-label {
-      font-size: 40px; /* Makes text next to radio button bigger */
+      font-size: 1.2rem;
       display: flex;
       align-items: center;
-      gap: 10px;
+      margin-bottom: 0.5rem;
     }
-
-    /* Styling for larger button */
+    
+    /* Styling for submit button */
     button {
       width: 150px;
       height: 50px;
-      font-size: 20px;
+      font-size: 1.2rem;
       background-color: #007bff;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       transition: background 0.3s;
+      margin-top: 1rem;
     }
-
+    
     button:hover {
       background-color: #0056b3;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .description-text {
+        font-size: 1rem;
+      }
+      
+      .form-label {
+        font-size: 1.3rem;
+      }
+      
+      label.radio-label {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Atreides App Closed Test Signup</h1>
+      <h1 class="page-title">Atreides App Closed Test Signup</h1>
     </header>
     <main id="qa-list">
-      <h1>Thank you for showing interest in the Android closed test of my app. Please fill out this short form if you'd like to get access. I need 12 testers who will keep the app installed for 15 days.</h1> </br>
-
+      <p class="description-text">Thank you for showing interest in the Android closed test of my app. Please fill out this short form if you'd like to get access. I need 12 testers who will keep the app installed for 15 days.</p>
+      
       <form action="https://formspree.io/f/mrbpbole" method="POST">
-        <label>
-          <h2>Your email:</h2>
+        <div class="form-section">
+          <label class="form-label">Your email:</label>
           <input type="email" name="email" required>
-        </label>
-
-        <h2>Would you be willing to help test my other apps?</h2>
-        <label class="radio-label">
-          <input type="radio" name="future_apps" value="yes" required> Yes
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="future_apps" value="no" required> No
-        </label>
+        </div>
         
-        <br><br>
+        <div class="form-section">
+          <div class="form-label">Would you be willing to help test my other apps?</div>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input type="radio" name="future_apps" value="yes" required> Yes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="future_apps" value="no" required> No
+            </label>
+          </div>
+        </div>
+        
         <button type="submit">Send</button>
       </form>
     </main>
