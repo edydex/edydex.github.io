@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCNA 200-301 Cheat Sheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .nav-tabs button {
+            background: #2a2a2a;
+            color: #e0e0e0;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s;
+        }
+
+        .nav-tabs button:hover {
+            background: #3a3a3a;
+        }
+
+        .nav-tabs button.active {
+            background: #0066cc;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h1 {
+            color: #0066cc;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #00aaff;
+            margin: 30px 0 15px 0;
+            font-size: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: #00cc88;
+            margin: 20px 0 10px 0;
+            font-size: 16px;
+        }
+
+        .command-group {
+            margin-bottom: 20px;
+        }
+
+        .two-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .two-column-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .command {
+            background: #252525;
+            padding: 4px 10px;
+            margin: 3px 0;
+            border-left: 3px solid #444;
+            border-radius: 3px;
+            position: relative;
+            cursor: help;
+        }
+
+        .command:hover {
+            background: #2d2d2d;
+            border-left-color: #0066cc;
+        }
+
+        .command:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .base-cmd {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .param {
+            color: #ff6b6b;
+            font-style: italic;
+        }
+
+        .star {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .star.red { color: #ff4444; }
+        .star.blue { color: #4488ff; }
+        .star.green { color: #44ff88; }
+        .star.purple { color: #cc44ff; }
+
+        .tooltip {
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            background: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            border: 1px solid #555;
+            pointer-events: none;
+            max-width: 400px;
+            white-space: normal;
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+        }
+
+        .legend {
+            background: #252525;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Accordion Styles */
+        .accordion {
+            margin-bottom: 15px;
+        }
+
+        .accordion-header {
+            background: #2a2a2a;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+            transition: all 0.3s;
+            font-weight: bold;
+            color: #00aaff;
+        }
+
+        .accordion-header:hover {
+            background: #333;
+        }
+
+        .accordion-header.active {
+            background: #333;
+            border-left-color: #00cc88;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #1f1f1f;
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+            padding: 20px;
+            border-left: 4px solid #00cc88;
+            margin-top: 5px;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .scenario-command {
+            background: #252525;
+            padding: 6px 12px;
+            margin: 4px 0;
+            border-left: 3px solid #444;
+            border-radius: 3px;
+            position: relative;
+            cursor: help;
+        }
+
+        .scenario-command:hover {
+            background: #2d2d2d;
+            border-left-color: #00cc88;
+        }
+
+        .scenario-command:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scenario-requirement {
+            color: #ff9900;
+            font-style: italic;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #2a2a2a;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 1200px) {
+            .tooltip {
+                position: fixed;
+                left: 50%;
+                top: auto;
+                bottom: 20px;
+                transform: translateX(-50%);
+                white-space: normal;
+                max-width: 300px;
+            }
+            
+            .tooltip::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CCNA 200-301 Command Reference</h1>
+
+        <div class="nav-tabs">
+            <button class="active" onclick="switchTab('commands')">Command Cheat Sheet</button>
+            <button onclick="switchTab('scenarios')">Common Scenarios</button>
+        </div>
+
+        <!-- COMMANDS TAB -->
+        <div id="commands" class="tab-content active">
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="star red">*</span> Subnetting/IP Addressing
+                </div>
+                <div class="legend-item">
+                    <span class="star blue">*</span> Security/Access Control
+                </div>
+                <div class="legend-item">
+                    <span class="star green">*</span> Routing Protocols
+                </div>
+                <div class="legend-item">
+                    <span class="star purple">*</span> Switching/VLANs
+                </div>
+            </div>
+
+            <div class="two-column-layout">
+            <div>
+            <h2>Basic Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="base-cmd">enable</span>
+                    <div class="tooltip">Enters privileged EXEC mode</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">configure terminal</span>
+                    <div class="tooltip">Enters global configuration mode</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">hostname</span> <span class="param">&lt;name&gt;</span>
+                    <div class="tooltip">Sets device hostname</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">banner motd</span> <span class="param"># message #</span>
+                    <div class="tooltip">Sets message of the day banner</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">no ip domain-lookup</span>
+                    <div class="tooltip">Disables DNS lookup on mistyped commands</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">copy running-config startup-config</span>
+                    <div class="tooltip">Saves current config to NVRAM</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">write memory</span>
+                    <div class="tooltip">Alternative command to save config</div>
+                </div>
+            </div>
+
+            <h2>Interface Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">interface</span> <span class="param">&lt;type&gt; &lt;number&gt;</span>
+                    <div class="tooltip">Enters interface configuration mode</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip address</span> <span class="param">&lt;ip&gt; &lt;subnet-mask&gt;</span>
+                    <div class="tooltip">Assigns IP address and subnet mask to interface</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">no shutdown</span>
+                    <div class="tooltip">Enables the interface</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">shutdown</span>
+                    <div class="tooltip">Disables the interface</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">description</span> <span class="param">&lt;text&gt;</span>
+                    <div class="tooltip">Adds description to interface</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">duplex</span> <span class="param">{auto|full|half}</span>
+                    <div class="tooltip">Sets duplex mode for interface</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">speed</span> <span class="param">{auto|10|100|1000}</span>
+                    <div class="tooltip">Sets interface speed</div>
+                </div>
+            </div>
+
+            <h2>VLAN Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">vlan</span> <span class="param">&lt;vlan-id&gt;</span>
+                    <div class="tooltip">Creates VLAN and enters VLAN config mode</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">name</span> <span class="param">&lt;vlan-name&gt;</span>
+                    <div class="tooltip">Names the VLAN (in VLAN config mode)</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">switchport mode access</span>
+                    <div class="tooltip">Sets port as access port</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">switchport access vlan</span> <span class="param">&lt;vlan-id&gt;</span>
+                    <div class="tooltip">Assigns access port to VLAN</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">switchport mode trunk</span>
+                    <div class="tooltip">Sets port as trunk port</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">switchport trunk allowed vlan</span> <span class="param">{add|remove|all|except} &lt;vlan-list&gt;</span>
+                    <div class="tooltip">Specifies allowed VLANs on trunk</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">switchport trunk native vlan</span> <span class="param">&lt;vlan-id&gt;</span>
+                    <div class="tooltip">Sets native VLAN for trunk port</div>
+                </div>
+            </div>
+
+            <h2>Port Security</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">switchport port-security</span>
+                    <div class="tooltip">Enables port security on interface</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">switchport port-security maximum</span> <span class="param">&lt;num&gt;</span>
+                    <div class="tooltip">Sets max number of allowed MAC addresses</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">switchport port-security mac-address</span> <span class="param">{&lt;mac&gt;|sticky}</span>
+                    <div class="tooltip">Manually sets MAC or enables sticky learning</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">switchport port-security violation</span> <span class="param">{shutdown|restrict|protect}</span>
+                    <div class="tooltip">Sets action when violation occurs</div>
+                </div>
+            </div>
+
+            <h2>STP Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">spanning-tree mode</span> <span class="param">{pvst|rapid-pvst|mst}</span>
+                    <div class="tooltip">Sets spanning tree protocol mode</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">spanning-tree vlan</span> <span class="param">&lt;vlan-id&gt;</span> <span class="base-cmd">root</span> <span class="param">{primary|secondary}</span>
+                    <div class="tooltip">Configures switch as root bridge for VLAN</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">spanning-tree vlan</span> <span class="param">&lt;vlan-id&gt;</span> <span class="base-cmd">priority</span> <span class="param">&lt;value&gt;</span>
+                    <div class="tooltip">Sets bridge priority (increments of 4096)</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">spanning-tree portfast</span>
+                    <div class="tooltip">Enables portfast on access port</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">spanning-tree bpduguard enable</span>
+                    <div class="tooltip">Shuts port if BPDU received</div>
+                </div>
+            </div>
+
+            <h2>EtherChannel</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">channel-group</span> <span class="param">&lt;number&gt;</span> <span class="base-cmd">mode</span> <span class="param">{active|passive|on|desirable|auto}</span>
+                    <div class="tooltip">Assigns interface to EtherChannel with protocol mode</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">interface port-channel</span> <span class="param">&lt;number&gt;</span>
+                    <div class="tooltip">Configures port-channel interface</div>
+                </div>
+            </div>
+
+            <h2>Router on a Stick (Inter-VLAN Routing)</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">interface</span> <span class="param">&lt;type&gt; &lt;number&gt;.&lt;subinterface&gt;</span>
+                    <div class="tooltip">Creates subinterface for inter-VLAN routing</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">encapsulation dot1q</span> <span class="param">&lt;vlan-id&gt;</span> <span class="base-cmd">[native]</span>
+                    <div class="tooltip">Sets 802.1Q encapsulation for VLAN tagging</div>
+                </div>
+            </div>
+
+            <h2>Static Routing</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip route</span> <span class="param">&lt;destination&gt; &lt;mask&gt; &lt;next-hop|exit-interface&gt;</span>
+                    <div class="tooltip">Creates static route entry</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip route</span> <span class="param">0.0.0.0 0.0.0.0 &lt;next-hop&gt;</span>
+                    <div class="tooltip">Creates default static route</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ipv6 route</span> <span class="param">&lt;prefix/length&gt; &lt;next-hop|exit-interface&gt;</span>
+                    <div class="tooltip">Creates IPv6 static route</div>
+                </div>
+            </div>
+
+            <h2>OSPF Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">router ospf</span> <span class="param">&lt;process-id&gt;</span>
+                    <div class="tooltip">Enables OSPF and enters router config mode</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">network</span> <span class="param">&lt;network&gt; &lt;wildcard-mask&gt;</span> <span class="base-cmd">area</span> <span class="param">&lt;area-id&gt;</span>
+                    <div class="tooltip">Advertises networks in OSPF area</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">router-id</span> <span class="param">&lt;ip-address&gt;</span>
+                    <div class="tooltip">Manually sets OSPF router ID</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">passive-interface</span> <span class="param">&lt;interface&gt;</span>
+                    <div class="tooltip">Prevents OSPF hellos on interface</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">default-information originate</span>
+                    <div class="tooltip">Advertises default route in OSPF</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">ip ospf priority</span> <span class="param">&lt;value&gt;</span>
+                    <div class="tooltip">Sets OSPF priority for DR/BDR election</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">ip ospf cost</span> <span class="param">&lt;value&gt;</span>
+                    <div class="tooltip">Manually sets OSPF interface cost</div>
+                </div>
+            </div>
+
+            <h2>EIGRP Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">router eigrp</span> <span class="param">&lt;as-number&gt;</span>
+                    <div class="tooltip">Enables EIGRP and enters router config mode</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">network</span> <span class="param">&lt;network&gt; [&lt;wildcard-mask&gt;]</span>
+                    <div class="tooltip">Advertises networks in EIGRP</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">no auto-summary</span>
+                    <div class="tooltip">Disables automatic summarization in EIGRP</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">passive-interface</span> <span class="param">&lt;interface&gt;</span>
+                    <div class="tooltip">Prevents EIGRP hellos on interface</div>
+                </div>
+            </div>
+
+            <h2>Access Control Lists (ACLs)</h2>
+            <div class="command-group">
+                <h3>Standard ACLs</h3>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">access-list</span> <span class="param">&lt;1-99|1300-1999&gt;</span> <span class="base-cmd">{permit|deny}</span> <span class="param">&lt;source&gt; [wildcard]</span>
+                    <div class="tooltip">Creates numbered standard ACL entry</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">ip access-list standard</span> <span class="param">&lt;name|number&gt;</span>
+                    <div class="tooltip">Creates named standard ACL</div>
+                </div>
+                
+                <h3>Extended ACLs</h3>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">access-list</span> <span class="param">&lt;100-199|2000-2699&gt;</span> <span class="base-cmd">{permit|deny}</span> <span class="param">&lt;protocol&gt; &lt;source&gt; &lt;dest&gt;</span>
+                    <div class="tooltip">Creates numbered extended ACL entry</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">ip access-list extended</span> <span class="param">&lt;name|number&gt;</span>
+                    <div class="tooltip">Creates named extended ACL</div>
+                </div>
+                
+                <h3>Applying ACLs</h3>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">ip access-group</span> <span class="param">&lt;acl&gt;</span> <span class="base-cmd">{in|out}</span>
+                    <div class="tooltip">Applies ACL to interface</div>
+                </div>
+            </div>
+
+            <h2>NAT/PAT Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip nat inside</span>
+                    <div class="tooltip">Designates interface as NAT inside</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip nat outside</span>
+                    <div class="tooltip">Designates interface as NAT outside</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip nat inside source static</span> <span class="param">&lt;local-ip&gt; &lt;global-ip&gt;</span>
+                    <div class="tooltip">Creates static NAT mapping</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip nat inside source list</span> <span class="param">&lt;acl&gt;</span> <span class="base-cmd">pool</span> <span class="param">&lt;name&gt;</span>
+                    <div class="tooltip">Creates dynamic NAT using pool</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip nat inside source list</span> <span class="param">&lt;acl&gt;</span> <span class="base-cmd">interface</span> <span class="param">&lt;interface&gt;</span> <span class="base-cmd">overload</span>
+                    <div class="tooltip">Creates PAT using interface address</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip nat pool</span> <span class="param">&lt;name&gt; &lt;start-ip&gt; &lt;end-ip&gt;</span> <span class="base-cmd">netmask</span> <span class="param">&lt;mask&gt;</span>
+                    <div class="tooltip">Defines NAT pool of addresses</div>
+                </div>
+            </div>
+
+            <h2>DHCP Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip dhcp pool</span> <span class="param">&lt;name&gt;</span>
+                    <div class="tooltip">Creates DHCP pool and enters config mode</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">network</span> <span class="param">&lt;network&gt; &lt;mask&gt;</span>
+                    <div class="tooltip">Defines network for DHCP pool</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">default-router</span> <span class="param">&lt;ip&gt;</span>
+                    <div class="tooltip">Sets default gateway for DHCP clients</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">dns-server</span> <span class="param">&lt;ip&gt;</span>
+                    <div class="tooltip">Sets DNS server for DHCP clients</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip dhcp excluded-address</span> <span class="param">&lt;start-ip&gt; [&lt;end-ip&gt;]</span>
+                    <div class="tooltip">Excludes addresses from DHCP pool</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ip helper-address</span> <span class="param">&lt;dhcp-server-ip&gt;</span>
+                    <div class="tooltip">Forwards DHCP requests to server</div>
+                </div>
+            </div>
+
+            <h2>IPv6 Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ipv6 unicast-routing</span>
+                    <div class="tooltip">Enables IPv6 routing globally</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ipv6 address</span> <span class="param">&lt;ipv6-address/prefix&gt;</span>
+                    <div class="tooltip">Assigns IPv6 address to interface</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ipv6 address</span> <span class="param">&lt;prefix&gt;</span> <span class="base-cmd">eui-64</span>
+                    <div class="tooltip">Assigns IPv6 address using EUI-64</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">ipv6 address autoconfig</span>
+                    <div class="tooltip">Enables SLAAC on interface</div>
+                </div>
+            </div>
+
+            <h2>Device Security</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">enable secret</span> <span class="param">&lt;password&gt;</span>
+                    <div class="tooltip">Sets encrypted privileged EXEC password</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">line console 0</span>
+                    <div class="tooltip">Enters console line configuration mode</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">line vty</span> <span class="param">&lt;start&gt; &lt;end&gt;</span>
+                    <div class="tooltip">Enters VTY line configuration mode</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">password</span> <span class="param">&lt;password&gt;</span>
+                    <div class="tooltip">Sets line password (in line config mode)</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">login</span>
+                    <div class="tooltip">Enables password checking on line</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">login local</span>
+                    <div class="tooltip">Uses local username database for authentication</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">username</span> <span class="param">&lt;name&gt;</span> <span class="base-cmd">secret</span> <span class="param">&lt;password&gt;</span>
+                    <div class="tooltip">Creates local user account with encrypted password</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">service password-encryption</span>
+                    <div class="tooltip">Encrypts all plaintext passwords</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">exec-timeout</span> <span class="param">&lt;minutes&gt; [&lt;seconds&gt;]</span>
+                    <div class="tooltip">Sets idle timeout for line session</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">transport input</span> <span class="param">{ssh|telnet|all|none}</span>
+                    <div class="tooltip">Restricts protocols allowed on VTY lines</div>
+                </div>
+            </div>
+
+            <h2>SSH Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">ip domain-name</span> <span class="param">&lt;domain&gt;</span>
+                    <div class="tooltip">Sets domain name for SSH key generation</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">crypto key generate rsa</span>
+                    <div class="tooltip">Generates RSA key pair for SSH</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">ip ssh version 2</span>
+                    <div class="tooltip">Enables SSH version 2</div>
+                </div>
+            </div>
+
+            <h2>Logging Configuration</h2>
+            <div class="command-group">
+                <div class="command">
+                    <span class="base-cmd">logging console</span> <span class="param">&lt;level&gt;</span>
+                    <div class="tooltip">Sets console logging level (0-7)</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">logging buffered</span> <span class="param">&lt;level&gt;</span>
+                    <div class="tooltip">Sets buffer logging level</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">logging</span> <span class="param">&lt;server-ip&gt;</span>
+                    <div class="tooltip">Sends logs to syslog server</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">logging trap</span> <span class="param">&lt;level&gt;</span>
+                    <div class="tooltip">Sets syslog server logging level</div>
+                </div>
+            </div>
+            </div>
+
+            <div>
+            <h2>Verification Commands</h2>
+            <div class="command-group">
+                <h3>General</h3>
+                <div class="command">
+                    <span class="base-cmd">show running-config</span>
+                    <div class="tooltip">Displays current active configuration</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">show startup-config</span>
+                    <div class="tooltip">Displays saved configuration</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">show version</span>
+                    <div class="tooltip">Shows IOS version and hardware info</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">show clock</span>
+                    <div class="tooltip">Displays current system time</div>
+                </div>
+
+                <h3>Interfaces</h3>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">show ip interface brief</span>
+                    <div class="tooltip">Shows interface status and IP addresses</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">show interfaces</span> <span class="param">[&lt;interface&gt;]</span>
+                    <div class="tooltip">Shows detailed interface statistics</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">show interfaces status</span>
+                    <div class="tooltip">Shows port status, VLAN, duplex, speed</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">show interfaces trunk</span>
+                    <div class="tooltip">Shows trunk port information</div>
+                </div>
+
+                <h3>VLANs</h3>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">show vlan brief</span>
+                    <div class="tooltip">Shows VLAN assignments</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">show vlan</span>
+                    <div class="tooltip">Shows detailed VLAN information</div>
+                </div>
+
+                <h3>Port Security</h3>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">show port-security</span>
+                    <div class="tooltip">Shows port security summary</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">show port-security interface</span> <span class="param">&lt;interface&gt;</span>
+                    <div class="tooltip">Shows port security details for interface</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">show port-security address</span>
+                    <div class="tooltip">Shows secure MAC addresses</div>
+                </div>
+
+                <h3>MAC Address Table</h3>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">show mac address-table</span>
+                    <div class="tooltip">Shows MAC address table</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">show mac address-table dynamic</span>
+                    <div class="tooltip">Shows dynamically learned MAC addresses</div>
+                </div>
+
+                <h3>Spanning Tree</h3>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">show spanning-tree</span>
+                    <div class="tooltip">Shows spanning tree information</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">show spanning-tree vlan</span> <span class="param">&lt;vlan-id&gt;</span>
+                    <div class="tooltip">Shows STP info for specific VLAN</div>
+                </div>
+
+                <h3>EtherChannel</h3>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">show etherchannel summary</span>
+                    <div class="tooltip">Shows EtherChannel status summary</div>
+                </div>
+                <div class="command">
+                    <span class="star purple">*</span><span class="base-cmd">show etherchannel port-channel</span>
+                    <div class="tooltip">Shows port-channel information</div>
+                </div>
+
+                <h3>Routing</h3>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">show ip route</span>
+                    <div class="tooltip">Shows routing table</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">show ip protocols</span>
+                    <div class="tooltip">Shows routing protocol information</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">show ip ospf neighbor</span>
+                    <div class="tooltip">Shows OSPF neighbor relationships</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">show ip ospf interface</span> <span class="param">[&lt;interface&gt;]</span>
+                    <div class="tooltip">Shows OSPF interface information</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">show ip eigrp neighbors</span>
+                    <div class="tooltip">Shows EIGRP neighbor relationships</div>
+                </div>
+                <div class="command">
+                    <span class="star green">*</span><span class="base-cmd">show ip eigrp topology</span>
+                    <div class="tooltip">Shows EIGRP topology table</div>
+                </div>
+
+                <h3>ACLs</h3>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">show access-lists</span>
+                    <div class="tooltip">Shows all configured ACLs</div>
+                </div>
+                <div class="command">
+                    <span class="star blue">*</span><span class="base-cmd">show ip access-lists</span>
+                    <div class="tooltip">Shows IP ACLs only</div>
+                </div>
+
+                <h3>NAT</h3>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">show ip nat translations</span>
+                    <div class="tooltip">Shows active NAT translations</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">show ip nat statistics</span>
+                    <div class="tooltip">Shows NAT statistics</div>
+                </div>
+
+                <h3>DHCP</h3>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">show ip dhcp binding</span>
+                    <div class="tooltip">Shows DHCP address bindings</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">show ip dhcp pool</span>
+                    <div class="tooltip">Shows DHCP pool information</div>
+                </div>
+
+                <h3>IPv6</h3>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">show ipv6 interface brief</span>
+                    <div class="tooltip">Shows IPv6 interface status</div>
+                </div>
+                <div class="command">
+                    <span class="star red">*</span><span class="base-cmd">show ipv6 route</span>
+                    <div class="tooltip">Shows IPv6 routing table</div>
+                </div>
+
+                <h3>Troubleshooting</h3>
+                <div class="command">
+                    <span class="base-cmd">ping</span> <span class="param">&lt;ip&gt;</span>
+                    <div class="tooltip">Tests connectivity to destination</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">traceroute</span> <span class="param">&lt;ip&gt;</span>
+                    <div class="tooltip">Shows path to destination</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">show logging</span>
+                    <div class="tooltip">Shows log buffer contents</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">debug</span> <span class="param">&lt;process&gt;</span>
+                    <div class="tooltip">Enables real-time debugging (use carefully)</div>
+                </div>
+                <div class="command">
+                    <span class="base-cmd">undebug all</span>
+                    <div class="tooltip">Disables all debugging</div>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- SCENARIOS TAB -->
+        <div id="scenarios" class="tab-content">
+            <h1>Common Scenarios</h1>
+
+            <div class="two-column-layout">
+            <div>
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Port Security: Restrict Mode with Sticky Learning
+                </div>
+                <div class="accordion-content">
+                    <div class="scenario-requirement">
+                        Configure port security to allow first 2 MAC addresses, remember them, drop additional packets, and increment violation count
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface</span> <span class="param">FastEthernet0/1</span>
+                        <div class="tooltip">Navigate to the interface connecting to PC2 or server - adjust interface type/number based on your topology</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport mode access</span>
+                        <div class="tooltip">Port security requires the interface to be in access mode (not trunk)</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security</span>
+                        <div class="tooltip">Enables port security on the interface - this must be configured before other port-security commands</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security maximum 2</span>
+                        <div class="tooltip">Allows exactly 2 MAC addresses on this port - matches the "first two devices" requirement</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security mac-address sticky</span>
+                        <div class="tooltip">Dynamically learns MACs and adds them to running-config - this is how the port "remembers" the first 2 devices</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security violation restrict</span>
+                        <div class="tooltip">Drops packets from unauthorized MACs AND increments violation counter (unlike protect mode which doesn't count)</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security interface</span> <span class="param">FastEthernet0/1</span>
+                        <div class="tooltip">Verify configuration shows Max: 2, Violation Mode: Restrict, and learned MAC addresses</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Port Security: Protect Mode (No Violation Count)
+                </div>
+                <div class="accordion-content">
+                    <div class="scenario-requirement">
+                        Configure port security to allow first 2 MACs, drop additional packets, but NOT increment security-violation count
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface</span> <span class="param">FastEthernet0/2</span>
+                        <div class="tooltip">Navigate to the interface - commonly the PC1 interface in exam scenarios</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport mode access</span>
+                        <div class="tooltip">Port security only works on access ports</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security</span>
+                        <div class="tooltip">Enables port security - must come before other port-security commands</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security maximum 2</span>
+                        <div class="tooltip">Sets max allowed MACs to 2 - this allows "first two devices" to connect</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security violation protect</span>
+                        <div class="tooltip">Silently drops packets from unauthorized MACs without incrementing violation counter - key difference from restrict mode</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security interface</span> <span class="param">FastEthernet0/2</span>
+                        <div class="tooltip">Verify Violation Mode shows "Protect" and Security Violation count stays at 0 even when violations occur</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div>
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Check Port State for Connected Device
+                </div>
+                <div class="accordion-content">
+                    <div class="scenario-requirement">
+                        Determine the operational state of a port connected to a specific device (e.g., Inventory server)
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">show running-config</span>
+                        <div class="tooltip">First, identify which interface has a description matching the device (e.g., "Inventory server") or check the topology</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip interface brief</span>
+                        <div class="tooltip">Quick view of all interfaces - Status column shows Layer 1 (up/down), Protocol shows Layer 2 (up/down)</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">show interfaces</span> <span class="param">FastEthernet0/3</span>
+                        <div class="tooltip">Detailed interface info - look for line protocol status and any error counters or shutdown state</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">show interfaces status</span>
+                        <div class="tooltip">Shows port name, status (connected/notconnect/disabled), VLAN, duplex, speed - easier to read than full interface output</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security interface</span> <span class="param">FastEthernet0/3</span>
+                        <div class="tooltip">If port security is configured, check if port is in secure-down or secure-shutdown state due to violations</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Basic Router on a Stick (Inter-VLAN Routing)
+                </div>
+                <div class="accordion-content">
+                    <div class="scenario-requirement">
+                        Configure a router to route between VLANs 10, 20, and 30 using a single trunk link
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface</span> <span class="param">GigabitEthernet0/0</span>
+                        <div class="tooltip">Enter the physical interface that connects to the switch trunk port</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">no shutdown</span>
+                        <div class="tooltip">Enable the physical interface - subinterfaces inherit this state</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface</span> <span class="param">GigabitEthernet0/0.10</span>
+                        <div class="tooltip">Create subinterface for VLAN 10 - subinterface number typically matches VLAN ID for clarity</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">encapsulation dot1q 10</span>
+                        <div class="tooltip">Tag traffic with VLAN 10 using 802.1Q - this must match the VLAN on the switch</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip address</span> <span class="param">192.168.10.1 255.255.255.0</span>
+                        <div class="tooltip">Assign IP as default gateway for VLAN 10 devices - typically use .1 or .254 in the subnet</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface</span> <span class="param">GigabitEthernet0/0.20</span>
+                        <div class="tooltip">Create subinterface for VLAN 20</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">encapsulation dot1q 20</span>
+                        <div class="tooltip">Tag traffic with VLAN 20</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip address</span> <span class="param">192.168.20.1 255.255.255.0</span>
+                        <div class="tooltip">Assign default gateway IP for VLAN 20</div>
+                    </div>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip interface brief</span>
+                        <div class="tooltip">Verify all subinterfaces are up/up and have correct IPs assigned</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.getElementsByClassName('tab-content');
+            for (let tab of tabs) {
+                tab.classList.remove('active');
+            }
+            
+            // Remove active from all buttons
+            const buttons = document.querySelectorAll('.nav-tabs button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const isActive = content.classList.contains('active');
+            
+            // Close all accordions
+            const allContents = document.getElementsByClassName('accordion-content');
+            const allHeaders = document.getElementsByClassName('accordion-header');
+            for (let i = 0; i < allContents.length; i++) {
+                allContents[i].classList.remove('active');
+                allHeaders[i].classList.remove('active');
+            }
+            
+            // Open clicked accordion if it wasn't active
+            if (!isActive) {
+                content.classList.add('active');
+                header.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
