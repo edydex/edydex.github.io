@@ -269,11 +269,160 @@
                 display: none;
             }
         }
+
+        /* Light Theme Styles */
+        body.light-theme {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        body.light-theme h1 {
+            color: #000080;
+        }
+
+        body.light-theme h2 {
+            color: #0066cc;
+            border-bottom-color: #cccccc;
+        }
+
+        body.light-theme h3 {
+            color: #006600;
+        }
+
+        body.light-theme .nav-tabs button {
+            background: #f0f0f0;
+            color: #000000;
+            border: 1px solid #cccccc;
+        }
+
+        body.light-theme .nav-tabs button:hover {
+            background: #e0e0e0;
+        }
+
+        body.light-theme .nav-tabs button.active {
+            background: #0066cc;
+            color: white;
+        }
+
+        body.light-theme .command {
+            background: #f8f8f8;
+            border-left-color: #cccccc;
+        }
+
+        body.light-theme .command:hover {
+            background: #f0f0f0;
+            border-left-color: #0066cc;
+        }
+
+        body.light-theme .scenario-command {
+            background: #f8f8f8;
+            border-left-color: #cccccc;
+        }
+
+        body.light-theme .scenario-command:hover {
+            background: #f0f0f0;
+            border-left-color: #006600;
+        }
+
+        body.light-theme .legend {
+            background: #f8f8f8;
+            border: 1px solid #cccccc;
+        }
+
+        body.light-theme .accordion-header {
+            background: #f0f0f0;
+            color: #0066cc;
+            border: 1px solid #cccccc;
+            border-left-color: #0066cc;
+        }
+
+        body.light-theme .accordion-header:hover {
+            background: #e8e8e8;
+        }
+
+        body.light-theme .accordion-header.active {
+            background: #e8e8e8;
+            border-left-color: #006600;
+        }
+
+        body.light-theme .accordion-content {
+            background: #ffffff;
+            border: 1px solid #cccccc;
+            border-top: none;
+        }
+
+        body.light-theme .accordion-content.active {
+            border-left-color: #006600;
+        }
+
+        body.light-theme .scenario-requirement {
+            background: #fff8dc;
+            color: #cc6600;
+            border: 1px solid #e6d799;
+        }
+
+        body.light-theme .tooltip {
+            background: #333333;
+            color: #ffffff;
+            border-color: #555555;
+        }
+
+        body.light-theme .base-cmd {
+            color: #cc6600;
+        }
+
+        body.light-theme .param {
+            color: #cc0000;
+        }
+
+        body.light-theme #themeToggle {
+            background: #333333;
+            color: white;
+        }
+
+        body.light-theme #themeToggle:hover {
+            background: #555555;
+        }
+
+        /* Make light gray text much darker in light theme */
+        body.light-theme p {
+            color: #222222 !important;
+        }
+
+        body.light-theme p[style*="color: #ccc"] {
+            color: #222222 !important;
+        }
+
+        body.light-theme .scenario-requirement {
+            color: #b8860b;
+        }
+
+        body.light-theme div[style*="color: #ccc"] {
+            color: #333333 !important;
+        }
+
+        body.light-theme div[style*="color: #e0e0e0"] {
+            color: #222222 !important;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>CCNA 200-301 Command Reference</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 style="margin: 0;">CCNA 200-301 Command Reference</h1>
+            <button id="themeToggle" onclick="toggleTheme()" style="
+                background: #0066cc; 
+                color: white; 
+                border: none; 
+                padding: 10px 20px; 
+                cursor: pointer; 
+                font-family: 'Courier New', monospace; 
+                font-size: 14px; 
+                border-radius: 5px; 
+                transition: all 0.3s;
+                font-weight: bold;
+            ">Light Mode</button>
+        </div>
 
         <div class="nav-tabs">
             <button class="active" onclick="switchTab('commands')">Command Cheat Sheet</button>
@@ -6247,6 +6396,34 @@
                     allContents[i].classList.remove('active');
                     allHeaders[i].classList.remove('active');
                 }
+            }
+        });
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeButton = document.getElementById('themeToggle');
+            
+            if (body.classList.contains('light-theme')) {
+                // Switch to dark theme
+                body.classList.remove('light-theme');
+                themeButton.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Switch to light theme
+                body.classList.add('light-theme');
+                themeButton.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeButton = document.getElementById('themeToggle');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                themeButton.textContent = 'Dark Mode';
             }
         });
     </script>
