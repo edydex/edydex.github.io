@@ -190,6 +190,10 @@
             margin-bottom: 15px;
         }
 
+        .accordion.osi-layer {
+            margin-bottom: 5px;
+        }
+
         .accordion-header {
             background: #2a2a2a;
             padding: 15px;
@@ -472,6 +476,7 @@
             <button class="active" onclick="switchTab('commands')">Command Cheat Sheet</button>
             <button onclick="switchTab('scenarios')">Common Scenarios</button>
             <button onclick="switchTab('concepts')">General Concepts</button>
+            <button onclick="switchTab('networking')">General Networking</button>
         </div>
 
         <!-- COMMANDS TAB -->
@@ -6391,6 +6396,330 @@
                 </div>
             </div>
 
+        </div>
+
+        <!-- GENERAL NETWORKING TAB -->
+        <div id="networking" class="tab-content">
+            <h1>General Networking Fundamentals</h1>
+
+            <div class="two-column-layout">
+                <div>
+                    <h2>OSI Model - 7 Layer Reference</h2>
+                    <p style="margin-bottom: 20px; color: #ccc; font-style: italic;">
+                        The Open Systems Interconnection (OSI) model is a conceptual framework that standardizes network communication functions. Click each layer to expand details relevant to the CCNA exam.
+                    </p>
+
+                    <div class="accordion osi-layer">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="osi-layer-7" id="osi-layer-7">
+                            Layer 7 - Application Layer
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Function</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Provides network services directly to end-user applications. This is where protocols like HTTP, HTTPS, FTP, SMTP, DNS, and DHCP operate.
+                            </p>
+
+                            <h3>Cisco Exam Focus</h3>
+                            <div class="scenario-command">
+                                <span class="base-cmd">Key Protocols:</span> HTTP/HTTPS (web), DNS (name resolution), DHCP (IP assignment), SMTP/POP3/IMAP (email)
+                                <div class="tooltip">Application layer protocols you'll encounter in CCNA scenarios</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Security:</span> SSL/TLS encryption, application firewalls, web filtering
+                                <div class="tooltip">Application layer security concepts for CCNA</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Troubleshooting:</span> DNS resolution issues, web connectivity problems, email server connectivity
+                                <div class="tooltip">Common application layer troubleshooting scenarios</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion osi-layer">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="osi-layer-6" id="osi-layer-6">
+                            Layer 6 - Presentation Layer
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Function</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Handles data encryption, compression, and translation. Ensures data from the application layer is in a format the receiving system can understand.
+                            </p>
+
+                            <h3>Cisco Exam Focus</h3>
+                            <div class="scenario-command">
+                                <span class="base-cmd">Encryption:</span> SSL/TLS, SSH encryption, data format conversion
+                                <div class="tooltip">Presentation layer encryption relevant to CCNA</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Compression:</span> Data compression algorithms, file format handling
+                                <div class="tooltip">Data compression and format handling</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Character Encoding:</span> ASCII, Unicode, EBCDIC translation
+                                <div class="tooltip">Character set translation between systems</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion osi-layer">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="osi-layer-5" id="osi-layer-5">
+                            Layer 5 - Session Layer
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Function</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Manages sessions/connections between applications. Controls dialogues and connections, including session establishment, management, and termination.
+                            </p>
+
+                            <h3>Cisco Exam Focus</h3>
+                            <div class="scenario-command">
+                                <span class="base-cmd">Session Management:</span> NetBIOS, SQL sessions, RPC (Remote Procedure Calls)
+                                <div class="tooltip">Session management protocols relevant to networking</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Checkpoints:</span> Session checkpoints and recovery mechanisms
+                                <div class="tooltip">Session recovery and checkpoint mechanisms</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Duplex:</span> Full-duplex, half-duplex, simplex communication modes
+                                <div class="tooltip">Communication modes managed at session layer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion osi-layer">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="osi-layer-4" id="osi-layer-4">
+                            Layer 4 - Transport Layer
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Function</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Provides reliable data transfer services to upper layers. Handles segmentation, flow control, and error recovery.
+                            </p>
+
+                            <h3>Cisco Exam Focus - Critical Layer!</h3>
+                            <div class="scenario-command">
+                                <span class="base-cmd">TCP (Transmission Control Protocol):</span> Connection-oriented, reliable, ports 1-65535
+                                <div class="tooltip">TCP provides reliable, ordered delivery with error checking</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">UDP (User Datagram Protocol):</span> Connectionless, fast, no guaranteed delivery
+                                <div class="tooltip">UDP is faster but unreliable - used for real-time applications</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Port Numbers:</span> Well-known (0-1023), registered (1024-49151), dynamic (49152-65535)
+                                <div class="tooltip">Port number ranges and their purposes</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Common Ports:</span> HTTP(80), HTTPS(443), SSH(22), Telnet(23), FTP(21), TFTP(69), DNS(53), DHCP(67/68)
+                                <div class="tooltip">Essential port numbers for CCNA exam</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">TCP Flags:</span> SYN, ACK, FIN, RST, PSH, URG (3-way handshake uses SYN, SYN-ACK, ACK)
+                                <div class="tooltip">TCP flag bits used in connection establishment and management</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion osi-layer">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="osi-layer-3" id="osi-layer-3">
+                            Layer 3 - Network Layer
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Function</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Handles routing of packets between different networks. Responsible for logical addressing and path determination.
+                            </p>
+
+                            <h3>Cisco Exam Focus - Most Important Layer!</h3>
+                            <div class="scenario-command">
+                                <span class="base-cmd">IP (Internet Protocol):</span> IPv4 and IPv6 addressing, routing, packet forwarding
+                                <div class="tooltip">IP addressing and routing - core CCNA concepts</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Routing Protocols:</span> OSPF, EIGRP, BGP, static routing
+                                <div class="tooltip">Protocols that determine best paths through networks</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">ICMP:</span> Ping, traceroute, error reporting (TTL exceeded, destination unreachable)
+                                <div class="tooltip">Internet Control Message Protocol for diagnostics and error reporting</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Devices:</span> Routers, Layer 3 switches, packet filtering
+                                <div class="tooltip">Network layer devices that make routing decisions</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Addressing:</span> Subnetting, VLSM, CIDR notation, public/private IP ranges
+                                <div class="tooltip">IP addressing schemes and subnetting concepts</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion osi-layer">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="osi-layer-2" id="osi-layer-2">
+                            Layer 2 - Data Link Layer
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Function</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Provides node-to-node delivery of frames within the same network segment. Handles MAC addressing and error detection.
+                            </p>
+
+                            <h3>Cisco Exam Focus - Switch Operations!</h3>
+                            <div class="scenario-command">
+                                <span class="base-cmd">Ethernet:</span> MAC addresses, frame format, CSMA/CD collision detection
+                                <div class="tooltip">Ethernet protocols and frame structure</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">VLANs:</span> 802.1Q tagging, trunk ports, VLAN segmentation
+                                <div class="tooltip">Virtual LAN concepts critical for CCNA</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Spanning Tree Protocol (STP):</span> Loop prevention, root bridge, port states
+                                <div class="tooltip">STP prevents broadcast loops in switched networks</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Devices:</span> Switches, bridges, wireless access points
+                                <div class="tooltip">Data link layer devices that forward frames</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">MAC Address Table:</span> Learning, aging, forwarding decisions
+                                <div class="tooltip">How switches learn and store MAC addresses</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion osi-layer">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="osi-layer-1" id="osi-layer-1">
+                            Layer 1 - Physical Layer
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Function</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Handles the physical transmission of raw bit streams over physical medium. Deals with electrical, optical, and radio signals.
+                            </p>
+
+                            <h3>Cisco Exam Focus</h3>
+                            <div class="scenario-command">
+                                <span class="base-cmd">Cable Types:</span> UTP, STP, fiber optic, coaxial cables
+                                <div class="tooltip">Physical cable types and their characteristics</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Connectors:</span> RJ-45, fiber connectors (SC, LC, ST), console cables
+                                <div class="tooltip">Physical connectors used in networking</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Standards:</span> 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T
+                                <div class="tooltip">Ethernet physical layer standards and speeds</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Devices:</span> Hubs, repeaters, network interface cards (NICs)
+                                <div class="tooltip">Physical layer devices that amplify or repeat signals</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Troubleshooting:</span> Cable testing, link lights, physical connectivity issues
+                                <div class="tooltip">Physical layer troubleshooting techniques</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2>IP Address Ranges & Fundamentals</h2>
+
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="ip-addressing" id="ip-addressing">
+                            IP Address Ranges Reference
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Public IP Address Ranges</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Public IP addresses are globally routable and assigned by IANA. These addresses are used on the internet.
+                            </p>
+
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">Public IP Ranges:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 14px; color: #e0e0e0;">
+                                    <div><span style="color: #44ff88;">Class A:</span> 1.0.0.0 - 126.255.255.255 (except private ranges)</div>
+                                    <div><span style="color: #44ff88;">Class B:</span> 128.0.0.0 - 191.255.255.255 (except private ranges)</div>
+                                    <div><span style="color: #44ff88;">Class C:</span> 192.0.0.0 - 223.255.255.255 (except private ranges)</div>
+                                </div>
+                            </div>
+
+                            <h3>Private IP Address Ranges (RFC 1918)</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                Private IP addresses are not routable on the internet and are used for internal networks. NAT is required to access the internet.
+                            </p>
+
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">Private IP Ranges:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 14px; color: #e0e0e0;">
+                                    <div><span style="color: #ffcc00;">Class A:</span> 10.0.0.0 - 10.255.255.255 (/8)</div>
+                                    <div><span style="color: #ffcc00;">Class B:</span> 172.16.0.0 - 172.31.255.255 (/12)</div>
+                                    <div><span style="color: #ffcc00;">Class C:</span> 192.168.0.0 - 192.168.255.255 (/16)</div>
+                                </div>
+                            </div>
+
+                            <h3>Reserved and Special IP Address Ranges</h3>
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="color: #cc44ff; font-weight: bold; margin-bottom: 10px;">Special Use Ranges:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 13px; color: #e0e0e0;">
+                                    <div><span style="color: #ff6b6b;">Loopback:</span> 127.0.0.0 - 127.255.255.255 (/8)</div>
+                                    <div><span style="color: #ff6b6b;">APIPA:</span> 169.254.0.0 - 169.254.255.255 (/16)</div>
+                                    <div><span style="color: #ff6b6b;">Multicast:</span> 224.0.0.0 - 239.255.255.255 (/4)</div>
+                                    <div><span style="color: #ff6b6b;">Experimental:</span> 240.0.0.0 - 255.255.255.255 (/4)</div>
+                                    <div><span style="color: #ff6b6b;">Broadcast:</span> 255.255.255.255 (limited broadcast)</div>
+                                    <div><span style="color: #ff6b6b;">Documentation:</span> 192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24</div>
+                                </div>
+                            </div>
+
+                            <h3>IPv6 Address Types</h3>
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="color: #00cc88; font-weight: bold; margin-bottom: 10px;">IPv6 Ranges:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 13px; color: #e0e0e0;">
+                                    <div><span style="color: #44ff88;">Global Unicast:</span> 2000::/3 (2000:: - 3FFF::)</div>
+                                    <div><span style="color: #44ff88;">Link-Local:</span> FE80::/10 (FE80:: - FEBF::)</div>
+                                    <div><span style="color: #44ff88;">Unique Local:</span> FC00::/7 (FC00:: - FDFF::)</div>
+                                    <div><span style="color: #44ff88;">Multicast:</span> FF00::/8</div>
+                                    <div><span style="color: #44ff88;">Loopback:</span> ::1/128</div>
+                                    <div><span style="color: #44ff88;">Unspecified:</span> ::/128</div>
+                                </div>
+                            </div>
+
+                            <p style="margin-top: 15px; color: #ff9900; background: #2a2a2a; padding: 10px; border-radius: 5px;">
+                                <strong>Exam Tips:</strong> Memorize private IP ranges! Class A = 10.x.x.x, Class B = 172.16-31.x.x, Class C = 192.168.x.x. APIPA (169.254.x.x) indicates DHCP failure. Loopback (127.x.x.x) is used for local testing. Multicast starts at 224.x.x.x. Remember that 0.0.0.0/0 is the default route (all destinations).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Space reserved for future networking fundamentals -->
+                    <div style="margin-top: 30px; padding: 20px; background: #2a2a2a; border-radius: 5px; text-align: center; color: #888;">
+                        <em>More networking fundamentals coming soon...</em>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
