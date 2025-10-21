@@ -404,6 +404,50 @@
         body.light-theme div[style*="color: #e0e0e0"] {
             color: #222222 !important;
         }
+
+        /* Fix tables and exam tips in light mode */
+        body.light-theme div[style*="background: #2a2a2a"] {
+            background: #f8f8f8 !important;
+            color: #000000 !important;
+        }
+
+        body.light-theme p[style*="background: #2a2a2a"] {
+            background: #f8f8f8 !important;
+            color: #000000 !important;
+        }
+
+        body.light-theme p[style*="color: #ff9900"] {
+            color: #000000 !important;
+        }
+
+        body.light-theme div[style*="color: #e0e0e0"] {
+            color: #000000 !important;
+        }
+
+        body.light-theme div[style*="color: #00aaff"] {
+            color: #0066cc !important;
+        }
+
+        body.light-theme div[style*="color: #44ff88"] {
+            color: #008800 !important;
+        }
+
+        body.light-theme div[style*="color: #ff4444"] {
+            color: #cc0000 !important;
+        }
+
+        /* Fix yellow text in exam tips for light mode */
+        body.light-theme span[style*="color: #ffcc00"] {
+            color: #cc6600 !important;
+            font-weight: bold;
+        }
+
+        /* Make explanation text more readable */
+        body.light-theme .tooltip {
+            background: #333333 !important;
+            color: #ffffff !important;
+            border-color: #555555 !important;
+        }
     </style>
 </head>
 <body>
@@ -1059,7 +1103,7 @@
             <div class="two-column-layout">
             <div>
             <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="port-security-restrict" id="port-security-restrict">
                     Port Security: Restrict Mode with Sticky Learning
                 </div>
                 <div class="accordion-content">
@@ -6371,6 +6415,9 @@
             const content = header.nextElementSibling;
             const isActive = content.classList.contains('active');
             
+            // Get the accordion ID for URL updating
+            const accordionId = header.getAttribute('data-accordion-id');
+            
             // Close all accordions
             const allContents = document.getElementsByClassName('accordion-content');
             const allHeaders = document.getElementsByClassName('accordion-header');
@@ -6383,13 +6430,26 @@
             if (!isActive) {
                 content.classList.add('active');
                 header.classList.add('active');
+                
+                // Update URL with anchor
+                if (accordionId) {
+                    history.pushState(null, null, '#' + accordionId);
+                }
+            } else {
+                // Remove anchor from URL when closing
+                history.pushState(null, null, window.location.pathname);
             }
         }
 
-        // Close accordion when clicking outside
+        // Close accordion when clicking on margins (left/right edges)
         document.addEventListener('click', function(event) {
-            // Check if click is outside accordion header
-            if (!event.target.closest('.accordion-header')) {
+            // Only close if clicking on the far left or right margins (outside container)
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const clickX = event.clientX;
+            
+            // Check if click is outside the container's horizontal bounds
+            if (clickX < containerRect.left || clickX > containerRect.right) {
                 const allContents = document.getElementsByClassName('accordion-content');
                 const allHeaders = document.getElementsByClassName('accordion-header');
                 for (let i = 0; i < allContents.length; i++) {
@@ -6416,7 +6476,7 @@
             }
         }
 
-        // Load saved theme on page load
+        // Load saved theme on page load and handle URL anchors
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme');
             const themeButton = document.getElementById('themeToggle');
@@ -6424,6 +6484,18 @@
             if (savedTheme === 'light') {
                 document.body.classList.add('light-theme');
                 themeButton.textContent = 'Dark Mode';
+            }
+
+            // Handle URL anchor on page load
+            if (window.location.hash) {
+                const anchorId = window.location.hash.substring(1);
+                const accordionHeader = document.getElementById(anchorId);
+                if (accordionHeader && accordionHeader.classList.contains('accordion-header')) {
+                    setTimeout(() => {
+                        toggleAccordion(accordionHeader);
+                        accordionHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
             }
         });
     </script>
