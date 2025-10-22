@@ -95,6 +95,18 @@
             .two-column-layout {
                 grid-template-columns: 1fr;
             }
+            
+            .nav-tabs {
+                gap: 5px;
+                flex-wrap: wrap;
+            }
+            
+            .nav-tabs button {
+                padding: 8px 12px;
+                font-size: 12px;
+                flex: 1;
+                min-width: calc(50% - 2.5px);
+            }
         }
 
         .command {
@@ -476,7 +488,7 @@
             <button class="active" onclick="switchTab('commands')">Command Cheat Sheet</button>
             <button onclick="switchTab('scenarios')">Common Scenarios</button>
             <button onclick="switchTab('concepts')">General Concepts</button>
-            <button onclick="switchTab('networking')">General Networking</button>
+            <button onclick="switchTab('networking')">Networking Concepts</button>
         </div>
 
         <!-- COMMANDS TAB -->
@@ -6398,9 +6410,9 @@
 
         </div>
 
-        <!-- GENERAL NETWORKING TAB -->
+        <!-- NETWORKING CONCEPTS TAB -->
         <div id="networking" class="tab-content">
-            <h1>General Networking Fundamentals</h1>
+            <h1>Networking Concepts</h1>
 
             <div class="two-column-layout">
                 <div>
@@ -6710,6 +6722,92 @@
 
                             <p style="margin-top: 15px; color: #ff9900; background: #2a2a2a; padding: 10px; border-radius: 5px;">
                                 <strong>Exam Tips:</strong> Memorize private IP ranges! Class A = 10.x.x.x, Class B = 172.16-31.x.x, Class C = 192.168.x.x. APIPA (169.254.x.x) indicates DHCP failure. Loopback (127.x.x.x) is used for local testing. Multicast starts at 224.x.x.x. Remember that 0.0.0.0/0 is the default route (all destinations).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="traffic-types" id="traffic-types">
+                            Traffic Types: Unicast, Broadcast, Multicast
+                        </div>
+                        <div class="accordion-content">
+                            <h3>Unicast Communication</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                One-to-one communication between a single sender and a single receiver. Most common type of network traffic.
+                            </p>
+
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">Unicast Characteristics:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 14px; color: #e0e0e0;">
+                                    <div><span style="color: #44ff88;">IPv4:</span> Single destination IP address (e.g., 192.168.1.100)</div>
+                                    <div><span style="color: #44ff88;">MAC:</span> Single destination MAC address</div>
+                                    <div><span style="color: #44ff88;">Examples:</span> Web browsing, file transfer, SSH sessions</div>
+                                    <div><span style="color: #44ff88;">Efficiency:</span> Most efficient, only intended recipient processes</div>
+                                </div>
+                            </div>
+
+                            <h3>Broadcast Communication</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                One-to-all communication within a broadcast domain. Sent to all devices on the local network segment.
+                            </p>
+
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">Broadcast Characteristics:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 14px; color: #e0e0e0;">
+                                    <div><span style="color: #ffcc00;">IPv4:</span> 255.255.255.255 (limited) or network broadcast (e.g., 192.168.1.255)</div>
+                                    <div><span style="color: #ffcc00;">MAC:</span> FF:FF:FF:FF:FF:FF (broadcast MAC)</div>
+                                    <div><span style="color: #ffcc00;">Examples:</span> ARP requests, DHCP discover, Wake-on-LAN</div>
+                                    <div><span style="color: #ffcc00;">Scope:</span> Limited to broadcast domain (VLAN/subnet)</div>
+                                    <div><span style="color: #ff6b6b;">IPv6:</span> No broadcast! Uses multicast instead</div>
+                                </div>
+                            </div>
+
+                            <h3>Multicast Communication</h3>
+                            <p style="margin-bottom: 15px; color: #ccc;">
+                                One-to-many communication to a specific group of interested receivers. More efficient than multiple unicasts.
+                            </p>
+
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="color: #cc44ff; font-weight: bold; margin-bottom: 10px;">Multicast Characteristics:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 13px; color: #e0e0e0;">
+                                    <div><span style="color: #44ff88;">IPv4 Range:</span> 224.0.0.0 - 239.255.255.255 (Class D)</div>
+                                    <div><span style="color: #44ff88;">IPv6 Range:</span> FF00::/8 (all addresses starting with FF)</div>
+                                    <div><span style="color: #44ff88;">MAC Range:</span> 01:00:5E:xx:xx:xx (IPv4), 33:33:xx:xx:xx:xx (IPv6)</div>
+                                    <div><span style="color: #44ff88;">Examples:</span> Video streaming, routing protocol updates, Windows networking</div>
+                                    <div><span style="color: #44ff88;">Protocols:</span> IGMP (IPv4), MLD (IPv6) for group management</div>
+                                </div>
+                            </div>
+
+                            <h3>Common Multicast Addresses</h3>
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="color: #00cc88; font-weight: bold; margin-bottom: 10px;">Well-Known Multicast Groups:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 13px; color: #e0e0e0;">
+                                    <div><span style="color: #ffcc00;">224.0.0.1:</span> All Hosts (IPv4)</div>
+                                    <div><span style="color: #ffcc00;">224.0.0.2:</span> All Routers (IPv4)</div>
+                                    <div><span style="color: #ffcc00;">224.0.0.5:</span> OSPF All SPF Routers</div>
+                                    <div><span style="color: #ffcc00;">224.0.0.6:</span> OSPF All DR Routers</div>
+                                    <div><span style="color: #ffcc00;">224.0.0.10:</span> EIGRP Routers</div>
+                                    <div><span style="color: #ffcc00;">FF02::1:</span> All Nodes (IPv6)</div>
+                                    <div><span style="color: #ffcc00;">FF02::2:</span> All Routers (IPv6)</div>
+                                </div>
+                            </div>
+
+                            <h3>CCNA Exam Comparison</h3>
+                            <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                                <div style="display: grid; grid-template-columns: auto auto auto auto; gap: 10px 15px; font-family: 'Courier New', monospace; font-size: 13px;">
+                                    <div style="color: #00aaff; font-weight: bold;">Traffic Type</div>
+                                    <div style="color: #00aaff; font-weight: bold;">Sender → Receiver</div>
+                                    <div style="color: #00aaff; font-weight: bold;">Efficiency</div>
+                                    <div style="color: #00aaff; font-weight: bold;">Use Case</div>
+                                    
+                                    <div style="color: #44ff88;">Unicast</div><div>1 → 1</div><div style="color: #44ff88;">High</div><div>Normal traffic</div>
+                                    <div style="color: #ffcc00;">Broadcast</div><div>1 → All</div><div style="color: #ff6b6b;">Low</div><div>Discovery, ARP</div>
+                                    <div style="color: #cc44ff;">Multicast</div><div>1 → Group</div><div style="color: #44ff88;">Medium</div><div>Streaming, protocols</div>
+                                </div>
+                            </div>
+
+                            <p style="margin-top: 15px; color: #ff9900; background: #2a2a2a; padding: 10px; border-radius: 5px;">
+                                <strong>Exam Tips:</strong> Broadcast domains are separated by routers (Layer 3) but not switches (Layer 2). VLANs create separate broadcast domains. IPv6 has NO broadcast - uses multicast instead. Multicast is more efficient than broadcast for group communication. IGMP manages IPv4 multicast groups. Remember: 224.x.x.x = IPv4 multicast, FF::/8 = IPv6 multicast.
                             </p>
                         </div>
                     </div>
