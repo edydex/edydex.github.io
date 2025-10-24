@@ -464,6 +464,39 @@
             color: #ffffff !important;
             border-color: #555555 !important;
         }
+
+        /* Nested accordion light theme styles */
+        body.light-theme .nested-accordion {
+            border: 1px solid #cccccc !important;
+        }
+
+        body.light-theme .nested-accordion-header {
+            background: #e8e8e8 !important;
+            color: #0066cc !important;
+            border-bottom: 1px solid #cccccc !important;
+        }
+
+        body.light-theme .nested-accordion-content {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        body.light-theme .nested-accordion-content h4 {
+            color: #cc6600 !important;
+        }
+
+        /* Fix table text in light mode */
+        body.light-theme table th {
+            color: #cc6600 !important;
+        }
+
+        body.light-theme table td {
+            color: #000000 !important;
+        }
+
+        body.light-theme table tr {
+            border-bottom-color: #cccccc !important;
+        }
     </style>
 </head>
 <body>
@@ -1120,88 +1153,572 @@
             <div class="two-column-layout">
             <div>
             <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="port-security-restrict" id="port-security-restrict">
-                    Port Security: Restrict Mode with Sticky Learning
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="topology-discovery" id="topology-discovery">
+                    Topology Discovery Lab: CDP and LLDP
                 </div>
                 <div class="accordion-content">
                     <div class="scenario-requirement">
-                        Configure port security to allow first 2 MAC addresses, remember them, drop additional packets, and increment violation count
+                        Lab Scenario: You have access to SW1, SW2, and R1 console ports. SW2 has LLDP pre-configured (don't change it). Find: "What ports interconnect SW1 and SW2?"
                     </div>
-                    
+
+                    <h3>Quick Discovery Commands</h3>
+
                     <div class="scenario-command">
-                        <span class="base-cmd">interface</span> <span class="param">FastEthernet0/1</span>
-                        <div class="tooltip">Navigate to the interface connecting to PC2 or server - adjust interface type/number based on your topology</div>
+                        <span class="base-cmd">show lldp neighbors</span>
+                        <div class="tooltip">Look for SW2 in Device ID - shows local interface connecting to SW2</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport mode access</span>
-                        <div class="tooltip">Port security requires the interface to be in access mode (not trunk)</div>
+                        <span class="base-cmd">show lldp neighbors detail</span>
+                        <div class="tooltip">Shows both SW1's local interface AND SW2's remote interface</div>
                     </div>
-                    
+
+                    <h3>First Things First: Enable Discovery Protocols</h3>
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport port-security</span>
-                        <div class="tooltip">Enables port security on the interface - this must be configured before other port-security commands</div>
+                        <span class="base-cmd">lldp run</span>
+                        <div class="tooltip">Enable LLDP globally (required first!)</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport port-security maximum 2</span>
-                        <div class="tooltip">Allows exactly 2 MAC addresses on this port - matches the "first two devices" requirement</div>
+                        <span class="base-cmd">interface gi0/1</span><br>
+                        <span class="base-cmd">lldp transmit</span><br>
+                        <span class="base-cmd">lldp receive</span><br>
+                        <span class="base-cmd">interface gi0/2</span><br>
+                        <span class="base-cmd">lldp transmit</span><br>
+                        <span class="base-cmd">lldp receive</span>
+                        <div class="tooltip">Enable LLDP on likely interfaces (both directions!)</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport port-security mac-address sticky</span>
-                        <div class="tooltip">Dynamically learns MACs and adds them to running-config - this is how the port "remembers" the first 2 devices</div>
+                        <span class="base-cmd">cdp run</span>
+                        <div class="tooltip">Enable CDP globally (usually on by default)</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport port-security violation restrict</span>
-                        <div class="tooltip">Drops packets from unauthorized MACs AND increments violation counter (unlike protect mode which doesn't count)</div>
+                        <span class="base-cmd">interface gi0/1</span><br>
+                        <span class="base-cmd">cdp enable</span><br>
+                        <span class="base-cmd">interface gi0/2</span><br>
+                        <span class="base-cmd">cdp enable</span>
+                        <div class="tooltip">Enable CDP on interfaces (usually on by default)</div>
                     </div>
-                    
+
+                    <h3>Make Sure Interfaces Are Up</h3>
+
                     <div class="scenario-command">
-                        <span class="base-cmd">show port-security interface</span> <span class="param">FastEthernet0/1</span>
-                        <div class="tooltip">Verify configuration shows Max: 2, Violation Mode: Restrict, and learned MAC addresses</div>
+                        <span class="base-cmd">interface gi0/1</span><br>
+                        <span class="base-cmd">no shutdown</span><br>
+                        <span class="base-cmd">interface gi0/2</span><br>
+                        <span class="base-cmd">no shutdown</span>
+                        <div class="tooltip">Ensure interfaces are administratively up</div>
                     </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip interface brief</span>
+                        <div class="tooltip">Check interface status - look for "up up" in Status and Protocol columns</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show interfaces status</span>
+                        <div class="tooltip">Alternative command showing interface status, speed, duplex, and VLAN</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold;">⏰ Remember to wait!</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            After enabling LLDP and bringing interfaces up, wait 30-60 seconds for neighbor discovery to complete before checking <span style="color: #ffcc00;">show lldp neighbors</span>
+                        </div>
+                    </div>
+
+                    <h3>🚨 If SW2 Doesn't Appear in LLDP Neighbors</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show lldp</span>
+                        <div class="tooltip">Verify LLDP global status and timers</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show lldp interface</span>
+                        <div class="tooltip">Check which interfaces have LLDP tx/rx enabled</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show lldp traffic</span>
+                        <div class="tooltip">Check if LLDP packets are being sent/received - key diagnostic!</div>
+                    </div>
+
+                    <div class="nested-accordion" style="margin: 20px 0; border: 1px solid #444;">
+                        <div class="nested-accordion-header" onclick="event.stopPropagation(); toggleNestedAccordion(this)" style="background: #333; font-size: 14px; padding: 10px; cursor: pointer; user-select: none;">
+                            🔍 Advanced Troubleshooting (Click to expand)
+                        </div>
+                        <div class="nested-accordion-content" style="background: #1a1a1a; display: none;">
+                            <h4 style="color: #ffcc00; margin: 15px 0 10px;">Deep Diagnostic Commands</h4>
+                            
+                            <div class="scenario-command">
+                                <span class="base-cmd">show mac address-table</span>
+                                <div class="tooltip">Check if SW1 has learned SW2's MAC - proves Layer 2 connectivity</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show interfaces gi0/1 | include line protocol</span><br>
+                                <span class="base-cmd">show interfaces gi0/2 | include line protocol</span>
+                                <div class="tooltip">Verify "line protocol is up" - not just interface up</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show spanning-tree</span>
+                                <div class="tooltip">Check if interfaces are forwarding, not blocked by STP</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">debug lldp packets</span><br>
+                                <em>(Use carefully, then 'undebug all')</em>
+                                <div class="tooltip">See if LLDP packets are actually being sent/received</div>
+                            </div>
+
+                            <h4 style="color: #ffcc00; margin: 20px 0 10px;">💡 What You Might Be Missing</h4>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Check SW2's LLDP Configuration</span><br>
+                                Maybe SW2 only has LLDP receive enabled, not transmit?
+                                <div class="tooltip">SW2 might be listening but not advertising</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 VLAN Mismatch</span><br>
+                                Are SW1 and SW2 interfaces in the same VLAN?
+                                <div class="tooltip">LLDP works at Layer 2 but VLAN mismatches can cause issues</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Wrong Interface</span><br>
+                                Try enabling LLDP on ALL interfaces: interface range gi0/0-3
+                                <div class="tooltip">You might be configuring the wrong interfaces</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Timer Issue</span><br>
+                                LLDP default is 30 sec - try waiting 2-3 minutes total
+                                <div class="tooltip">Sometimes takes longer than expected</div>
+                            </div>
+
+                            <h4 style="color: #ffcc00; margin: 20px 0 10px;">Alternative Discovery Methods</h4>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show cdp neighbors</span>
+                                <div class="tooltip">If SW2 also has CDP enabled, it might show up here instead</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">ping 192.168.1.x</span><br>
+                                <em>(Try SW2's management IP)</em>
+                                <div class="tooltip">If you can ping SW2, there's Layer 3 connectivity</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show arp</span>
+                                <div class="tooltip">Check ARP table for SW2's IP and associated interface</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Expected Output Format</h3>
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">Example from SW1:</div>
+                        <div style="font-family: 'Courier New', monospace; font-size: 13px; color: #e0e0e0;">
+                            <div style="color: #ffcc00;">SW1(config)#do show lldp neighbors</div>
+                            <div style="margin: 5px 0;">[irrelevant] Capability codes : [...]</div>
+                            
+                            <table style="margin: 10px 0; border-collapse: collapse; width: 100%; font-family: 'Courier New', monospace;">
+                                <thead>
+                                    <tr style="color: #ffcc00; border-bottom: 1px solid #555;">
+                                        <th style="text-align: left; padding: 5px 10px 5px 0;">Device ID</th>
+                                        <th style="text-align: left; padding: 5px 10px;">Local Intf</th>
+                                        <th style="text-align: left; padding: 5px 10px;">Hold-time</th>
+                                        <th style="text-align: left; padding: 5px 10px;">Capability</th>
+                                        <th style="text-align: left; padding: 5px 0 5px 10px;">Port ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="color: #e0e0e0;">
+                                        <td style="padding: 5px 10px 5px 0;">SW2</td>
+                                        <td style="padding: 5px 10px;">Gi0/1</td>
+                                        <td style="padding: 5px 10px;">120</td>
+                                        <td style="padding: 5px 10px;">S</td>
+                                        <td style="padding: 5px 0 5px 10px;">Gi0/2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="margin-top: 15px; color: #44ff88; font-size: 14px; font-weight: bold;">
+                            ✅ Correct Answer: "SW1 Gi0/1 connects to SW2 Gi0/2"
+                        </div>
+                        <div style="margin-top: 10px; color: #ccc; font-size: 13px;">
+                            <strong>How to read:</strong><br>
+                            • <strong>Local Intf (Gi0/1)</strong> = SW1's interface<br>
+                            • <strong>Port ID (Gi0/2)</strong> = SW2's interface<br>
+                            • They are connected: SW1-Gi0/1 ↔ SW2-Gi0/2
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">📖 Reading LLDP Output:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            When you run <span style="color: #ffcc00;">show lldp neighbors</span> on SW1:<br><br>
+                            • <strong>Device ID</strong> = Name of the neighbor device (SW2)<br>
+                            • <strong>Local Intf</strong> = YOUR interface (SW1's interface)<br>
+                            • <strong>Port ID</strong> = NEIGHBOR's interface (SW2's interface)<br><br>
+                            So "SW2 Gi0/1 120 S Gi0/2" means:<br>
+                            SW1's Gi0/1 connects to SW2's Gi0/2
+                        </div>
+                    </div>
+
+                    
                 </div>
             </div>
 
             <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    Port Security: Protect Mode (No Violation Count)
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="ssh-secure-access" id="ssh-secure-access">
+                    SSH Secure Administrative Access Lab
                 </div>
                 <div class="accordion-content">
                     <div class="scenario-requirement">
-                        Configure port security to allow first 2 MACs, drop additional packets, but NOT increment security-violation count
+                        Lab Scenario: Secure R1 router administrative access. Use Telnet to initially connect, then configure SSH with 2048-bit keys, domain name example.com, local user authentication (AdminPC2/Cisco123), and apply access list to restrict SSH access to PC2 only.
                     </div>
-                    
-                    <div class="scenario-command">
-                        <span class="base-cmd">interface</span> <span class="param">FastEthernet0/2</span>
-                        <div class="tooltip">Navigate to the interface - commonly the PC1 interface in exam scenarios</div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold;">📋 Pre-configured Elements</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            • SW2: Telnet access configured<br>
+                            • R1: Telnet enabled on VTY lines, password-only login (Cisco111)<br>
+                            • R1: Access list SSHACCESS already exists<br>
+                            • Console access to R1 not available - use remote access only
+                        </div>
                     </div>
-                    
+
+                    <h3>Step 1: Initial Telnet Connection to R1</h3>
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport mode access</span>
-                        <div class="tooltip">Port security only works on access ports</div>
+                        <span class="base-cmd">telnet</span> <span class="param">192.168.1.1</span>
+                        <div class="tooltip">Connect to R1 from another device using Telnet (use R1's management IP address)</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport port-security</span>
-                        <div class="tooltip">Enables port security - must come before other port-security commands</div>
+                        <span class="base-cmd">Password:</span> <span class="param">Cisco111</span>
+                        <div class="tooltip">Enter the pre-configured VTY password when prompted</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport port-security maximum 2</span>
-                        <div class="tooltip">Sets max allowed MACs to 2 - this allows "first two devices" to connect</div>
+                        <span class="base-cmd">enable</span>
+                        <div class="tooltip">Enter privileged EXEC mode to access configuration commands</div>
                     </div>
-                    
+
+                    <h3>Step 2: Configure SSH Prerequisites</h3>
+
                     <div class="scenario-command">
-                        <span class="base-cmd">switchport port-security violation protect</span>
-                        <div class="tooltip">Silently drops packets from unauthorized MACs without incrementing violation counter - key difference from restrict mode</div>
+                        <span class="base-cmd">configure terminal</span>
+                        <div class="tooltip">Enter global configuration mode</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">show port-security interface</span> <span class="param">FastEthernet0/2</span>
-                        <div class="tooltip">Verify Violation Mode shows "Protect" and Security Violation count stays at 0 even when violations occur</div>
+                        <span class="base-cmd">hostname R1</span>
+                        <div class="tooltip">Set hostname (required for SSH key generation) - may already be configured</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip domain-name example.com</span>
+                        <div class="tooltip">Configure domain name as specified in requirements - essential for SSH key generation</div>
+                    </div>
+
+                    <h3>Step 3: Generate SSH Crypto Keys</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">crypto key generate rsa</span>
+                        <div class="tooltip">Generate RSA key pair for SSH - this enables SSH on the device</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">2048</span>
+                        <div class="tooltip">When prompted for key size, enter 2048 bits as specified in requirements</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">⏰ Key Generation Notes:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            • Key generation may take 30-60 seconds for 2048-bit keys<br>
+                            • SSH is automatically enabled once keys are generated<br>
+                            • Default SSH version is typically v1.99 (supports both v1 and v2)
+                        </div>
+                    </div>
+
+                    <h3>Step 4: Configure SSH Version (Optional but Recommended)</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip ssh version 2</span>
+                        <div class="tooltip">Force SSH version 2 only for better security - not explicitly required but best practice</div>
+                    </div>
+
+                    <h3>Step 5: Create Local User Account</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">username AdminPC2 privilege 15 secret Cisco123</span>
+                        <div class="tooltip">Create user with maximum privilege level (15) and secure password - privilege 15 = full admin access</div>
+                    </div>
+
+                    <h3>Step 6: Configure VTY Lines for SSH Authentication</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">🤔 What are VTY Lines?</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>VTY = Virtual Terminal Lines</strong><br><br>
+                            Think of VTY lines as "virtual doors" into your router/switch for remote access:<br><br>
+                            • <strong>Physical Console Port</strong> = Direct cable connection to device<br>
+                            • <strong>VTY Lines</strong> = Remote network connections (Telnet/SSH)<br><br>
+                            <strong>Why do we need to configure them?</strong><br>
+                            • Each remote user connecting via Telnet/SSH uses one VTY line<br>
+                            • Cisco devices typically have 5 VTY lines (0-4) = 5 simultaneous remote users<br>
+                            • VTY lines control HOW users authenticate and WHAT protocols are allowed<br>
+                            • Without VTY configuration, remote access either won't work or will be insecure
+                        </div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">line vty 0 4</span>
+                        <div class="tooltip">Configure all 5 VTY lines (0-4) - this allows up to 5 simultaneous SSH connections</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold;">💭 Why "line vty 0 4"?</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            • <strong>line</strong> = Enter line configuration mode<br>
+                            • <strong>vty</strong> = Virtual terminal (for remote access)<br>
+                            • <strong>0 4</strong> = Configure lines 0 through 4 (that's 5 lines total)<br>
+                            • You could configure individually: "line vty 0" then "line vty 1", etc.<br>
+                            • Range syntax is faster: one command affects all 5 lines
+                        </div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">login local</span>
+                        <div class="tooltip">Use local user database for authentication instead of a simple line password - this enables username/password login</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold;">🔐 Authentication Options Explained:</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            • <strong>login</strong> = Use simple line password (less secure)<br>
+                            • <strong>login local</strong> = Use username/password from device database<br>
+                            • <strong>no login</strong> = No authentication required (very insecure!)<br><br>
+                            We use "login local" because:<br>
+                            • Each user has unique credentials<br>
+                            • Users can have different privilege levels<br>
+                            • Required for the lab's AdminPC2 user account
+                        </div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">transport input ssh</span>
+                        <div class="tooltip">Allow only SSH connections on these VTY lines - blocks Telnet for security</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold;">🚪 Transport Protocol Control:</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            VTY lines control WHICH protocols can connect:<br><br>
+                            • <strong>transport input all</strong> = Allow Telnet and SSH (default)<br>
+                            • <strong>transport input telnet</strong> = Only Telnet allowed<br>
+                            • <strong>transport input ssh</strong> = Only SSH allowed (most secure)<br>
+                            • <strong>transport input none</strong> = No remote access allowed<br><br>
+                            We choose SSH-only because:<br>
+                            • SSH encrypts all communication (Telnet is plain text)<br>
+                            • SSH provides stronger authentication<br>
+                            • Lab requirement: restrict to SSH from PC2 only
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">⚠️ Critical Warning:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>Do NOT set "transport input ssh" until you've tested SSH works!</strong><br>
+                            If SSH fails and you disable Telnet, you'll lose remote access completely.<br>
+                            Use "transport input ssh telnet" first, test SSH, then remove telnet.
+                        </div>
+                    </div>
+
+                    <h3>Step 7: Test SSH Connection</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">end</span>
+                        <div class="tooltip">Exit to privileged EXEC mode</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip ssh</span>
+                        <div class="tooltip">Verify SSH is enabled, check version and connection details</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show crypto key mypubkey rsa</span>
+                        <div class="tooltip">Verify RSA keys were generated successfully with correct bit size</div>
+                    </div>
+
+                    <h3>Step 8: Test SSH from PC2</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ssh -l AdminPC2 192.168.1.1</span>
+                        <div class="tooltip">From PC2, connect to R1 using SSH with the created username</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">Password:</span> <span class="param">Cisco123</span>
+                        <div class="tooltip">Enter the user password when prompted</div>
+                    </div>
+
+                    <h3>Step 9: Apply Access List to Restrict SSH Access</h3>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">Analyze the Existing Access List</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show access-lists SSHACCESS</span>
+                        <div class="tooltip">Examine the pre-configured access list to understand its current rules</div>
+                    </div>
+
+                    <div style="background: #1a1a1a; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 15px 0;">
+                        <div style="color: #ffcc00; margin-bottom: 10px;">Expected Output:</div>
+                        <div style="color: #e0e0e0;">
+                            Extended IP access list SSHACCESS<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;10 permit ip host 10.10.1.20 any
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">🔍 Reading the Access List:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            • <strong>10</strong> = Sequence number (for ordering rules)<br>
+                            • <strong>permit</strong> = Allow this traffic (vs deny)<br>
+                            • <strong>ip</strong> = Any IP protocol<br>
+                            • <strong>host 10.10.1.20</strong> = Source IP must be exactly 10.10.1.20<br>
+                            • <strong>any</strong> = Destination can be any IP (the router's VTY lines)<br><br>
+                            <strong>Translation:</strong> "Allow IP traffic from 10.10.1.20 to anywhere"
+                        </div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">Verify PC2's IP Address</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">From PC2, check IP:</span> <span class="param">ipconfig</span> <span style="color: #888;">(Windows)</span> or <span class="param">ip addr</span> <span style="color: #888;">(Linux)</span>
+                        <div class="tooltip">Verify PC2's IP address matches what's in the access list (should be 10.10.1.20)</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">⚠️ What if PC2's IP is Different?</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            If PC2 has a different IP (e.g., 192.168.1.10), you need to modify the access list:<br><br>
+                            <div style="font-family: 'Courier New', monospace; color: #ffcc00; margin: 10px 0;">
+                                R1(config)# ip access-list extended SSHACCESS<br>
+                                R1(config-ext-nacl)# no 10<br>
+                                R1(config-ext-nacl)# 10 permit ip host 192.168.1.10 any<br>
+                                R1(config-ext-nacl)# exit
+                            </div>
+                            This removes the old rule and adds PC2's correct IP address.
+                        </div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">Understanding Access List Behavior</h4>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">🔒 How Access Lists Work for VTY:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            • Access lists have an <strong>implicit deny all</strong> at the end<br>
+                            • Only traffic matching a "permit" rule is allowed<br>
+                            • Everything else is automatically blocked<br><br>
+                            So this access list means:<br>
+                            1. ✅ Allow 10.10.1.20 to connect via SSH<br>
+                            2. ❌ Block ALL other IP addresses (implicit deny)<br><br>
+                            This is exactly what we want - only PC2 can SSH to R1!
+                        </div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">Apply the Access List to VTY Lines</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">line vty 0 4</span>
+                        <div class="tooltip">Re-enter VTY line configuration mode</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">access-class SSHACCESS in</span>
+                        <div class="tooltip">Apply the access list to incoming VTY connections - this enforces the IP restriction</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold;">🔧 access-class vs ip access-group:</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            • <strong>access-class</strong> = Used on VTY/TTY lines (remote access)<br>
+                            • <strong>ip access-group</strong> = Used on interfaces (traffic filtering)<br>
+                            • <strong>in</strong> = Applied to incoming connections (people connecting TO this router)
+                        </div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">transport input ssh</span>
+                        <div class="tooltip">Now safe to disable Telnet since SSH is working and access is restricted to PC2 only</div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">Test the Restriction</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">From PC2:</span> <span class="param">ssh -l AdminPC2 192.168.1.1</span>
+                        <div class="tooltip">This should work - PC2 is allowed by the access list</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">From another PC:</span> <span class="param">ssh -l AdminPC2 192.168.1.1</span>
+                        <div class="tooltip">This should fail with "Connection refused" - access list blocks other IPs</div>
+                    </div>
+
+                    <h3>Step 10: Verification Commands</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show line vty 0 4</span>
+                        <div class="tooltip">Verify VTY line configuration shows SSH transport and access class applied</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show users</span>
+                        <div class="tooltip">Display current SSH sessions and connection details</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ssh</span>
+                        <div class="tooltip">Show active SSH connections with session details</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">✅ Expected Final Configuration:</div>
+                        <div style="font-family: 'Courier New', monospace; font-size: 13px; color: #e0e0e0;">
+                            <div style="color: #ffcc00;">hostname R1</div>
+                            <div style="color: #ffcc00;">ip domain-name example.com</div>
+                            <div style="color: #ffcc00;">ip ssh version 2</div>
+                            <div style="color: #ffcc00;">username AdminPC2 privilege 15 secret Cisco123</div>
+                            <div style="color: #ffcc00;">line vty 0 4</div>
+                            <div style="color: #ffcc00;"> login local</div>
+                            <div style="color: #ffcc00;"> transport input ssh</div>
+                            <div style="color: #ffcc00;"> access-class SSHACCESS in</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">🎯 Lab Completion Checklist:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            ✓ SSH enabled with 2048-bit RSA keys<br>
+                            ✓ Domain name set to example.com<br>
+                            ✓ Local user AdminPC2 created with privilege 15<br>
+                            ✓ VTY lines configured for local authentication<br>
+                            ✓ SSH access restricted to PC2 via access list<br>
+                            ✓ Telnet access disabled for security<br>
+                            ✓ SSH connection successful from PC2
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1209,93 +1726,576 @@
 
             <div>
             <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    Check Port State for Connected Device
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="ospf-configuration" id="ospf-configuration">
+                    OSPF Configuration Lab: Multi-Router Setup
                 </div>
                 <div class="accordion-content">
                     <div class="scenario-requirement">
-                        Determine the operational state of a port connected to a specific device (e.g., Inventory server)
+                        Lab Scenario: Configure OSPFv2 on R1, R2, and R3 to join an existing OSPF network. R4 is pre-configured. Enable default route advertisement from R1.
                     </div>
-                    
-                    <div class="scenario-command">
-                        <span class="base-cmd">show running-config</span>
-                        <div class="tooltip">First, identify which interface has a description matching the device (e.g., "Inventory server") or check the topology</div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold;">📋 Reference Materials</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            • Check <strong>Topology diagram</strong> for network layout and IP addressing<br>
+                            • Use <strong>Job Aid table</strong> to verify interface connections and IP assignments
+                        </div>
                     </div>
-                    
-                    <div class="scenario-command">
-                        <span class="base-cmd">show ip interface brief</span>
-                        <div class="tooltip">Quick view of all interfaces - Status column shows Layer 1 (up/down), Protocol shows Layer 2 (up/down)</div>
+
+                    <h3>Step 1: Understanding OSPF Configuration</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">🧠 OSPF Configuration Breakdown</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            Every OSPF router needs 3 essential elements:<br>
+                            <strong>1. OSPF Process ID</strong> - Local identifier (can be any number 1-65535)<br>
+                            <strong>2. Router ID</strong> - Unique identifier in OSPF domain<br>
+                            <strong>3. Network Statements</strong> - Which interfaces participate in OSPF
+                        </div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">show interfaces</span> <span class="param">FastEthernet0/3</span>
-                        <div class="tooltip">Detailed interface info - look for line protocol status and any error counters or shutdown state</div>
+                        <span class="base-cmd">R1 Configuration (Detailed Explanation):</span>
+                        <div class="tooltip">Let's break down each command and understand WHY we use it</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">show interfaces status</span>
-                        <div class="tooltip">Shows port name, status (connected/notconnect/disabled), VLAN, duplex, speed - easier to read than full interface output</div>
+                        <span class="base-cmd">router ospf 1</span>
+                        <div class="tooltip">🔹 Starts OSPF process with ID "1" (arbitrary number, just be consistent across network)</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">show port-security interface</span> <span class="param">FastEthernet0/3</span>
-                        <div class="tooltip">If port security is configured, check if port is in secure-down or secure-shutdown state due to violations</div>
+                        <span class="base-cmd">router-id 1.1.1.1</span>
+                        <div class="tooltip">🔹 Sets unique OSPF identifier for this router (must be unique per router)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">network 192.168.123.0 0.0.0.255 area 1</span>
+                        <div class="tooltip">🔹 Enables OSPF on interfaces in 192.168.123.x network, places them in Area 1</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">network 192.168.14.0 0.0.0.255 area 1</span>
+                        <div class="tooltip">🔹 Enables OSPF on interfaces in 192.168.14.x network (R1-R4 link)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">default-information originate</span>
+                        <div class="tooltip">🔹 SPECIAL: Makes R1 advertise default route (0.0.0.0/0) to other OSPF routers</div>
+                    </div>
+
+                    <h3>Step 2: Apply Your Understanding</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">🤔 Think About It:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>For R2:</strong><br>
+                            • What Router ID should you use? (Hint: Check lab requirements)<br>
+                            • Which networks does R2 connect to? (Hint: Check topology/job aid)<br>
+                            • Does R2 need to advertise a default route? (Hint: Read lab requirements)<br><br>
+                            <strong>For R3:</strong><br>
+                            • Same questions apply - what's different about R3's connections?
+                        </div>
+                    </div>
+
+                    <h3>Step 2: Understanding DR/BDR Election</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">🗳️ DR/BDR Election Process</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            On multi-access segments (like switches), OSPF elects:<br>
+                            <strong>1. Designated Router (DR)</strong> - Manages LSA flooding<br>
+                            <strong>2. Backup Designated Router (BDR)</strong> - Backup for DR<br><br>
+                            <strong>Election Criteria (in order):</strong><br>
+                            1️⃣ <strong>Highest OSPF Priority</strong> (0-255, default=1)<br>
+                            2️⃣ <strong>Highest Router ID</strong> (if priority ties)<br>
+                            3️⃣ <strong>Highest Loopback IP</strong> (if no router-id set)<br>
+                            4️⃣ <strong>Highest Physical Interface IP</strong> (last resort)
+                        </div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">How to Check DR/BDR Election:</span>
+                        <div class="tooltip">Commands to determine who wins the election</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip ospf interface</span>
+                        <div class="tooltip">🔹 Shows OSPF priority for each interface and current DR/BDR</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip ospf neighbor</span>
+                        <div class="tooltip">🔹 Shows neighbor relationships and DR/BDR status</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip ospf database</span>
+                        <div class="tooltip">🔹 Shows Router IDs of all OSPF routers</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">🤔 For Your Lab Question:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>Step-by-step approach:</strong><br>
+                            1. Check each router's OSPF priority: <span style="color: #ffcc00;">show ip ospf interface</span><br>
+                            2. Compare Router IDs: <span style="color: #ffcc00;">show ip ospf database</span><br>
+                            3. Apply election rules:<br>
+                            &nbsp;&nbsp;&nbsp;• <strong>Highest priority wins DR</strong><br>
+                            &nbsp;&nbsp;&nbsp;• <strong>Second highest priority wins BDR</strong><br>
+                            &nbsp;&nbsp;&nbsp;• If priorities tie, <strong>highest Router ID wins</strong><br><br>
+                            <strong>Note:</strong> Priority 0 = never becomes DR/BDR<br>
+                            <strong>Remember:</strong> Higher numbers always win!
+                        </div>
+                    </div>
+
+                    <h3>Step 3: Apply Configuration to R2 and R3</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">🎯 Your Task:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            Using the same pattern from R1, configure R2 and R3:<br>
+                            • Use the topology/job aid to find their network connections<br>
+                            • Apply the correct Router IDs from lab requirements<br>
+                            • Remember: Only R1 needs <span style="color: #ffcc00;">default-information originate</span>
+                        </div>
+                    </div>
+
+                    <h3>Step 4: Verification Commands</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip ospf neighbor</span>
+                        <div class="tooltip">Verify OSPF neighbor relationships are established</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip route ospf</span>
+                        <div class="tooltip">Check OSPF-learned routes in routing table</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip ospf interface</span>
+                        <div class="tooltip">Shows OSPF timers, priority, area, network type, and DR/BDR info per interface</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip ospf interface brief</span>
+                        <div class="tooltip">Quick view of OSPF-enabled interfaces</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip ospf database</span>
+                        <div class="tooltip">View OSPF Link State Database (LSDB)</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">⏱️ Finding OSPF Timers</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>To check hello and dead timer values:</strong><br>
+                            <span style="color: #ffcc00;">show ip ospf interface [interface-name]</span><br><br>
+                            Look for these lines in the output:<br>
+                            • <strong>Timer intervals</strong> configured, Hello 10, Dead 40<br>
+                            • <strong>Hello due in</strong> X seconds<br><br>
+                            <strong>Default timers:</strong><br>
+                            • Ethernet/FastEthernet: Hello=10s, Dead=40s<br>
+                            • Serial (Point-to-Point): Hello=10s, Dead=40s<br>
+                            • Serial (Non-Broadcast): Hello=30s, Dead=120s
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">🔍 Protocol Codes in Routing Table</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>How to find protocol codes:</strong><br>
+                            <span style="color: #ffcc00;">show ip route</span> - Shows all routes with protocol codes<br><br>
+                            <strong>Common protocol codes:</strong><br>
+                            • <strong>C</strong> - Connected (directly attached subnet)<br>
+                            • <strong>S</strong> - Static route<br>
+                            • <strong>O</strong> - OSPF intra-area routes<br>
+                            • <strong>O IA</strong> - OSPF inter-area routes<br>
+                            • <strong>O E1/O E2</strong> - OSPF external routes (Type 1/Type 2)<br>
+                            • <strong>O*E2</strong> - OSPF external default route (this is your answer!)<br>
+                            • <strong>S*</strong> - Static default route<br><br>
+                            <strong>For default route (0.0.0.0/0):</strong><br>
+                            • If learned via OSPF: <strong>O*E2</strong><br>
+                            • If configured as static: <strong>S*</strong><br>
+                            The <strong>*</strong> indicates it's a candidate default route
+                        </div>
+                    </div>
+
+                    <div class="nested-accordion" style="margin: 20px 0; border: 1px solid #444;">
+                        <div class="nested-accordion-header" onclick="event.stopPropagation(); toggleNestedAccordion(this)" style="background: #333; font-size: 14px; padding: 10px; cursor: pointer; user-select: none;">
+                            🔍 Advanced OSPF Troubleshooting (Click to expand)
+                        </div>
+                        <div class="nested-accordion-content" style="background: #1a1a1a; display: none;">
+                            <h4 style="color: #ffcc00; margin: 15px 0 10px;">Common OSPF Issues</h4>
+                            
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 No Neighbor Adjacency</span><br>
+                                Check: Area mismatch, authentication, hello/dead timers, MTU
+                                <div class="tooltip">Most common OSPF problems</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show ip ospf interface</span>
+                                <div class="tooltip">Detailed interface info including timers, area, network type</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">debug ip ospf hello</span><br>
+                                <em>(Use carefully, then 'undebug all')</em>
+                                <div class="tooltip">See OSPF hello packet exchange in real-time</div>
+                            </div>
+
+                            <h4 style="color: #ffcc00; margin: 20px 0 10px;">DR/BDR Election Issues</h4>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show ip ospf neighbor detail</span>
+                                <div class="tooltip">Shows DR/BDR election results and neighbor priorities</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">ip ospf priority</span> <span class="param">&lt;0-255&gt;</span>
+                                <div class="tooltip">Change router priority for DR/BDR election (0 = never DR/BDR)</div>
+                            </div>
+
+                            <h4 style="color: #ffcc00; margin: 20px 0 10px;">Network Statement Troubleshooting</h4>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Wrong Wildcard Mask</span><br>
+                                Remember: Wildcard = Inverse of subnet mask<br>
+                                /24 = 255.255.255.0 → wildcard 0.0.0.255
+                                <div class="tooltip">Most common network statement error</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Interface Not in OSPF</span><br>
+                                Use: network 0.0.0.0 255.255.255.255 area X
+                                <div class="tooltip">Include all interfaces in OSPF</div>
+                            </div>
+
+                            <h4 style="color: #ffcc00; margin: 20px 0 10px;">Router Not Participating in OSPF</h4>
+
+                            <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 3px solid #ff6b6b;">
+                                <div style="color: #ff6b6b; font-weight: bold; font-size: 13px;">🚨 Diagnostic Process for Non-Participating Router</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Step 1: Check if OSPF is running</span><br>
+                                <span style="color: #ffcc00;">show ip protocols</span>
+                                <div class="tooltip">Should show "Routing Protocol is ospf 1" - if not, OSPF isn't configured</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Step 2: Check OSPF process</span><br>
+                                <span style="color: #ffcc00;">show ip ospf</span>
+                                <div class="tooltip">Shows OSPF process ID, router ID, areas - if empty, no OSPF running</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Step 3: Check network statements</span><br>
+                                <span style="color: #ffcc00;">show running-config | section router ospf</span>
+                                <div class="tooltip">Shows network statements - missing networks = interfaces not in OSPF</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Step 4: Check OSPF interfaces</span><br>
+                                <span style="color: #ffcc00;">show ip ospf interface</span>
+                                <div class="tooltip">If empty, no interfaces are participating in OSPF</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Common Causes:</span><br>
+                                • No "router ospf" command configured<br>
+                                • Wrong network statements (doesn't match interface IPs)<br>
+                                • Wrong wildcard masks in network statements<br>
+                                • OSPF process disabled/shutdown
+                                <div class="tooltip">Most likely reasons R4 isn't participating</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Quick Fix Check:</span><br>
+                                Compare R4's config to working routers (R1/R2/R3)<br>
+                                Look for missing: router ospf 1, network statements
+                                <div class="tooltip">Side-by-side comparison often reveals the issue</div>
+                            </div>
+
+                            <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 3px solid #ff4444;">
+                                <div style="color: #ff4444; font-weight: bold; font-size: 13px;">🎯 Real Example: Mismatched OSPF Configuration</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">Example Problem Found:</span><br>
+                                R4 shows "ospf 65231" with area 65231<br>
+                                Other routers use "ospf 1" with area 1
+                                <div class="tooltip">Process ID and Area mismatch - this breaks OSPF communication!</div>
+                            </div>
+
+                            <div style="background: #1a1a1a; padding: 10px; border-radius: 5px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 12px;">
+                                <div style="color: #ff6b6b;">❌ R4 (Wrong Configuration):</div>
+                                <div style="color: #e0e0e0; margin: 5px 0;">
+                                    Routing Protocol is "ospf 65231"<br>
+                                    &nbsp;&nbsp;Networks: 192.168.14.0 0.0.0.255 area 65231
+                                </div>
+                                <div style="color: #44ff88;">✅ Should Match Other Routers:</div>
+                                <div style="color: #e0e0e0; margin: 5px 0;">
+                                    Routing Protocol is "ospf 1"<br>
+                                    &nbsp;&nbsp;Networks: 192.168.14.0 0.0.0.255 area 1
+                                </div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Fix for R4:</span><br>
+                                <span style="color: #ffcc00;">no router ospf 65231</span><br>
+                                <span style="color: #ffcc00;">router ospf 1</span><br>
+                                <span style="color: #ffcc00;">router-id 44.44.44.44</span><br>
+                                <span style="color: #ffcc00;">network 192.168.14.0 0.0.0.255 area 1</span>
+                                <div class="tooltip">Remove wrong config, add correct OSPF process and area</div>
+                            </div>
+
+                            <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 3px solid #ffcc00;">
+                                <div style="color: #ffcc00; font-weight: bold; font-size: 13px;">💡 Key Learning Points</div>
+                                <div style="color: #e0e0e0; font-size: 12px; margin-top: 5px;">
+                                    • <strong>Process ID</strong> must match for neighbor formation<br>
+                                    • <strong>Area numbers</strong> must match between neighbors<br>
+                                    • <strong>Router ID</strong> must be unique per router<br>
+                                    • Always compare configs when troubleshooting!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Expected Results</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">✅ Success Indicators:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            • All routers show <strong>Full</strong> neighbor state in <span style="color: #ffcc00;">show ip ospf neighbor</span><br>
+                            • Each router has routes to all networks in <span style="color: #ffcc00;">show ip route</span><br>
+                            • R1 shows as <strong>DR</strong> or <strong>BDR</strong> on multi-access segment<br>
+                            • Default route (0.0.0.0/0) appears on R2, R3, R4 from R1<br>
+                            • All routers can ping each other's interfaces
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">⚡ Quick Verification Test:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            From any router, run: <span style="color: #ffcc00;">ping 192.168.20.1</span> (PC1)<br>
+                            If successful → OSPF is working correctly!<br><br>
+                            <strong>Troubleshooting tip:</strong> If ping fails, check routing table first with <span style="color: #ffcc00;">show ip route</span>, then neighbor adjacencies with <span style="color: #ffcc00;">show ip ospf neighbor</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    Basic Router on a Stick (Inter-VLAN Routing)
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="vlan-trunking" id="vlan-trunking">
+                    VLAN Trunking Setup: Multi-Switch Inter-VLAN Communication
                 </div>
                 <div class="accordion-content">
                     <div class="scenario-requirement">
-                        Configure a router to route between VLANs 10, 20, and 30 using a single trunk link
+                        Lab Scenario: Configure trunk links between SW1, SW2, and SW3 to enable VLAN communication across switches. Ensure PCs in same VLANs can communicate regardless of which switch they're connected to.
                     </div>
-                    
-                    <div class="scenario-command">
-                        <span class="base-cmd">interface</span> <span class="param">GigabitEthernet0/0</span>
-                        <div class="tooltip">Enter the physical interface that connects to the switch trunk port</div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold;">📋 Topology Analysis</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            • <strong>VLANs:</strong> 10, 20, 30, 39 (native)<br>
+                            • <strong>PC Distribution:</strong> Each VLAN has PCs on different switches<br>
+                            • <strong>Trunk Links:</strong> SW1↔SW3, SW2↔SW3 (inter-switch connections)<br>
+                            • <strong>Goal:</strong> PC1 (VLAN 10) should reach PCA (VLAN 10) through trunks
+                        </div>
                     </div>
-                    
-                    <div class="scenario-command">
-                        <span class="base-cmd">no shutdown</span>
-                        <div class="tooltip">Enable the physical interface - subinterfaces inherit this state</div>
+
+                    <h3>Step 1: Understanding Trunk Requirements</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">🧠 Trunking Essentials</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>What makes a good trunk?</strong><br>
+                            1️⃣ <strong>Trunk Mode</strong> - Both sides must agree to trunk<br>
+                            2️⃣ <strong>Allowed VLANs</strong> - Which VLANs can cross the trunk<br>
+                            3️⃣ <strong>Native VLAN</strong> - Must match on both sides<br>
+                            4️⃣ <strong>Trunk Protocol</strong> - 802.1Q (modern) vs ISL (legacy)<br>
+                            5️⃣ <strong>Interface State</strong> - Must be up/up
+                        </div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">interface</span> <span class="param">GigabitEthernet0/0.10</span>
-                        <div class="tooltip">Create subinterface for VLAN 10 - subinterface number typically matches VLAN ID for clarity</div>
+                        <span class="base-cmd">SW3 Trunk Configuration (Your Access Point):</span>
+                        <div class="tooltip">Configure SW3 first - you have console access</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">encapsulation dot1q 10</span>
-                        <div class="tooltip">Tag traffic with VLAN 10 using 802.1Q - this must match the VLAN on the switch</div>
+                        <span class="base-cmd">interface range gi0/1-2</span>
+                        <div class="tooltip">🔹 Enters configuration mode for both interfaces at once (gi0/1 and gi0/2)</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">ip address</span> <span class="param">192.168.10.1 255.255.255.0</span>
-                        <div class="tooltip">Assign IP as default gateway for VLAN 10 devices - typically use .1 or .254 in the subnet</div>
+                        <span class="base-cmd">switchport mode trunk</span>
+                        <div class="tooltip">🔹 Forces the interface into trunk mode (carries multiple VLANs with 802.1Q tags)</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">interface</span> <span class="param">GigabitEthernet0/0.20</span>
-                        <div class="tooltip">Create subinterface for VLAN 20</div>
+                        <span class="base-cmd">switchport trunk native vlan 39</span>
+                        <div class="tooltip">🔹 Sets VLAN 39 as native - frames in this VLAN cross trunk WITHOUT 802.1Q tags</div>
                     </div>
-                    
+
                     <div class="scenario-command">
-                        <span class="base-cmd">encapsulation dot1q 20</span>
-                        <div class="tooltip">Tag traffic with VLAN 20</div>
+                        <span class="base-cmd">switchport trunk allowed vlan 10,20,30,39</span>
+                        <div class="tooltip">🔹 Restricts trunk to only carry these 4 VLANs (security + performance)</div>
                     </div>
-                    
-                    <div class="scenario-command">
-                        <span class="base-cmd">ip address</span> <span class="param">192.168.20.1 255.255.255.0</span>
-                        <div class="tooltip">Assign default gateway IP for VLAN 20</div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">🔍 Command Breakdown</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>interface range gi0/1-2:</strong><br>
+                            • Selects multiple interfaces simultaneously<br>
+                            • Any command applies to ALL interfaces in range<br>
+                            • Saves time vs configuring each interface separately<br><br>
+                            
+                            <strong>switchport mode trunk:</strong><br>
+                            • Changes interface from access mode to trunk mode<br>
+                            • Enables 802.1Q VLAN tagging on frames<br>
+                            • Alternative: "switchport mode access" for single VLAN<br><br>
+                            
+                            <strong>switchport trunk native vlan 39:</strong><br>
+                            • Native VLAN = untagged traffic on trunk<br>
+                            • Must match on both sides of trunk link<br>
+                            • Default native VLAN is 1 (security risk - change it!)<br><br>
+                            
+                            <strong>switchport trunk allowed vlan 10,20,30,39:</strong><br>
+                            • Limits which VLANs can use this trunk<br>
+                            • Default = all VLANs allowed (1-4094)<br>
+                            • Best practice: only allow needed VLANs
+                        </div>
                     </div>
-                    
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">❓ Do I Need to Create VLANs First?</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>Short Answer: Maybe!</strong><br><br>
+                            <strong>Check if VLANs exist:</strong><br>
+                            <span style="color: #ffcc00;">show vlan brief</span><br><br>
+                            <strong>If VLANs 10, 20, 30 are missing, create them:</strong><br>
+                            <span style="color: #ffcc00;">configure terminal</span><br>
+                            <span style="color: #ffcc00;">vlan 10,20,30</span><br>
+                            <span style="color: #ffcc00;">end</span><br><br>
+                            <strong>Why this matters:</strong><br>
+                            • Trunk will carry VLANs, but VLANs must exist in VLAN database<br>
+                            • Some labs pre-create VLANs, others don't<br>
+                            • <span style="color: #ffcc00;">show vlan brief</span> tells you definitively
+                        </div>
+                    </div>
+
+                    <h3>Step 2: Critical Verification Commands</h3>
+
                     <div class="scenario-command">
-                        <span class="base-cmd">show ip interface brief</span>
-                        <div class="tooltip">Verify all subinterfaces are up/up and have correct IPs assigned</div>
+                        <span class="base-cmd">show interfaces trunk</span>
+                        <div class="tooltip">Shows all trunk interfaces, their status, native VLAN, and allowed VLANs</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show vlan brief</span>
+                        <div class="tooltip">Verify VLANs exist and see which ports are assigned to each VLAN</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show interfaces gi0/1 switchport</span>
+                        <div class="tooltip">Detailed switchport info for specific interface - trunk mode, VLANs, native VLAN</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">🤔 Think About the Other Switches</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>For SW1 and SW2 to work properly:</strong><br>
+                            • What trunk mode should they use?<br>
+                            • What native VLAN should they have?<br>
+                            • Which VLANs should be allowed?<br>
+                            • Do the interface numbers match the topology?<br><br>
+                            <strong>Hint:</strong> Both sides of a trunk need identical native VLAN and compatible trunk settings!
+                        </div>
+                    </div>
+
+                    <div class="nested-accordion" style="margin: 20px 0; border: 1px solid #444;">
+                        <div class="nested-accordion-header" onclick="event.stopPropagation(); toggleNestedAccordion(this)" style="background: #333; font-size: 14px; padding: 10px; cursor: pointer; user-select: none;">
+                            🔍 Advanced Trunking Troubleshooting (Click to expand)
+                        </div>
+                        <div class="nested-accordion-content" style="background: #1a1a1a; display: none;">
+                            <h4 style="color: #ffcc00; margin: 15px 0 10px;">Common Trunking Issues</h4>
+                            
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Native VLAN Mismatch</span><br>
+                                Use: <span style="color: #ffcc00;">show interfaces trunk</span><br>
+                                Check both sides have same native VLAN
+                                <div class="tooltip">Most common trunk problem - causes security issues and connectivity loss</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 Trunk Not Forming</span><br>
+                                Use: <span style="color: #ffcc00;">show interfaces gi0/1 switchport</span><br>
+                                Look for "Administrative Mode: trunk" and "Operational Mode: trunk"
+                                <div class="tooltip">Check if both administrative and operational modes show trunk</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 VLANs Not Crossing Trunk</span><br>
+                                Use: <span style="color: #ffcc00;">show interfaces trunk</span><br>
+                                Check "VLANs allowed on trunk" section
+                                <div class="tooltip">Verify required VLANs are in allowed list</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">🔧 DTP Negotiation Issues</span><br>
+                                Use: <span style="color: #ffcc00;">switchport mode trunk</span> (force trunk)<br>
+                                Or: <span style="color: #ffcc00;">switchport nonegotiate</span> (disable DTP)
+                                <div class="tooltip">Force trunk mode if auto-negotiation fails</div>
+                            </div>
+
+                            <h4 style="color: #ffcc00; margin: 20px 0 10px;">Advanced Verification</h4>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show spanning-tree vlan [vlan-id]</span>
+                                <div class="tooltip">Check if STP is blocking trunk - can cause intermittent VLAN issues</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show mac address-table vlan [vlan-id]</span>
+                                <div class="tooltip">Verify MAC addresses are being learned across trunk for specific VLAN</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">debug sw-vlan vtp packets</span><br>
+                                <em>(Use carefully, then 'undebug all')</em>
+                                <div class="tooltip">See VTP packets if using VTP for VLAN synchronization</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Step 3: Connectivity Testing</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">✅ Success Indicators:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            • <span style="color: #ffcc00;">show interfaces trunk</span> shows all trunk links operational<br>
+                            • Native VLAN 39 matches on all switches<br>
+                            • VLANs 10,20,30,39 allowed on all trunks<br>
+                            • PC1 (VLAN 10) can ping PCA (VLAN 10)<br>
+                            • PC2 (VLAN 20) can ping PCB (VLAN 20)<br>
+                            • PC3 (VLAN 30) can ping PCC (VLAN 30)
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">⚡ Quick Test Strategy:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>Test same-VLAN communication:</strong><br>
+                            1. PC1 → PCA (both VLAN 10)<br>
+                            2. PC2 → PCB (both VLAN 20)<br>
+                            3. PC3 → PCC (both VLAN 30)<br><br>
+                            <strong>If ping fails:</strong> Check trunk status, native VLAN mismatch, or VLAN assignment on access ports
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1474,6 +2474,121 @@
                     <p style="margin-top: 15px; color: #ff9900; background: #2a2a2a; padding: 10px; border-radius: 5px;">
                         <strong>Pro Tip:</strong> Use "do" before show commands when in config mode: <span style="color: #ffcc00;">do show ip interface brief</span> (no need to exit to privileged mode)
                     </p>
+
+                    <h3 style="margin-top: 25px;">Finding Commands for Specific Concepts</h3>
+                    
+                    <p style="margin-bottom: 15px; color: #ccc;">
+                        Beyond basic "?" help, here are advanced techniques to discover commands related to specific technologies like SSH, OSPF, VLANs, etc.
+                    </p>
+
+                    <h4 style="color: #00aaff; margin: 15px 0 10px;">Method 1: Contextual Help with Keywords</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">?</span> <span class="param">(at any prompt)</span>
+                        <div class="tooltip">Shows all available commands at current mode - scan for keywords like "ssh", "crypto", "vlan"</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">s?</span>
+                        <div class="tooltip">Shows all commands starting with "s" - useful to find "ssh", "spanning-tree", "switchport", etc.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ssh ?</span>
+                        <div class="tooltip">If SSH command exists, shows SSH-specific options and syntax</div>
+                    </div>
+
+                    <h4 style="color: #00aaff; margin: 15px 0 10px;">Method 2: Using Show Commands to Discover Config Commands</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ?</span>
+                        <div class="tooltip">Lists all "show" commands - look for concepts like "show ssh", "show crypto", "show spanning-tree"</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show running-config | include ssh</span>
+                        <div class="tooltip">Search existing config for SSH-related commands (even if nothing configured yet, shows syntax)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show running-config | section ssh</span>
+                        <div class="tooltip">Shows sections of config containing "ssh" - useful for VTY lines, crypto config</div>
+                    </div>
+
+                    <h4 style="color: #00aaff; margin: 15px 0 10px;">Method 3: Configuration Mode Discovery</h4>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">🔍 SSH Example Walkthrough:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Router(config)# ?</span> → Look for "ip", "crypto", "username" commands</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Router(config)# ip ?</span> → Scan for "ssh" in the list</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Router(config)# ip ssh ?</span> → Shows SSH configuration options</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Router(config)# line ?</span> → Look for "vty" (virtual terminal lines)</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Router(config)# line vty ?</span> → Shows VTY line range options</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Router(config-line)# ?</span> → Look for "login", "transport" commands</div>
+                        </div>
+                    </div>
+
+                    <h4 style="color: #00aaff; margin: 15px 0 10px;">Method 4: Feature-Specific Command Discovery</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">Interface Mode Commands</span>
+                        <div class="tooltip">Enter "interface g0/0" then "?" to find interface-specific commands like switchport, spanning-tree, ip address</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">Router Mode Commands</span>
+                        <div class="tooltip">Enter "router ?" to see routing protocols (ospf, eigrp, bgp), then "router ospf ?" for OSPF options</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">Crypto Commands</span>
+                        <div class="tooltip">Type "crypto ?" in global config to discover IPSec, SSL, certificate, and key management commands</div>
+                    </div>
+
+                    <h4 style="color: #00aaff; margin: 15px 0 10px;">Method 5: Common Command Patterns</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                        <div class="scenario-command" style="cursor: default;">
+                            <span class="base-cmd">show [feature]</span>
+                            <div class="tooltip">General status: show ssh, show vlan, show ip route</div>
+                        </div>
+                        <div class="scenario-command" style="cursor: default;">
+                            <span class="base-cmd">[feature] [action]</span>
+                            <div class="tooltip">Configuration: ip ssh version 2, vlan 10, spanning-tree mode</div>
+                        </div>
+                        <div class="scenario-command" style="cursor: default;">
+                            <span class="base-cmd">debug [feature]</span>
+                            <div class="tooltip">Troubleshooting: debug ssh, debug spanning-tree</div>
+                        </div>
+                        <div class="scenario-command" style="cursor: default;">
+                            <span class="base-cmd">clear [feature]</span>
+                            <div class="tooltip">Reset/clear: clear ssh, clear spanning-tree, clear arp</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">💡 Pro Strategy for Exam Scenarios:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>1. Start with "show ?" -</strong> Often reveals the exact feature you need to configure<br>
+                            <strong>2. Use partial commands -</strong> Type "sp?" to find spanning-tree, "sw?" for switchport commands<br>
+                            <strong>3. Follow the config hierarchy -</strong> Global → Interface → Sub-interface → Protocol-specific<br>
+                            <strong>4. Look for logical groupings -</strong> VTY lines for remote access, interface commands for port config
+                        </div>
+                    </div>
+
+                    <h4 style="color: #ff6b6b; margin: 15px 0 10px;">Quick Reference: SSH Command Discovery</h4>
+                    <div style="background: #1a1a1a; padding: 10px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 10px 0;">
+                        <div style="color: #ffcc00; margin: 2px 0;">Router(config)# ip ?</div>
+                        <div style="color: #e0e0e0; margin: 2px 0; margin-left: 20px;">→ Look for "ssh" in the list</div>
+                        <div style="color: #ffcc00; margin: 2px 0;">Router(config)# username ?</div>
+                        <div style="color: #e0e0e0; margin: 2px 0; margin-left: 20px;">→ Find user account creation syntax</div>
+                        <div style="color: #ffcc00; margin: 2px 0;">Router(config)# line vty 0 4</div>
+                        <div style="color: #ffcc00; margin: 2px 0;">Router(config-line)# ?</div>
+                        <div style="color: #e0e0e0; margin: 2px 0; margin-left: 20px;">→ Look for "login", "transport input" commands</div>
+                        <div style="color: #ffcc00; margin: 2px 0;">Router# show ip ssh</div>
+                        <div style="color: #e0e0e0; margin: 2px 0; margin-left: 20px;">→ Verify SSH status and version</div>
+                    </div>
                 </div>
             </div>
 
@@ -6408,6 +7523,137 @@
                 </div>
             </div>
 
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="discovery-protocols" id="discovery-protocols">
+                    Discovery Protocols: CDP and LLDP
+                </div>
+                <div class="accordion-content">
+                    <h3>Overview</h3>
+                    <p style="margin-bottom: 15px; color: #ccc;">
+                        Discovery protocols help network administrators map network topology by allowing devices to share information about themselves with directly connected neighbors.
+                    </p>
+
+                    <h3>Cisco Discovery Protocol (CDP)</h3>
+                    <p style="margin-bottom: 10px; color: #ccc;">
+                        Cisco proprietary Layer 2 protocol that runs on all Cisco devices by default.
+                    </p>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">cdp run</span>
+                        <div class="tooltip">Enables CDP globally (enabled by default)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">no cdp run</span>
+                        <div class="tooltip">Disables CDP globally</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">cdp enable</span>
+                        <div class="tooltip">Enables CDP on specific interface (interface config mode)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">no cdp enable</span>
+                        <div class="tooltip">Disables CDP on specific interface</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show cdp neighbors</span>
+                        <div class="tooltip">Shows directly connected CDP neighbors (summary)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show cdp neighbors detail</span>
+                        <div class="tooltip">Shows detailed neighbor information including IP addresses</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show cdp interface</span>
+                        <div class="tooltip">Shows CDP status on all interfaces</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show cdp</span>
+                        <div class="tooltip">Shows CDP timers and global settings</div>
+                    </div>
+
+                    <h3>Link Layer Discovery Protocol (LLDP)</h3>
+                    <p style="margin-bottom: 10px; color: #ccc;">
+                        IEEE 802.1AB standard, vendor-neutral alternative to CDP. Must be manually enabled on Cisco devices.
+                    </p>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">lldp run</span>
+                        <div class="tooltip">Enables LLDP globally (disabled by default on Cisco)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">no lldp run</span>
+                        <div class="tooltip">Disables LLDP globally</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">lldp transmit</span>
+                        <div class="tooltip">Enables LLDP transmission on interface</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">lldp receive</span>
+                        <div class="tooltip">Enables LLDP reception on interface</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show lldp neighbors</span>
+                        <div class="tooltip">Shows directly connected LLDP neighbors (summary)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show lldp neighbors detail</span>
+                        <div class="tooltip">Shows detailed LLDP neighbor information</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show lldp interface</span>
+                        <div class="tooltip">Shows LLDP status on all interfaces</div>
+                    </div>
+
+                    <h3>Information Provided by Discovery Protocols</h3>
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">Neighbor Information:</div>
+                        <div style="font-family: 'Courier New', monospace; font-size: 14px; color: #e0e0e0;">
+                            <div><span style="color: #44ff88;">Device ID:</span> Hostname of the neighbor device</div>
+                            <div><span style="color: #44ff88;">Local Interface:</span> Your interface connected to neighbor</div>
+                            <div><span style="color: #44ff88;">Port ID:</span> Neighbor's interface connected to you</div>
+                            <div><span style="color: #44ff88;">Capabilities:</span> Router, Switch, Phone, Bridge, etc.</div>
+                            <div><span style="color: #44ff88;">Platform:</span> Device model (e.g., Cisco 2960, 4321)</div>
+                            <div><span style="color: #44ff88;">IP Address:</span> Management IP of neighbor (detail command)</div>
+                            <div><span style="color: #44ff88;">Software Version:</span> IOS version (detail command)</div>
+                        </div>
+                    </div>
+
+                    <h3>CDP vs LLDP Comparison</h3>
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="display: grid; grid-template-columns: auto auto auto; gap: 10px 20px; font-family: 'Courier New', monospace; font-size: 13px;">
+                            <div style="color: #00aaff; font-weight: bold;">Feature</div>
+                            <div style="color: #00aaff; font-weight: bold;">CDP</div>
+                            <div style="color: #00aaff; font-weight: bold;">LLDP</div>
+                            
+                            <div>Standard</div><div style="color: #ff6b6b;">Cisco Proprietary</div><div style="color: #44ff88;">IEEE 802.1AB</div>
+                            <div>Default State</div><div style="color: #44ff88;">Enabled</div><div style="color: #ff6b6b;">Disabled</div>
+                            <div>Vendor Support</div><div>Cisco only</div><div style="color: #44ff88;">Multi-vendor</div>
+                            <div>Layer</div><div>Layer 2</div><div>Layer 2</div>
+                            <div>Timers (default)</div><div>60s hello, 180s hold</div><div>30s hello, 120s hold</div>
+                            <div>Security Risk</div><div style="color: #ff6b6b;">Reveals topology</div><div style="color: #ff6b6b;">Reveals topology</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 15px; color: #ff9900; background: #2a2a2a; padding: 10px; border-radius: 5px;">
+                        <strong>Exam Tips:</strong> CDP is enabled by default on Cisco devices, LLDP is not. Both reveal network topology to attackers - disable on internet-facing interfaces. Use <span style="color: #ffcc00;">show cdp neighbors detail</span> to get IP addresses for SSH access. Discovery protocols only show <strong>directly connected</strong> neighbors, not the entire network. For your lab: enable both protocols, then use show commands to map the topology. Remember: SW2 is pre-configured, so focus on SW1 and R1 configuration.
+                    </p>
+                </div>
+            </div>
+
         </div>
 
         <!-- NETWORKING CONCEPTS TAB -->
@@ -6865,6 +8111,19 @@
             } else {
                 // Remove anchor from URL when closing
                 history.pushState(null, null, window.location.pathname);
+            }
+        }
+
+        function toggleNestedAccordion(header) {
+            const content = header.nextElementSibling;
+            const isOpen = content.style.display === 'block';
+            
+            if (isOpen) {
+                content.style.display = 'none';
+                header.style.background = '#333';
+            } else {
+                content.style.display = 'block';
+                header.style.background = '#444';
             }
         }
 
