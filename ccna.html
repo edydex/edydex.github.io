@@ -1722,6 +1722,652 @@
                     </div>
                 </div>
             </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="layer2-port-security" id="layer2-port-security">
+                    Layer 2 Port Security Configuration Lab
+                </div>
+                <div class="accordion-content">
+                    <div class="scenario-requirement">
+                        Lab Scenario: Configure advanced port security on SW1. PC1 port (E0/1) allows 2 MACs with protect mode (no violation count). PC2 and Inventory server ports (E0/2, E0/3) allow 2 MACs with sticky learning and restrict mode (increments violation count).
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold;">📋 Network Topology Reference</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            • <strong>SW1 E0/1</strong> → PC1 (192.168.100.5)<br>
+                            • <strong>SW1 E0/2</strong> → PC2 (192.168.100.6)<br>
+                            • <strong>SW1 E0/3</strong> → Inventory server (192.168.100.1)<br>
+                            • <strong>Pre-configured:</strong> Basic connectivity, console logging (alerts/emergencies only)
+                        </div>
+                    </div>
+
+                    <h3>Step 1: Examine Current SW1 Configuration</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show running-config</span>
+                        <div class="tooltip">Review current switch configuration to understand existing setup</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security</span>
+                        <div class="tooltip">Check if any port security is already configured</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show interface status</span>
+                        <div class="tooltip">Verify interface states and identify which ports are connected to devices</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show mac address-table</span>
+                        <div class="tooltip">See current MAC addresses learned on each port</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">🤔 Port Security Violation Modes Explained:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            • <strong>Protect Mode:</strong> Drops packets silently, does NOT increment violation counter<br>
+                            • <strong>Restrict Mode:</strong> Drops packets AND increments violation counter<br>
+                            • <strong>Shutdown Mode:</strong> Shuts down the port completely (err-disabled state)<br><br>
+                            Lab requires different modes for different ports based on monitoring needs.
+                        </div>
+                    </div>
+
+                    <h3>Step 2: Configure Port Security on PC1 Port (E0/1) - Protect Mode</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface ethernet 0/1</span>
+                        <div class="tooltip">Enter interface configuration for PC1 connection</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport mode access</span>
+                        <div class="tooltip">Set as access port - port security only works on access ports, not trunk ports</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security</span>
+                        <div class="tooltip">Enable port security on this interface - must be done before other port-security commands</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security maximum 2</span>
+                        <div class="tooltip">Allow maximum of 2 MAC addresses as specified in requirements</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security violation protect</span>
+                        <div class="tooltip">Use protect mode - drops packets but does NOT increment security-violation count</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold;">⚠️ Why NOT Sticky Learning for PC1?</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            The lab doesn't specify sticky learning for PC1, only for PC2/Inventory.<br>
+                            Without sticky: Switch learns MACs dynamically but doesn't save to config.<br>
+                            MAC addresses are "forgotten" after switch reboot.
+                        </div>
+                    </div>
+
+                    <h3>Step 3: Configure Port Security on PC2 Port (E0/2) - Restrict Mode with Sticky</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface ethernet 0/2</span>
+                        <div class="tooltip">Enter interface configuration for PC2 connection</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport mode access</span>
+                        <div class="tooltip">Set as access port for port security compatibility</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security</span>
+                        <div class="tooltip">Enable port security on PC2 interface</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security maximum 2</span>
+                        <div class="tooltip">Allow maximum of 2 MAC addresses</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security mac-address sticky</span>
+                        <div class="tooltip">Enable sticky learning - switch "remembers" first 2 MAC addresses and saves them to running config</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security violation restrict</span>
+                        <div class="tooltip">Use restrict mode - drops packets AND increments security-violation count for monitoring</div>
+                    </div>
+
+                    <h3>Step 4: Configure Port Security on Inventory Server Port (E0/3) - Restrict Mode with Sticky</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface ethernet 0/3</span>
+                        <div class="tooltip">Enter interface configuration for Inventory server connection</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport mode access</span>
+                        <div class="tooltip">Set as access port</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security</span>
+                        <div class="tooltip">Enable port security on Inventory server interface</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security maximum 2</span>
+                        <div class="tooltip">Allow maximum of 2 MAC addresses</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security mac-address sticky</span>
+                        <div class="tooltip">Enable sticky learning to remember MAC addresses permanently</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport port-security violation restrict</span>
+                        <div class="tooltip">Use restrict mode for violation count tracking</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold; margin-bottom: 10px;">🔄 How Sticky Learning Works:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            1. <strong>First device connects:</strong> Switch learns MAC, adds to running-config<br>
+                            2. <strong>Second device connects:</strong> Switch learns MAC, adds to running-config<br>
+                            3. <strong>Third device connects:</strong> Violation occurs, packets dropped, counter incremented<br>
+                            4. <strong>After "copy run start":</strong> Sticky MACs survive reboot<br><br>
+                            Check with: <span style="color: #ffcc00;">show port-security interface e0/2</span>
+                        </div>
+                    </div>
+
+                    <h3>Step 5: Verification and Testing</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security</span>
+                        <div class="tooltip">Overview of all ports with port security enabled</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security interface ethernet 0/1</span>
+                        <div class="tooltip">Detailed port security status for PC1 port - should show Protect mode, no sticky MACs</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security interface ethernet 0/2</span>
+                        <div class="tooltip">Detailed port security status for PC2 port - should show Restrict mode, sticky MACs learned</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security interface ethernet 0/3</span>
+                        <div class="tooltip">Detailed port security status for Inventory port - should show Restrict mode, sticky MACs learned</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show running-config | include sticky</span>
+                        <div class="tooltip">Show all sticky MAC addresses that have been learned and saved to config</div>
+                    </div>
+
+                    <h3>Step 6: Testing Violation Behavior</h3>
+
+                    <div style="background: #1a1a1a; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 15px 0;">
+                        <div style="color: #ffcc00; margin-bottom: 10px;">Testing Different Violation Modes:</div>
+                        <div style="color: #e0e0e0;">
+                            <strong style="color: #44ff88;">PC1 Port (E0/1) - Protect Mode:</strong><br>
+                            • Connect 3rd device → Packets dropped silently<br>
+                            • Violation count remains 0<br>
+                            • Check: <span style="color: #ffcc00;">show port-security interface e0/1</span><br><br>
+                            
+                            <strong style="color: #ff9900;">PC2/Inventory Ports (E0/2, E0/3) - Restrict Mode:</strong><br>
+                            • Connect 3rd device → Packets dropped<br>
+                            • Violation count increments<br>
+                            • Check: <span style="color: #ffcc00;">show port-security interface e0/2</span>
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">✅ Expected Configuration Summary:</div>
+                        <div style="font-family: 'Courier New', monospace; font-size: 13px; color: #e0e0e0;">
+                            <div style="color: #ffcc00;">interface Ethernet0/1</div>
+                            <div style="color: #ffcc00;"> switchport mode access</div>
+                            <div style="color: #ffcc00;"> switchport port-security</div>
+                            <div style="color: #ffcc00;"> switchport port-security maximum 2</div>
+                            <div style="color: #ffcc00;"> switchport port-security violation protect</div>
+                            <br>
+                            <div style="color: #ffcc00;">interface Ethernet0/2</div>
+                            <div style="color: #ffcc00;"> switchport mode access</div>
+                            <div style="color: #ffcc00;"> switchport port-security</div>
+                            <div style="color: #ffcc00;"> switchport port-security maximum 2</div>
+                            <div style="color: #ffcc00;"> switchport port-security mac-address sticky</div>
+                            <div style="color: #ffcc00;"> switchport port-security violation restrict</div>
+                            <br>
+                            <div style="color: #ffcc00;">interface Ethernet0/3</div>
+                            <div style="color: #ffcc00;"> switchport mode access</div>
+                            <div style="color: #ffcc00;"> switchport port-security</div>
+                            <div style="color: #ffcc00;"> switchport port-security maximum 2</div>
+                            <div style="color: #ffcc00;"> switchport port-security mac-address sticky</div>
+                            <div style="color: #ffcc00;"> switchport port-security violation restrict</div>
+                        </div>
+                    </div>
+
+                    <h3>Step 7: Troubleshooting Port Security Issues</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">🚨 Common Scenario: PC2 Can't Ping Border Router</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>Problem:</strong> From PC2, ping to Border router Ethernet0/0 interface fails.<br>
+                            <strong>Possible Causes:</strong><br>
+                            • Another device with same MAC connected to E0/2<br>
+                            • Switch interface E0/2 administratively shutdown<br>
+                            • Maximum sticky MACs reached on E0/2<br>
+                            • Wrong static MAC allowed on E0/3
+                        </div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">Diagnostic Commands to Identify the Issue:</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show interface ethernet 0/2 status</span>
+                        <div class="tooltip">Check if E0/2 is administratively shutdown - look for "disabled" in status column</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show interface ethernet 0/2</span>
+                        <div class="tooltip">Detailed interface status - look for "administratively down" vs "up"</div>
+                    </div>
+
+                    <div style="background: #1a1a1a; padding: 10px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 10px 0;">
+                        <div style="color: #ffcc00;">What to look for:</div>
+                        <div style="color: #e0e0e0;">
+                            • <span style="color: #ff6b6b;">Ethernet0/2 is administratively down</span> → Interface shutdown<br>
+                            • <span style="color: #44ff88;">Ethernet0/2 is up, line protocol is up</span> → Interface OK
+                        </div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show port-security interface ethernet 0/2</span>
+                        <div class="tooltip">Check port security status, violation count, and current secure MAC addresses</div>
+                    </div>
+
+                    <div style="background: #1a1a1a; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 15px 0;">
+                        <div style="color: #ffcc00; margin-bottom: 10px;">Key Fields to Examine:</div>
+                        <div style="color: #e0e0e0;">
+                            <strong>Port Status:</strong> Secure-up | Secure-down | Err-disabled<br>
+                            <strong>Violation Mode:</strong> Restrict (should match config)<br>
+                            <strong>Maximum MAC Addresses:</strong> 2 (should match config)<br>
+                            <strong>Total MAC Addresses:</strong> Current count of learned MACs<br>
+                            <strong>Configured MAC Addresses:</strong> Sticky MACs saved to config<br>
+                            <strong>Sticky MAC Addresses:</strong> Dynamically learned sticky MACs<br>
+                            <strong>Security Violation Count:</strong> Number of violations detected<br>
+                            <strong>Last Source Address:Vlan:</strong> MAC of last violation attempt
+                        </div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show mac address-table interface ethernet 0/2</span>
+                        <div class="tooltip">See all MAC addresses currently learned on E0/2 - helps identify if duplicate MACs exist</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show mac address-table | include</span> <span class="param">&lt;PC2-MAC&gt;</span>
+                        <div class="tooltip">Search for PC2's MAC address across all switch ports - reveals if same MAC appears on multiple ports</div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">Analyzing Each Possible Cause:</h4>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #ff9900; font-weight: bold; margin-bottom: 10px;">🔍 Option 1: Another device with same MAC on E0/2</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>How to check:</strong><br>
+                            • <span style="color: #ffcc00;">show mac address-table | include [PC2-MAC]</span><br>
+                            • If PC2's MAC appears on multiple interfaces → This is the issue<br>
+                            • Port security detects duplicate and starts dropping packets<br><br>
+                            <strong>Evidence:</strong> Security violation count > 0, MAC appears on wrong port
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #ff9900; font-weight: bold; margin-bottom: 10px;">🔍 Option 2: Interface E0/2 administratively shutdown</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>How to check:</strong><br>
+                            • <span style="color: #ffcc00;">show interface e0/2</span> → Look for "administratively down"<br>
+                            • <span style="color: #ffcc00;">show interface e0/2 status</span> → Status shows "disabled"<br><br>
+                            <strong>Evidence:</strong> Interface shows as "admin down" or "disabled"<br>
+                            <strong>Fix:</strong> <span style="color: #ffcc00;">interface e0/2</span> → <span style="color: #ffcc00;">no shutdown</span>
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #ff9900; font-weight: bold; margin-bottom: 10px;">🔍 Option 3: Maximum sticky MACs reached on E0/2</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>How to check:</strong><br>
+                            • <span style="color: #ffcc00;">show port-security interface e0/2</span><br>
+                            • Look for "Total MAC Addresses: 2" (at maximum)<br>
+                            • Check if PC2's current MAC is in the learned list<br><br>
+                            <strong>Evidence:</strong> 2 MACs learned, but PC2's current MAC isn't one of them<br>
+                            This happens if PC2's MAC changed or another device was connected first
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #ff9900; font-weight: bold; margin-bottom: 10px;">🔍 Option 4: Wrong static MAC allowed on E0/3</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>How to check:</strong><br>
+                            • <span style="color: #ffcc00;">show port-security interface e0/3</span><br>
+                            • <span style="color: #ffcc00;">show running-config interface e0/3</span><br>
+                            • Look for manually configured static MAC addresses<br><br>
+                            <strong>Evidence:</strong> E0/3 has wrong static MAC that conflicts with PC2's traffic path<br>
+                            This is less likely but possible if static MACs were manually configured incorrectly
+                        </div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">Step-by-Step Diagnostic Process:</h4>
+
+                    <div style="background: #1a1a1a; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 15px 0;">
+                        <div style="color: #ffcc00; margin-bottom: 10px;">Systematic Troubleshooting Order:</div>
+                        <div style="color: #e0e0e0;">
+                            <strong>1. Check interface status:</strong><br>
+                            SW1# show interface e0/2 status<br><br>
+                            
+                            <strong>2. Check port security details:</strong><br>
+                            SW1# show port-security interface e0/2<br><br>
+                            
+                            <strong>3. Look for MAC address conflicts:</strong><br>
+                            SW1# show mac address-table<br>
+                            SW1# show mac address-table interface e0/2<br><br>
+                            
+                            <strong>4. Check for violations:</strong><br>
+                            SW1# show port-security<br>
+                            (Look at Security Violation Count column)<br><br>
+                            
+                            <strong>5. If needed, check E0/3 config:</strong><br>
+                            SW1# show port-security interface e0/3
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">💡 Most Likely Cause Analysis:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            Since you've ruled out option 2 (administrative shutdown), the most common causes are:<br><br>
+                            <strong>Option 3 (Maximum sticky MACs reached):</strong> Very likely in lab scenarios<br>
+                            • PC2's MAC changed or different device connected first<br>
+                            • 2 wrong MACs learned as sticky, blocking PC2's real MAC<br><br>
+                            <strong>Option 1 (Duplicate MAC):</strong> Less common but possible<br>
+                            • Virtual machines or cloned devices can have same MAC<br>
+                            • Check if PC2's MAC appears on multiple ports
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">🎯 Lab Completion Checklist:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            ✓ PC1 port (E0/1): Max 2 MACs, protect mode, no sticky learning<br>
+                            ✓ PC2 port (E0/2): Max 2 MACs, restrict mode, sticky learning enabled<br>
+                            ✓ Inventory port (E0/3): Max 2 MACs, restrict mode, sticky learning enabled<br>
+                            ✓ All ports set to access mode for port security compatibility<br>
+                            ✓ Violation behavior differs: protect (silent) vs restrict (counted)<br>
+                            ✓ Sticky MACs automatically saved to running configuration<br>
+                            ✓ Port security verification commands working properly<br>
+                            ✓ Troubleshooting skills: Can diagnose ping failures using port security commands
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="symmetric-static-routing" id="symmetric-static-routing">
+                    Symmetric Static Routing Lab: IPv4 and IPv6 Different Paths
+                </div>
+                <div class="accordion-content">
+                    <div class="scenario-requirement">
+                        Lab Scenario: Configure symmetric static routing where IPv4 traffic (PC1/PC2 → SRV1) goes through R2, while IPv6 traffic takes the opposite path through R1. Both protocols need bidirectional connectivity to all network segments.
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #00aaff;">
+                        <div style="color: #00aaff; font-weight: bold;">📋 Network Topology</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-top: 5px;">
+                            • <strong>PC1:</strong> 10.10.1.0/24 + fc00:1::/32 (via SW1 → R1)<br>
+                            • <strong>PC2:</strong> 10.10.2.0/24 + fc00:2::/32 (via SW2 → R2)<br>
+                            • <strong>SRV1:</strong> 10.10.3.0/24 + fc00:3::/32 (via SW3 → R3)<br>
+                            • <strong>Router Triangle:</strong> R1 ↔ R2 ↔ R3 ↔ R1<br>
+                            • <strong>Pre-configured:</strong> IPv4/IPv6 addressing, routing processes enabled
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff9900;">
+                        <div style="color: #ff9900; font-weight: bold; margin-bottom: 10px;">🔍 Key Topology Insights:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            • <strong>PC1 naturally goes through R1</strong> (directly connected)<br>
+                            • <strong>PC2 naturally goes through R2</strong> (directly connected)<br>
+                            • <strong>Challenge:</strong> Force PC1's IPv4 traffic through R2 instead of R1<br>
+                            • <strong>Challenge:</strong> Force PC2's IPv6 traffic through R1 instead of R2<br>
+                            • <strong>Solution:</strong> Strategic static routes override natural paths
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffcc00;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">🎯 Traffic Path Requirements:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>IPv4 Path:</strong><br>
+                            • PC1 (via R1) → R2 → R3 → SRV1<br>
+                            • PC2 (via R2) → R2 → R3 → SRV1<br>
+                            <strong>IPv6 Path:</strong><br>
+                            • PC1 (via R1) → R1 → R3 → SRV1<br>
+                            • PC2 (via R2) → R1 → R3 → SRV1<br><br>
+                            <strong>Key Insight:</strong> Force different intermediate routers for IPv4 vs IPv6<br>
+                            <strong>Symmetric Routing:</strong> Return traffic must use same routers<br>
+                            <strong>Full Connectivity:</strong> Every segment can reach every other segment
+                        </div>
+                    </div>
+
+                    <h3>Step 1: Analyze Current Routing Tables</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip route</span>
+                        <div class="tooltip">Check current IPv4 routing table on all routers (R1, R2, R3)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ipv6 route</span>
+                        <div class="tooltip">Check current IPv6 routing table on all routers</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ping</span> <span class="param">10.10.3.1</span> <span style="color: #888;">(from PC1/PC2)</span>
+                        <div class="tooltip">Test baseline IPv4 connectivity to SRV1 before implementing static routes</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ping6 &lt;SRV1-IPv6&gt;</span> <span style="color: #888;">(from PC1/PC2)</span>
+                        <div class="tooltip">Test baseline IPv6 connectivity to SRV1</div>
+                    </div>
+
+                    <h3>Step 2: Configure IPv4 Static Routes (Path through R2)</h3>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">On Router R1 (Force IPv4 traffic to R2):</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip route 10.10.3.0 255.255.255.0</span> <span class="param">&lt;R2-interface-IP&gt;</span>
+                        <div class="tooltip">Route to SRV1 network via R2 instead of direct path to R3</div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">On Router R2 (Forward to R3 and back to R1):</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip route 10.10.3.0 255.255.255.0</span> <span class="param">&lt;R3-interface-IP&gt;</span>
+                        <div class="tooltip">Route to SRV1 network via R3</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip route 10.10.1.0 255.255.255.0</span> <span class="param">&lt;R1-interface-IP&gt;</span>
+                        <div class="tooltip">Return route to PC1 network via R1</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip route 10.10.2.0 255.255.255.0</span> <span class="param">&lt;R1-interface-IP&gt;</span>
+                        <div class="tooltip">Return route to PC2 network via R1</div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">On Router R3 (Return path through R2):</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip route 10.10.1.0 255.255.255.0</span> <span class="param">&lt;R2-interface-IP&gt;</span>
+                        <div class="tooltip">Return route to PC1 network via R2</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip route 10.10.2.0 255.255.255.0</span> <span class="param">&lt;R2-interface-IP&gt;</span>
+                        <div class="tooltip">Return route to PC2 network via R2</div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">🤔 Question 1 Analysis: IPv4 Static Routes on R3</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>How many static routes on R3?</strong><br><br>
+                            Looking at R3's requirements:<br>
+                            • Route to PC1 network (10.10.1.0/24) via R2<br>
+                            • Route to PC2 network (10.10.2.0/24) via R2<br><br>
+                            <strong>Answer: 2 static IPv4 routes on R3</strong><br>
+                            (SRV1 network 10.10.3.0/24 is directly connected to R3)
+                        </div>
+                    </div>
+
+                    <h3>Step 3: Configure IPv6 Static Routes (Path through R1)</h3>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">On Router R2 (Force IPv6 traffic to R1):</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ipv6 route</span> <span class="param">&lt;SRV1-IPv6-network/prefix&gt; &lt;R1-IPv6-interface&gt;</span>
+                        <div class="tooltip">Route IPv6 traffic to SRV1 via R1 instead of direct path to R3</div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">On Router R1 (Forward to R3 and back to R2):</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ipv6 route</span> <span class="param">&lt;SRV1-IPv6-network/prefix&gt; &lt;R3-IPv6-interface&gt;</span>
+                        <div class="tooltip">Route IPv6 traffic to SRV1 via R3</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ipv6 route</span> <span class="param">&lt;PC1-IPv6-network/prefix&gt; &lt;R2-IPv6-interface&gt;</span>
+                        <div class="tooltip">Return route for PC1 IPv6 traffic via R2</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ipv6 route</span> <span class="param">&lt;PC2-IPv6-network/prefix&gt; &lt;R2-IPv6-interface&gt;</span>
+                        <div class="tooltip">Return route for PC2 IPv6 traffic via R2</div>
+                    </div>
+
+                    <h4 style="color: #ffcc00; margin: 15px 0 10px;">On Router R3 (Return path through R1):</h4>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ipv6 route</span> <span class="param">&lt;PC1-IPv6-network/prefix&gt; &lt;R1-IPv6-interface&gt;</span>
+                        <div class="tooltip">Return route for PC1 IPv6 traffic via R1</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ipv6 route</span> <span class="param">&lt;PC2-IPv6-network/prefix&gt; &lt;R1-IPv6-interface&gt;</span>
+                        <div class="tooltip">Return route for PC2 IPv6 traffic via R1</div>
+                    </div>
+
+                    <h3>Step 4: Verification Commands</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip route static</span>
+                        <div class="tooltip">Display only static IPv4 routes on each router</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ipv6 route static</span>
+                        <div class="tooltip">Display only static IPv6 routes on each router</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">traceroute 10.10.3.1</span> <span style="color: #888;">(from PC1/PC2)</span>
+                        <div class="tooltip">Verify IPv4 path goes through R2: PC → R1 → R2 → R3 → SRV1</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">traceroute6 &lt;SRV1-IPv6&gt;</span> <span style="color: #888;">(from PC1/PC2)</span>
+                        <div class="tooltip">Verify IPv6 path goes through R1: PC → R2 → R1 → R3 → SRV1</div>
+                    </div>
+
+                    <h3>Step 5: Connectivity Testing</h3>
+
+                    <div style="background: #1a1a1a; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 15px 0;">
+                        <div style="color: #ffcc00; margin-bottom: 10px;">Complete Connectivity Test Matrix:</div>
+                        <div style="color: #e0e0e0;">
+                            <strong>From PC1:</strong><br>
+                            • ping 10.10.2.1 (PC2 IPv4)<br>
+                            • ping 10.10.3.1 (SRV1 IPv4)<br>
+                            • ping6 PC2-IPv6<br>
+                            • ping6 SRV1-IPv6<br><br>
+                            
+                            <strong>From PC2:</strong><br>
+                            • ping 10.10.1.1 (PC1 IPv4)<br>
+                            • ping 10.10.3.1 (SRV1 IPv4)<br>
+                            • ping6 PC1-IPv6<br>
+                            • ping6 SRV1-IPv6<br><br>
+                            
+                            <strong>From SRV1:</strong><br>
+                            • ping 10.10.1.1 (PC1 IPv4)<br>
+                            • ping 10.10.2.1 (PC2 IPv4)<br>
+                            • ping6 PC1-IPv6<br>
+                            • ping6 PC2-IPv6
+                        </div>
+                    </div>
+
+                    <h3>Step 6: Path Verification Summary</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">✅ Expected Traffic Paths:</div>
+                        <div style="font-family: 'Courier New', monospace; font-size: 13px; color: #e0e0e0;">
+                            <div style="color: #ffcc00; margin: 10px 0;">IPv4 Traffic (must go via R2):</div>
+                            <div>PC1 → SW1 → R1 → R2 → R3 → SW3 → SRV1</div>
+                            <div>PC2 → SW2 → R2 → R3 → SW3 → SRV1</div>
+                            <div>SRV1 → SW3 → R3 → R2 → R1 → SW1 → PC1 (return)</div>
+                            <div>SRV1 → SW3 → R3 → R2 → SW2 → PC2 (return)</div>
+                            <br>
+                            <div style="color: #00aaff; margin: 10px 0;">IPv6 Traffic (must go via R1):</div>
+                            <div>PC1 → SW1 → R1 → R3 → SW3 → SRV1</div>
+                            <div>PC2 → SW2 → R2 → R1 → R3 → SW3 → SRV1</div>
+                            <div>SRV1 → SW3 → R3 → R1 → SW1 → PC1 (return)</div>
+                            <div>SRV1 → SW3 → R3 → R1 → R2 → SW2 → PC2 (return)</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">🎯 Lab Completion Checklist:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            ✓ IPv4 static routes configured for R2 path<br>
+                            ✓ IPv6 static routes configured for R1 path<br>
+                            ✓ Symmetric routing: return traffic uses same path<br>
+                            ✓ Full connectivity: every segment reaches every other segment<br>
+                            ✓ Traceroute confirms different paths for IPv4 vs IPv6<br>
+                            ✓ Static route count verified on each router<br>
+                            ✓ Both protocols working independently with different paths
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff9900;">
+                        <div style="color: #ff9900; font-weight: bold; margin-bottom: 10px;">📝 Lab Questions Analysis:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>Question 1: IPv4 static routes on R3?</strong><br>
+                            Answer: <strong>2 routes</strong> (10.10.1.0/24 and 10.10.2.0/24 via R2)<br><br>
+                            
+                            <strong>Future Questions to Expect:</strong><br>
+                            • How many IPv6 routes on R1?<br>
+                            • Total static routes across all routers?<br>
+                            • Which router has the most static routes?<br>
+                            • Path differences between IPv4 and IPv6 traceroutes?
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
 
             <div>
