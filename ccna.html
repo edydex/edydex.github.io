@@ -497,6 +497,59 @@
         body.light-theme table tr {
             border-bottom-color: #cccccc !important;
         }
+
+        /* Fix routing table color scheme in light mode */
+        body.light-theme div[style*="color: #ffaa00"] {
+            color: #cc6600 !important;
+        }
+
+        body.light-theme div[style*="color: #88aaff"] {
+            color: #0066cc !important;
+        }
+
+        body.light-theme div[style*="color: #ff88ff"] {
+            color: #cc00cc !important;
+        }
+
+        body.light-theme div[style*="color: #88ffaa"] {
+            color: #008800 !important;
+        }
+
+        body.light-theme div[style*="color: #ffff88"] {
+            color: #cc9900 !important;
+        }
+
+        body.light-theme div[style*="color: #ffaa88"] {
+            color: #cc6600 !important;
+        }
+
+        body.light-theme div[style*="color: #88ff88"] {
+            color: #008800 !important;
+        }
+
+        body.light-theme div[style*="color: #666"] {
+            color: #666666 !important;
+        }
+
+        body.light-theme span[style*="color: #ff6b6b"] {
+            color: #cc0000 !important;
+        }
+
+        body.light-theme span[style*="color: #88aaff"] {
+            color: #0066cc !important;
+        }
+
+        body.light-theme span[style*="color: #ff88ff"] {
+            color: #cc00cc !important;
+        }
+
+        body.light-theme span[style*="color: #88ffaa"] {
+            color: #008800 !important;
+        }
+
+        body.light-theme span[style*="color: #ffaa00"] {
+            color: #cc6600 !important;
+        }
     </style>
 </head>
 <body>
@@ -3234,6 +3287,224 @@
                         <div style="color: #e0e0e0; margin: 2px 0; margin-left: 20px;">→ Look for "login", "transport input" commands</div>
                         <div style="color: #ffcc00; margin: 2px 0;">Router# show ip ssh</div>
                         <div style="color: #e0e0e0; margin: 2px 0; margin-left: 20px;">→ Verify SSH status and version</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Understanding "show ip route" Command
+                </div>
+                <div class="accordion-content">
+                    <h3>What is the Routing Table?</h3>
+                    <p style="margin-bottom: 15px; color: #ccc;">
+                        The routing table is the router's "GPS" - it contains all known networks and how to reach them. When a packet arrives, the router looks up the destination IP in this table to decide where to forward it. Understanding routing table entries is <strong>crucial</strong> for CCNA exam success.
+                    </p>
+
+                    <h3>Route Entry Format Breakdown</h3>
+                    <p style="margin-bottom: 15px; color: #ccc;">
+                        Each routing table entry follows this format: <span style="color: #ffcc00; font-weight: bold;">[Code] [Network/Prefix] [AD/Metric] via [Next-hop] [Interface] [Age]</span>
+                    </p>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 15px 0; border-left: 4px solid #0066cc;">
+                        <div style="color: #ffcc00; margin-bottom: 10px; font-weight: bold;">Example Routing Table Entry:</div>
+                        <div style="color: #e0e0e0;">O    192.168.10.0/24 [110/20] via 10.1.1.2, 00:05:23, GigabitEthernet0/1</div>
+                        <div style="margin-top: 10px; color: #ccc; font-size: 12px;">
+                            <div>• <span style="color: #ff6b6b;">O</span> = OSPF route</div>
+                            <div>• <span style="color: #44ff88;">192.168.10.0/24</span> = Destination network</div>
+                            <div>• <span style="color: #ffaa00;">[110/20]</span> = [Administrative Distance/Metric]</div>
+                            <div>• <span style="color: #88aaff;">10.1.1.2</span> = Next-hop IP address</div>
+                            <div>• <span style="color: #ff88ff;">00:05:23</span> = Route age (how long it's been in table)</div>
+                            <div>• <span style="color: #88ffaa;">GigabitEthernet0/1</span> = Exit interface</div>
+                        </div>
+                    </div>
+
+                    <h3>Route Source Codes (Most Important for Exam)</h3>
+                    
+                    <div class="scenario-command">
+                        <span class="base-cmd">C - Connected</span> <span class="param">[AD: 0]</span>
+                        <div class="tooltip">Directly connected networks - interfaces with IP addresses configured and in "up/up" state. Most trusted (AD=0).</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">L - Local</span> <span class="param">[AD: 0]</span>
+                        <div class="tooltip">Local host routes (/32) - the specific IP address assigned to each interface. Auto-created for every interface IP.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">S - Static</span> <span class="param">[AD: 1]</span>
+                        <div class="tooltip">Manually configured routes. Second most trusted. Format: ip route [destination] [mask] [next-hop]</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">D - EIGRP</span> <span class="param">[AD: 90]</span>
+                        <div class="tooltip">Enhanced Interior Gateway Routing Protocol routes. Cisco proprietary, fast convergence.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">O - OSPF</span> <span class="param">[AD: 110]</span>
+                        <div class="tooltip">Open Shortest Path First routes. Most common dynamic routing protocol on exams.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">R - RIP</span> <span class="param">[AD: 120]</span>
+                        <div class="tooltip">Routing Information Protocol routes. Old, simple protocol with poor metrics (hop count only).</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">S* - Default Route</span> <span class="param">(0.0.0.0/0)</span>
+                        <div class="tooltip">Gateway of last resort - where to send traffic when no specific route exists. Usually points to ISP.</div>
+                    </div>
+
+                    <h3 style="margin-top: 25px;">Administrative Distance (AD) - Route Trust Levels</h3>
+                    
+                    <p style="margin-bottom: 10px; color: #ccc;">
+                        If multiple routes exist to same destination, router picks the one with <strong>lowest AD</strong>. Think of AD as "route trustworthiness" - lower number = more trusted.
+                    </p>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px;">
+                        <div style="display: grid; grid-template-columns: auto auto auto; gap: 15px 20px; color: #e0e0e0;">
+                            <div style="color: #00aaff; font-weight: bold;">Route Type</div>
+                            <div style="color: #00aaff; font-weight: bold;">AD Value</div>
+                            <div style="color: #00aaff; font-weight: bold;">Trust Level</div>
+                            
+                            <div style="color: #44ff88;">Connected</div><div>0</div><div style="color: #44ff88;">Highest</div>
+                            <div>Static</div><div>1</div><div style="color: #88ff88;">Very High</div>
+                            <div>EIGRP</div><div>90</div><div style="color: #ffff88;">High</div>
+                            <div>OSPF</div><div>110</div><div style="color: #ffaa88;">Medium</div>
+                            <div style="color: #ff6b6b;">RIP</div><div>120</div><div style="color: #ff6b6b;">Low</div>
+                            <div>Unknown</div><div>255</div><div style="color: #666;">Never Used</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 25px;">Metric - Best Path Selection</h3>
+                    
+                    <p style="margin-bottom: 10px; color: #ccc;">
+                        After AD selects route type, <strong>metric</strong> selects best path within that type. Each protocol uses different metrics:
+                    </p>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">OSPF Metric</span> <span class="param">= Cost (bandwidth-based)</span>
+                        <div class="tooltip">Lower cost = better path. Cost = 100,000,000 / bandwidth. FastEthernet = 1, GigE = 1, Serial T1 = 64</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">EIGRP Metric</span> <span class="param">= Composite (BW + Delay)</span>
+                        <div class="tooltip">Complex calculation considering bandwidth, delay, reliability, load. Lower number = better path.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">RIP Metric</span> <span class="param">= Hop Count</span>
+                        <div class="tooltip">Number of routers to destination. Max 15 hops. Ignores bandwidth - major weakness.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">Static Route Metric</span> <span class="param">= 0 (default)</span>
+                        <div class="tooltip">Can be manually set with distance parameter: ip route 10.0.0.0 255.0.0.0 192.168.1.1 5</div>
+                    </div>
+
+                    <h3 style="margin-top: 25px;">Reading Routing Tables - Exam Scenarios</h3>
+                    
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">📝 Typical Exam Question Pattern:</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-bottom: 10px;">
+                            "Given this routing table, if a packet destined for 192.168.50.100 arrives at the router, and the OSPF process fails, which route will be used?"
+                        </div>
+                        
+                        <div style="background: #2a2a2a; padding: 10px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 12px; margin: 10px 0;">
+                            <div style="color: #e0e0e0;">S* 0.0.0.0/0 [1/0] via 203.0.113.1</div>
+                            <div style="color: #e0e0e0;">C  192.168.50.0/24 is directly connected, GigabitEthernet0/1</div>
+                            <div style="color: #e0e0e0;">L  192.168.50.1/32 is directly connected, GigabitEthernet0/1</div>
+                            <div style="color: #e0e0e0;">O  192.168.50.0/24 [110/20] via 10.1.1.2, 00:02:15, Serial0/0/0</div>
+                            <div style="color: #e0e0e0;">S  192.168.50.0/24 [1/0] via 172.16.1.1</div>
+                        </div>
+                        
+                        <div style="color: #88ff88; font-weight: bold; margin-top: 10px;">Answer Process:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <div>1. Find routes to 192.168.50.100 (matches 192.168.50.0/24)</div>
+                            <div>2. Available routes: C (AD=0), O (AD=110), S (AD=1)</div>
+                            <div>3. Router normally uses Connected route (AD=0) - best</div>
+                            <div>4. If OSPF fails: Connected route still available (interface-based)</div>
+                            <div>5. <span style="color: #ffcc00;">Answer: Connected route via GigabitEthernet0/1</span></div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 25px;">Common Exam Tricks & Gotchas</h3>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; border-left: 4px solid #ff6b6b;">
+                        <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">⚠️ Watch Out For These Traps:</div>
+                        
+                        <div style="margin: 10px 0;">
+                            <div style="color: #ffaa00; font-weight: bold;">1. Route Specificity</div>
+                            <div style="color: #e0e0e0; font-size: 13px;">More specific routes (longer prefix) win over less specific ones, regardless of AD!</div>
+                            <div style="color: #ccc; font-size: 12px;">192.168.1.100/32 beats 192.168.1.0/24 which beats 192.168.0.0/16</div>
+                        </div>
+
+                        <div style="margin: 10px 0;">
+                            <div style="color: #ffaa00; font-weight: bold;">2. Connected Routes vs. Static Routes</div>
+                            <div style="color: #e0e0e0; font-size: 13px;">Connected routes only exist if interface is UP/UP. If interface fails, static route takes over.</div>
+                        </div>
+
+                        <div style="margin: 10px 0;">
+                            <div style="color: #ffaa00; font-weight: bold;">3. Local Routes (/32)</div>
+                            <div style="color: #e0e0e0; font-size: 13px;">L routes are for the router's own IP addresses - most specific possible route.</div>
+                        </div>
+
+                        <div style="margin: 10px 0;">
+                            <div style="color: #ffaa00; font-weight: bold;">4. Default Route Usage</div>
+                            <div style="color: #e0e0e0; font-size: 13px;">Default route (0.0.0.0/0) only used when NO more specific route exists.</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 25px;">Practical Verification Commands</h3>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip route</span>
+                        <div class="tooltip">Shows complete routing table - most important command for routing troubleshooting</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip route 192.168.1.100</span>
+                        <div class="tooltip">Shows exactly which route the router would use for specific destination IP</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip route connected</span>
+                        <div class="tooltip">Shows only directly connected routes - useful for verifying interface status</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip route static</span>
+                        <div class="tooltip">Shows only static routes - verify your manual configurations</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">show ip route ospf</span>
+                        <div class="tooltip">Shows only routes learned via OSPF - troubleshoot dynamic routing</div>
+                    </div>
+
+                    <h3 style="margin-top: 25px;">Step-by-Step Route Selection Process</h3>
+                    
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; margin-bottom: 10px; font-weight: bold;">Router's Decision Process (for exam questions):</div>
+                        <div style="color: #e0e0e0;">
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Step 1:</span> Find all routes that match destination IP</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Step 2:</span> Select most specific route (longest prefix match)</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Step 3:</span> If multiple routes with same prefix, choose lowest AD</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Step 4:</span> If same AD, choose lowest metric</div>
+                            <div style="margin: 5px 0;"><span style="color: #ffcc00;">Step 5:</span> If still tied, load balance (ECMP - Equal Cost Multi-Path)</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #0066cc;">
+                        <div style="color: #0066cc; font-weight: bold; margin-bottom: 10px;">🎯 Exam Success Strategy:</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>1. Memorize AD values:</strong> Connected(0), Static(1), EIGRP(90), OSPF(110), RIP(120)<br>
+                            <strong>2. Always check prefix length first</strong> - /32 beats /24 beats /16 beats /0<br>
+                            <strong>3. Practice reading tables quickly</strong> - identify codes, ADs, and metrics at a glance<br>
+                            <strong>4. Understand failure scenarios</strong> - what happens when primary route fails?<br>
+                            <strong>5. Remember interface states</strong> - routes disappear when interfaces go down
+                        </div>
                     </div>
                 </div>
             </div>
