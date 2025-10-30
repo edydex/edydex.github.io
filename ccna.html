@@ -550,6 +550,12 @@
         body.light-theme span[style*="color: #ffaa00"] {
             color: #cc6600 !important;
         }
+
+        /* Fix dark backgrounds in routing table explanation tables */
+        body.light-theme div[style*="background: #1a1a1a"] {
+            background: #f8f8f8 !important;
+            color: #000000 !important;
+        }
     </style>
 </head>
 <body>
@@ -3408,24 +3414,160 @@
                     <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0;">
                         <div style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">📝 Typical Exam Question Pattern:</div>
                         <div style="color: #e0e0e0; font-size: 13px; margin-bottom: 10px;">
-                            "Given this routing table, if a packet destined for 192.168.50.100 arrives at the router, and the OSPF process fails, which route will be used?"
+                            "Given this routing table, if a packet destined for 10.1.1.100 arrives at the router, and the OSPF process fails, which route will be used?"
                         </div>
                         
                         <div style="background: #2a2a2a; padding: 10px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 12px; margin: 10px 0;">
                             <div style="color: #e0e0e0;">S* 0.0.0.0/0 [1/0] via 203.0.113.1</div>
                             <div style="color: #e0e0e0;">C  192.168.50.0/24 is directly connected, GigabitEthernet0/1</div>
                             <div style="color: #e0e0e0;">L  192.168.50.1/32 is directly connected, GigabitEthernet0/1</div>
-                            <div style="color: #e0e0e0;">O  192.168.50.0/24 [110/20] via 10.1.1.2, 00:02:15, Serial0/0/0</div>
-                            <div style="color: #e0e0e0;">S  192.168.50.0/24 [1/0] via 172.16.1.1</div>
+                            <div style="color: #e0e0e0;">O  10.1.1.0/24 [110/20] via 192.168.50.2, 00:02:15, GigabitEthernet0/1</div>
+                            <div style="color: #e0e0e0;">S  10.1.1.0/24 [1/0] via 172.16.1.1</div>
                         </div>
                         
+                        <div style="background: #2a2a2a; padding: 10px; border-radius: 3px; margin: 10px 0; border-left: 3px solid #ff9500;">
+                            <div style="color: #ff9500; font-weight: bold; margin-bottom: 5px;">⚠️ CONFUSING EXAM LANGUAGE ALERT!</div>
+                            <div style="color: #e0e0e0; font-size: 12px;">
+                                <div><strong>"OSPF process fails"</strong> is misleading exam language. It doesn't mean:</div>
+                                <div>❌ The entire OSPF process crashes</div>
+                                <div>❌ All OSPF routes disappear</div>
+                                <div>❌ Something dramatically breaks</div>
+                                <br>
+                                <div><strong>It actually means:</strong></div>
+                                <div>✅ "What if the OSPF route becomes unavailable?"</div>
+                                <div>✅ Could be: neighbor down, interface down, network unreachable</div>
+                                <div>✅ Just means: "Ignore the O route in your analysis"</div>
+                            </div>
+                        </div>
+
                         <div style="color: #88ff88; font-weight: bold; margin-top: 10px;">Answer Process:</div>
                         <div style="color: #e0e0e0; font-size: 13px;">
-                            <div>1. Find routes to 192.168.50.100 (matches 192.168.50.0/24)</div>
-                            <div>2. Available routes: C (AD=0), O (AD=110), S (AD=1)</div>
-                            <div>3. Router normally uses Connected route (AD=0) - best</div>
-                            <div>4. If OSPF fails: Connected route still available (interface-based)</div>
-                            <div>5. <span style="color: #ffcc00;">Answer: Connected route via GigabitEthernet0/1</span></div>
+                            <div><strong>Step 1:</strong> Find routes to 10.1.1.100 (matches 10.1.1.0/24)</div>
+                            <div><strong>Step 2:</strong> Available routes: O [AD=110], S [AD=1]</div>
+                            <div><strong>Step 3:</strong> Router normally uses Static route (AD=1) - better than OSPF (AD=110)</div>
+                            <div><strong>Step 4:</strong> If "OSPF fails" (OSPF route unavailable): Static route via 172.16.1.1 still works!</div>
+                            <div><strong>Step 5:</strong> <span style="color: #ffcc00;">Answer: Static route via 172.16.1.1</span></div>
+                            <div style="margin-top: 8px; color: #ccc; font-style: italic;">Note: The static route was ALREADY being used anyway (better AD), so "OSPF failing" changes nothing!</div>
+                        </div>
+                        
+                        <div style="background: #2a2a2a; padding: 10px; border-radius: 3px; margin: 10px 0; border-left: 3px solid #ff6b6b;">
+                            <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 5px;">🚨 Key Understanding Points:</div>
+                            <div style="color: #e0e0e0; font-size: 12px;">
+                                <div><strong>Q:</strong> Can C and L be on same interface? <strong>A:</strong> YES! Always together.</div>
+                                <div>• <strong>C</strong> = whole network (192.168.50.0/24)</div>
+                                <div>• <strong>L</strong> = router's specific IP (192.168.50.1/32)</div>
+                                <div><strong>Q:</strong> Why not default route? <strong>A:</strong> More specific routes always win!</div>
+                                <div>• 10.1.1.0/24 is more specific than 0.0.0.0/0</div>
+                                <div>• Default route only used when NO other route matches</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 25px;">Detailed Concept Breakdown (Common Confusions)</h3>
+                    
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #0066cc;">
+                        <div style="color: #0066cc; font-weight: bold; margin-bottom: 10px;">🤔 "Can C and L routes be on the same interface?"</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-bottom: 10px;">
+                            <strong>YES! They ALWAYS appear together.</strong> When you configure an IP on an interface:
+                        </div>
+                        
+                        <div style="background: #1a1a1a; padding: 8px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 11px; margin: 8px 0;">
+                            <div style="color: #ffcc00;">Router(config-if)# ip address 192.168.50.1 255.255.255.0</div>
+                            <div style="color: #ffcc00;">Router(config-if)# no shutdown</div>
+                        </div>
+                        
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <div style="margin: 5px 0;">📍 <strong>C</strong> 192.168.50.0/24 = "I can reach the whole network directly"</div>
+                            <div style="margin: 5px 0;">📍 <strong>L</strong> 192.168.50.1/32 = "This specific IP belongs to ME"</div>
+                            <div style="margin: 5px 0; color: #88ff88;">Both use the same physical interface (GigabitEthernet0/1)</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff9900;">
+                        <div style="color: #ff9900; font-weight: bold; margin-bottom: 10px;">🎯 "Why doesn't it use the default route (S* 0.0.0.0/0)?"</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>LONGEST PREFIX MATCH RULE:</strong> More specific routes ALWAYS win, regardless of AD!
+                        </div>
+                        
+                        <div style="background: #1a1a1a; padding: 8px; border-radius: 3px; margin: 8px 0;">
+                            <div style="color: #e0e0e0; font-size: 12px;">
+                                <div>Destination: 10.1.1.100</div>
+                                <div style="color: #44ff88;">✓ 10.1.1.0/24 matches (24 bits match)</div>
+                                <div style="color: #44ff88;">✓ 0.0.0.0/0 also matches (0 bits match)</div>
+                                <div style="color: #ffcc00; font-weight: bold;">Winner: 10.1.1.0/24 (more specific!)</div>
+                            </div>
+                        </div>
+                        
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            Default route is only used when <strong>NO</strong> other route matches the destination.
+                        </div>
+                    </div>
+                    
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #44ff88;">
+                        <div style="color: #44ff88; font-weight: bold; margin-bottom: 10px;">⚡ "Route Selection Step-by-Step Process"</div>
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            For destination 10.1.1.100, router thinks:
+                        </div>
+                        
+                        <div style="background: #1a1a1a; padding: 8px; border-radius: 3px; margin: 8px 0;">
+                            <div style="color: #e0e0e0; font-size: 12px;">
+                                <div><span style="color: #ffcc00;">1.</span> Find ALL matching routes:</div>
+                                <div style="margin-left: 15px;">• O 10.1.1.0/24 ✓ (matches)</div>
+                                <div style="margin-left: 15px;">• S 10.1.1.0/24 ✓ (matches)</div>  
+                                <div style="margin-left: 15px;">• S* 0.0.0.0/0 ✓ (matches everything)</div>
+                                <div><span style="color: #ffcc00;">2.</span> Pick most specific prefix:</div>
+                                <div style="margin-left: 15px;">• /24 beats /0, so ignore default route</div>
+                                <div><span style="color: #ffcc00;">3.</span> Compare Administrative Distance:</div>
+                                <div style="margin-left: 15px;">• S [1] beats O [110]</div>
+                                <div><span style="color: #ffcc00;">4.</span> Use Static route via 172.16.1.1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ff9900;">
+                        <div style="color: #ff9900; font-weight: bold; margin-bottom: 10px;">🚨 CRITICAL MISCONCEPTION ALERT!</div>
+                        <div style="color: #e0e0e0; font-size: 13px; margin-bottom: 10px;">
+                            <strong>"Does OSPF bypass the routing table?"</strong> - <span style="color: #ff6b6b; font-weight: bold;">NO!</span>
+                        </div>
+                        
+                        <div style="background: #1a1a1a; padding: 10px; border-radius: 3px; margin: 8px 0;">
+                            <div style="color: #e0e0e0; font-size: 12px;">
+                                <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 8px;">❌ WRONG THINKING:</div>
+                                <div style="margin-left: 10px;">"OSPF runs separately, if it fails, check routing table"</div>
+                                
+                                <div style="color: #44ff88; font-weight: bold; margin: 15px 0 8px 0;">✅ CORRECT UNDERSTANDING:</div>
+                                <div style="margin-left: 10px;">1. OSPF puts routes INTO the routing table (marked with "O")</div>
+                                <div style="margin-left: 10px;">2. Router ALWAYS uses the routing table for ALL decisions</div>
+                                <div style="margin-left: 10px;">3. If OSPF fails, "O" routes disappear from table</div>
+                                <div style="margin-left: 10px;">4. Router then uses remaining routes in table</div>
+                            </div>
+                        </div>
+                        
+                        <div style="color: #e0e0e0; font-size: 13px;">
+                            <strong>Key Point:</strong> The routing table IS the single source of truth. All routing protocols (OSPF, EIGRP, RIP) just ADD their routes to this table.
+                        </div>
+                    </div>
+
+                    <div style="background: #2a2a2a; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #0066cc;">
+                        <div style="color: #0066cc; font-weight: bold; margin-bottom: 10px;">📋 THE REAL DECISION PROCESS (Always the Same!)</div>
+                        
+                        <div style="background: #1a1a1a; padding: 10px; border-radius: 3px; margin: 8px 0;">
+                            <div style="color: #e0e0e0; font-size: 12px;">
+                                <div style="color: #ffcc00; font-weight: bold;">When a packet arrives for 10.1.1.100:</div>
+                                <div style="margin: 8px 0;">
+                                    <div><span style="color: #88aaff;">Step 1:</span> Look in routing table</div>
+                                    <div><span style="color: #88aaff;">Step 2:</span> Find ALL routes that match 10.1.1.100</div>
+                                    <div style="margin-left: 20px;">• O 10.1.1.0/24 [110/20] ✓</div>
+                                    <div style="margin-left: 20px;">• S 10.1.1.0/24 [1/0] ✓</div>
+                                    <div style="margin-left: 20px;">• S* 0.0.0.0/0 [1/0] ✓</div>
+                                    <div><span style="color: #88aaff;">Step 3:</span> Pick most specific: /24 beats /0</div>
+                                    <div><span style="color: #88aaff;">Step 4:</span> Between /24 routes: AD 1 beats AD 110</div>
+                                    <div><span style="color: #88aaff;">Step 5:</span> Use Static route!</div>
+                                </div>
+                                <div style="color: #44ff88; font-weight: bold; margin-top: 8px;">
+                                    There's NO separate "OSPF decision" - it's all in the routing table!
+                                </div>
+                            </div>
                         </div>
                     </div>
 
