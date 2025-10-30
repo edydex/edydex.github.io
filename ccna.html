@@ -556,6 +556,19 @@
             background: #f8f8f8 !important;
             color: #000000 !important;
         }
+
+        /* Sub-accordion light theme styles */
+        body.light-theme .sub-accordion-header {
+            background: #e8e8e8 !important;
+            color: #333333 !important;
+            border: 1px solid #cccccc !important;
+        }
+
+        body.light-theme .sub-accordion-content {
+            background: #f5f5f5 !important;
+            color: #333333 !important;
+            border: 1px solid #cccccc !important;
+        }
     </style>
 </head>
 <body>
@@ -1215,8 +1228,9 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; color: #e0e0e0; font-size: 13px;">
                     <a href="#basic-ip-assignment" onclick="navigateToAccordion('basic-ip-assignment')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Basic IP Assignment</a>
                     <a href="#basic-vlan-setup" onclick="navigateToAccordion('basic-vlan-setup')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Basic VLAN Setup</a>
+                    <a href="#basic-ssh-setup" onclick="navigateToAccordion('basic-ssh-setup')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Basic SSH Setup</a>
                     <a href="#topology-discovery" onclick="navigateToAccordion('topology-discovery')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Network Topology Discovery</a>
-                    <a href="#ssh-secure-access" onclick="navigateToAccordion('ssh-secure-access')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">SSH & Secure Access</a>
+                    <a href="#ssh-secure-access" onclick="navigateToAccordion('ssh-secure-access')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">(Lab) SSH & Secure Access</a>
                     <a href="#layer2-port-security" onclick="navigateToAccordion('layer2-port-security')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Layer 2 Port Security</a>
                     <a href="#symmetric-static-routing" onclick="navigateToAccordion('symmetric-static-routing')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Static Routing Configuration</a>
                     <a href="#ospf-configuration" onclick="navigateToAccordion('ospf-configuration')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">OSPF Multi-Router Setup</a>
@@ -1296,6 +1310,97 @@
                     <div class="scenario-command">
                         <span class="base-cmd">no shutdown</span>
                         <div class="tooltip">Enable the interface. Don't forget this step!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="basic-ssh-setup" id="basic-ssh-setup">
+                    Basic SSH Setup
+                </div>
+                <div class="accordion-content">
+                    <p style="color: #e0e0e0; margin-bottom: 15px;">
+                        Configures secure remote access to devices using SSH instead of insecure Telnet. Requires hostname, domain name, and RSA keys.
+                    </p>
+
+                    <h3 style="color: #00cc88; margin: 15px 0 10px 0;">Prerequisites:</h3>
+                    <div class="scenario-command">
+                        <span class="base-cmd">hostname R1</span>
+                        <div class="tooltip">Required for SSH key generation. Sets device hostname - might already be configured. Without this, crypto key generation fails.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip domain-name example.com</span>
+                        <div class="tooltip">Required for SSH key generation. Creates FQDN (Fully Qualified Domain Name) by combining hostname + domain name. SSH keys need this for proper identification.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">crypto key generate rsa general-keys modulus 2048</span>
+                        <div class="tooltip">Generates 2048-bit RSA key pair for SSH encryption. If you don't specify 'modulus 2048', the system will prompt you to enter key size - always choose 2048 or higher for security.</div>
+                    </div>
+
+                    <h3 style="color: #00cc88; margin: 15px 0 10px 0;">SSH Configuration:</h3>
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip ssh version 2</span>
+                        <div class="tooltip">Forces SSH version 2 (more secure than version 1). This is the modern standard - never use SSH version 1.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">username User1 privilege 15 secret Cisco123</span>
+                        <div class="tooltip">Creates local user account. Privilege 15 = full admin access (like enable mode). These are your SSH login credentials: username "User1", password "Cisco123".</div>
+                    </div>
+
+                    <h3 style="color: #00cc88; margin: 15px 0 10px 0;">Restrict Access (Required for Security):</h3>
+                    <div class="scenario-command">
+                        <span class="base-cmd">line vty 0 4</span>
+                        <div class="tooltip">Configures virtual terminal lines 0-4 (allows 5 simultaneous remote connections). VTY lines handle remote access like SSH and Telnet.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">login local</span>
+                        <div class="tooltip">Forces authentication using local username/password database instead of just enable password. Points to users created with 'username' command.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">transport input ssh</span>
+                        <div class="tooltip">Only allows SSH connections, blocks Telnet. For security, never allow both - use "transport input ssh" only. "transport input all" allows both SSH and Telnet (insecure).</div>
+                    </div>
+
+                    <div class="sub-accordion" style="margin-top: 20px; border: 1px solid #444;">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion(this)" style="font-size: 14px; background: #2a2a2a; color: #ccc; padding: 10px; cursor: pointer; border-radius: 5px;">
+                            ➤ Advanced: Limit SSH Access by IP Address
+                        </div>
+                        <div class="sub-accordion-content" style="display: none; padding: 15px; background: #1a1a1a;">
+                            <p style="color: #ccc; font-size: 13px; margin-bottom: 10px;">
+                                Use access lists to restrict which IP addresses can SSH to your device. More secure than allowing SSH from anywhere.
+                            </p>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">show access-lists SSHACCESS</span>
+                                <div class="tooltip">Check if access list already exists. If it shows "% Access-list SSHACCESS does not exist", you need to create it first.</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">ip access-list standard SSHACCESS</span>
+                                <div class="tooltip">Creates named standard access list. Standard ACLs can only filter by source IP address (perfect for SSH access control).</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">permit 192.168.1.100</span>
+                                <div class="tooltip">Allow SSH from specific IP. Replace with your management PC's IP. You can add multiple permit statements for different IPs.</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">deny any</span>
+                                <div class="tooltip">Block all other IPs from SSH access. This is implicit (automatic) but adding it explicitly makes your intentions clear.</div>
+                            </div>
+
+                            <div class="scenario-command">
+                                <span class="base-cmd">line vty 0 4</span><br>
+                                <span class="base-cmd">access-class SSHACCESS in</span>
+                                <div class="tooltip">Apply access list to VTY lines. "in" means incoming connections. Now only IPs in your SSHACCESS list can connect via SSH.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1527,7 +1632,7 @@
 
             <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="ssh-secure-access" id="ssh-secure-access">
-                    SSH Secure Administrative Access Lab
+                    (Lab) SSH and Access List Setup
                 </div>
                 <div class="accordion-content">
                     <div class="scenario-requirement">
@@ -9259,6 +9364,19 @@
             } else {
                 // Remove anchor from URL when closing
                 history.pushState(null, null, window.location.pathname);
+            }
+        }
+
+        function toggleSubAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('span') || header;
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                arrow.textContent = arrow.textContent.replace('➤', '▼');
+            } else {
+                content.style.display = 'none';
+                arrow.textContent = arrow.textContent.replace('▼', '➤');
             }
         }
 
