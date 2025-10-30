@@ -1209,8 +1209,97 @@
         <div id="scenarios" class="tab-content">
             <h1>Common Scenarios</h1>
 
-            <div class="two-column-layout">
-            <div>
+            <!-- Quick Navigation Links -->
+            <div style="background: #2a2a2a; padding: 20px; border-radius: 5px; margin-bottom: 30px;">
+                <div style="color: #0066cc; font-weight: bold; margin-bottom: 15px; font-size: 16px;">🔗 Quick Navigation:</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; color: #e0e0e0; font-size: 13px;">
+                    <a href="#basic-ip-assignment" onclick="navigateToAccordion('basic-ip-assignment')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Basic IP Assignment</a>
+                    <a href="#basic-vlan-setup" onclick="navigateToAccordion('basic-vlan-setup')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Basic VLAN Setup</a>
+                    <a href="#topology-discovery" onclick="navigateToAccordion('topology-discovery')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Network Topology Discovery</a>
+                    <a href="#ssh-secure-access" onclick="navigateToAccordion('ssh-secure-access')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">SSH & Secure Access</a>
+                    <a href="#layer2-port-security" onclick="navigateToAccordion('layer2-port-security')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Layer 2 Port Security</a>
+                    <a href="#symmetric-static-routing" onclick="navigateToAccordion('symmetric-static-routing')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">Static Routing Configuration</a>
+                    <a href="#ospf-configuration" onclick="navigateToAccordion('ospf-configuration')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">OSPF Multi-Router Setup</a>
+                    <a href="#vlan-trunking" onclick="navigateToAccordion('vlan-trunking')" style="color: #00aaff; text-decoration: none; padding: 5px 0; cursor: pointer;">(Lab) VLAN & Trunking</a>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="basic-ip-assignment" id="basic-ip-assignment">
+                    Basic IP Assignment
+                </div>
+                <div class="accordion-content">
+                    <p style="color: #e0e0e0; margin-bottom: 15px;">
+                        Assigns an IP address to a router interface so it can communicate on that network. Creates both Connected (C) and Local (L) routes in the routing table.
+                    </p>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface ethernet 0/1</span>
+                        <div class="tooltip">Look for: "Configure interface...", "Assign IP to interface...", or specific interface names like eth0/1, g0/0, fa0/1</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">ip address [IP] [Subnet mask]</span>
+                        <div class="tooltip">Subnet mask usually matches the network's subnet mask. Common: 255.255.255.0 (/24), 255.255.255.252 (/30 for point-to-point)</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">no shutdown</span>
+                        <div class="tooltip">CRITICAL! Interfaces are administratively down by default. This brings the interface up.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="basic-vlan-setup" id="basic-vlan-setup">
+                    Basic VLAN Setup
+                </div>
+                <div class="accordion-content">
+                    <p style="color: #e0e0e0; margin-bottom: 15px;">
+                        Creates logical network segments on a switch. Access ports connect end devices to one VLAN, trunk ports carry multiple VLANs between switches.
+                    </p>
+
+                    <h3 style="color: #00cc88; margin: 15px 0 10px 0;">Check Existing VLANs:</h3>
+                    <div class="scenario-command">
+                        <span class="base-cmd">show vlan brief</span>
+                        <div class="tooltip">Shows VLAN ID, Name, Status, and which ports are assigned. Also try: "show vlan" (detailed), "show vlan summary" (count), "show vlan id 10" (specific VLAN)</div>
+                    </div>
+
+                    <h3 style="color: #00cc88; margin: 15px 0 10px 0;">Create New VLANs:</h3>
+                    <div class="scenario-command">
+                        <span class="base-cmd">vlan 10 name Sales</span>
+                        <div class="tooltip">Creates VLAN 10 with descriptive name "Sales". Repeat for each VLAN: "vlan 20 name Marketing", "vlan 30 name Engineering". Names help identify VLANs in show commands.</div>
+                    </div>
+
+                    <h3 style="color: #00cc88; margin: 15px 0 10px 0;">Configure VLANs:</h3>
+                    <div class="scenario-command">
+                        <span class="base-cmd">interface ethernet 0/1</span>
+                        <div class="tooltip">Select interface to configure. You can use "interface range eth0/1-5" to configure multiple ports simultaneously.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport mode access / trunk</span>
+                        <div class="tooltip">ACCESS: Connect end devices (PCs, phones) - carries ONE VLAN, removes VLAN tags. TRUNK: Connect switches/routers - carries MULTIPLE VLANs, keeps VLAN tags.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport access vlan 10</span><br>
+                        <span class="base-cmd">switchport trunk allowed vlan 10,20,30</span>
+                        <div class="tooltip">ACCESS: Assigns port to specific VLAN. TRUNK: Specifies which VLANs can travel over trunk (security + performance). Multiple VLANs = comma-separated list.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">switchport trunk native vlan 1</span>
+                        <div class="tooltip">TRUNK ONLY: Native VLAN = untagged traffic on trunk. Default is VLAN 1. Should match on both ends of trunk or you get warnings. Not used on access ports.</div>
+                    </div>
+
+                    <div class="scenario-command">
+                        <span class="base-cmd">no shutdown</span>
+                        <div class="tooltip">Enable the interface. Don't forget this step!</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="topology-discovery" id="topology-discovery">
                     Topology Discovery Lab: CDP and LLDP
@@ -2427,9 +2516,9 @@
                     </div>
                 </div>
             </div>
-            </div>
 
-            <div>
+
+
             <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="ospf-configuration" id="ospf-configuration">
                     OSPF Configuration Lab: Multi-Router Setup
@@ -2796,7 +2885,7 @@
 
             <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="vlan-trunking" id="vlan-trunking">
-                    VLAN Trunking Setup: Multi-Switch Inter-VLAN Communication
+                    (Lab) VLAN & Trunking
                 </div>
                 <div class="accordion-content">
                     <div class="scenario-requirement">
@@ -3003,8 +3092,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
             </div>
 
         </div>
@@ -8582,6 +8669,8 @@
                 </div>
             </div>
 
+
+
             <div class="accordion">
                 <div class="accordion-header" onclick="toggleAccordion(this)" data-accordion-id="discovery-protocols" id="discovery-protocols">
                     Discovery Protocols: CDP and LLDP
@@ -9171,6 +9260,39 @@
                 // Remove anchor from URL when closing
                 history.pushState(null, null, window.location.pathname);
             }
+        }
+
+        function navigateToAccordion(accordionId) {
+            // Find the accordion header with the matching ID
+            const accordionHeader = document.getElementById(accordionId);
+            if (accordionHeader && accordionHeader.classList.contains('accordion-header')) {
+                // Close all accordions first
+                const allContents = document.getElementsByClassName('accordion-content');
+                const allHeaders = document.getElementsByClassName('accordion-header');
+                for (let i = 0; i < allContents.length; i++) {
+                    allContents[i].classList.remove('active');
+                    allHeaders[i].classList.remove('active');
+                }
+                
+                // Open the target accordion
+                const content = accordionHeader.nextElementSibling;
+                content.classList.add('active');
+                accordionHeader.classList.add('active');
+                
+                // Scroll to the accordion with a small delay to ensure it's expanded
+                setTimeout(() => {
+                    accordionHeader.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 100);
+                
+                // Update URL
+                history.pushState(null, null, '#' + accordionId);
+            }
+            
+            // Prevent default link behavior
+            return false;
         }
 
         function toggleNestedAccordion(header) {
