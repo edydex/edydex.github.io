@@ -111,26 +111,117 @@
 <body>
   <div class="container">
     <header>
-      <h1 class="page-title">Atreides App Closed Test Signup</h1>
+      <h1 class="page-title">Dune Companion Feedback</h1>
     </header>
     <main id="qa-list">
-      <p class="description-text">Thank you for showing interest in the Android closed test of my app. Please fill out this short form if you'd like to get access. I need 12 testers who will keep the app installed for 15 days.</p>
+      <p class="description-text">Thank you for testing the Dune Companion! Your feedback helps improve the app.</p>
       
       <form action="https://formspree.io/f/mrbpbole" method="POST">
+        <!-- Useful question -->
         <div class="form-section">
-          <label class="form-label">Your email:</label>
-          <input type="email" name="email" required>
-        </div>
-        
-        <div class="form-section">
-          <div class="form-label">Would you be willing to help test my other apps?</div>
+          <div class="form-label">Did you find the companion useful during your game of Dune?</div>
           <div class="radio-options">
             <label class="radio-label">
-              <input type="radio" name="future_apps" value="yes" required> Yes
+              <input type="radio" name="useful" value="yes" required> Yes
             </label>
             <label class="radio-label">
-              <input type="radio" name="future_apps" value="no" required> No
+              <input type="radio" name="useful" value="no" required> No
             </label>
+          </div>
+        </div>
+        
+        <!-- Frustrating question -->
+        <div class="form-section">
+          <div class="form-label">Did you find any part of the app frustrating?</div>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input type="radio" name="frustrating" value="yes" id="frustrating_yes" required> Yes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="frustrating" value="no" id="frustrating_no" required> No
+            </label>
+          </div>
+          <div id="frustrating_explanation" style="display: none; margin-top: 1rem;">
+            <label class="form-label" style="font-size: 1.2rem;">Please explain:</label>
+            <textarea name="frustrating_explanation" rows="4" style="width: 100%; max-width: 600px; font-size: 1.1rem; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+          </div>
+        </div>
+        
+        <!-- Design changes question -->
+        <div class="form-section">
+          <div class="form-label">Would you like to see any design changes made?</div>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input type="radio" name="design_changes" value="yes" id="design_yes" required> Yes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="design_changes" value="no" id="design_no" required> No
+            </label>
+          </div>
+          <div id="design_explanation" style="display: none; margin-top: 1rem;">
+            <label class="form-label" style="font-size: 1.2rem;">Please explain:</label>
+            <textarea name="design_explanation" rows="4" style="width: 100%; max-width: 600px; font-size: 1.1rem; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+          </div>
+        </div>
+        
+        <!-- Mistakes question -->
+        <div class="form-section">
+          <div class="form-label">Did you notice any Rule-set mistakes?</div>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input type="radio" name="mistakes" value="yes" id="mistakes_yes" required> Yes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="mistakes" value="no" id="mistakes_no" required> No
+            </label>
+          </div>
+          <div id="mistakes_explanation" style="display: none; margin-top: 1rem;">
+            <label class="form-label" style="font-size: 1.2rem;">What mistakes did you find:</label>
+            <textarea name="mistakes_explanation" rows="4" style="width: 100%; max-width: 600px; font-size: 1.1rem; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+          </div>
+        </div>
+        
+        <!-- App test question -->
+        <div class="form-section">
+          <div class="form-label">Would you be willing to download and test the Companion as a standalone app?</div>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input type="radio" name="app_test" value="yes" id="app_test_yes" required> Yes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="app_test" value="no" id="app_test_no" required> No
+            </label>
+          </div>
+          <div id="platform_field" style="display: none; margin-top: 1rem;">
+            <label class="form-label" style="font-size: 1.2rem;">Which platforms do you use?</label>
+            <div class="radio-options">
+              <label class="radio-label">
+                <input type="radio" name="platform" value="ios"> iOS (Apple)
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="platform" value="android"> Android
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="platform" value="both"> Both
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contact question -->
+        <div class="form-section">
+          <div class="form-label">Can I reach out to you if I have any questions regarding your feedback?</div>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input type="radio" name="can_contact" value="yes" id="contact_yes" required> Yes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="can_contact" value="no" id="contact_no" required> No
+            </label>
+          </div>
+          <div id="email_field" style="display: none; margin-top: 1rem;">
+            <label class="form-label" style="font-size: 1.2rem;">Your email <span id="email_purpose" style="display: none; font-weight: normal;">(I will use this to send you an invite to the app test)</span>:</label>
+            <input type="email" name="email">
           </div>
         </div>
         
@@ -138,5 +229,68 @@
       </form>
     </main>
   </div>
+  
+  <script>
+    // Show/hide frustrating explanation field
+    document.getElementById('frustrating_yes').addEventListener('change', function() {
+      document.getElementById('frustrating_explanation').style.display = 'block';
+    });
+    document.getElementById('frustrating_no').addEventListener('change', function() {
+      document.getElementById('frustrating_explanation').style.display = 'none';
+    });
+    
+    // Show/hide design explanation field
+    document.getElementById('design_yes').addEventListener('change', function() {
+      document.getElementById('design_explanation').style.display = 'block';
+    });
+    document.getElementById('design_no').addEventListener('change', function() {
+      document.getElementById('design_explanation').style.display = 'none';
+    });
+    
+    // Show/hide mistakes explanation field
+    document.getElementById('mistakes_yes').addEventListener('change', function() {
+      document.getElementById('mistakes_explanation').style.display = 'block';
+    });
+    document.getElementById('mistakes_no').addEventListener('change', function() {
+      document.getElementById('mistakes_explanation').style.display = 'none';
+    });
+    
+    // Show/hide platform field
+    document.getElementById('app_test_yes').addEventListener('change', function() {
+      document.getElementById('platform_field').style.display = 'block';
+      document.querySelectorAll('input[name="platform"]').forEach(function(input) {
+        input.required = true;
+      });
+      // Show email purpose text if email field is visible
+      if (document.getElementById('email_field').style.display === 'block') {
+        document.getElementById('email_purpose').style.display = 'inline';
+      }
+    });
+    document.getElementById('app_test_no').addEventListener('change', function() {
+      document.getElementById('platform_field').style.display = 'none';
+      document.querySelectorAll('input[name="platform"]').forEach(function(input) {
+        input.required = false;
+        input.checked = false;
+      });
+      // Hide email purpose text
+      document.getElementById('email_purpose').style.display = 'none';
+    });
+    
+    // Show/hide email field
+    document.getElementById('contact_yes').addEventListener('change', function() {
+      document.getElementById('email_field').style.display = 'block';
+      document.querySelector('input[name="email"]').required = true;
+      // Show email purpose if app test is yes
+      var appTestYes = document.getElementById('app_test_yes');
+      if (appTestYes && appTestYes.checked) {
+        document.getElementById('email_purpose').style.display = 'inline';
+      }
+    });
+    document.getElementById('contact_no').addEventListener('change', function() {
+      document.getElementById('email_field').style.display = 'none';
+      document.querySelector('input[name="email"]').required = false;
+      document.getElementById('email_purpose').style.display = 'none';
+    });
+  </script>
 </body>
 </html>
