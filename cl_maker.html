@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cover Letter Maker (GUI)</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f3f2;
+      --panel: #ffffff;
+      --ink: #1f1f1f;
+      --muted: #616161;
+      --accent: #6A3E3C;
+      --accent-2: #8a5451;
+      --line: #ddd6d3;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8f6f5, var(--bg));
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: minmax(320px, 460px) minmax(600px, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(21, 13, 11, 0.07);
+    }
+
+    .editor {
+      padding: 16px;
+      position: sticky;
+      top: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--accent);
+    }
+
+    .sub {
+      margin: 6px 0 14px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.4;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 65vh;
+      resize: vertical;
+      border-radius: 10px;
+      border: 1px solid #d8d2cf;
+      padding: 12px;
+      font: 15px/1.5 "Cascadia Code", Consolas, "Courier New", monospace;
+      color: #1e1a18;
+      background: #fff;
+    }
+
+    .toolbar {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 10px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #ece7e5;
+      color: #2f2422;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    button:hover {
+      filter: brightness(0.97);
+    }
+
+    .preview-wrap {
+      padding: 12px;
+    }
+
+    .preview-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .preview-head h2 {
+      margin: 0;
+      font-size: 1rem;
+      color: #47302e;
+      font-weight: 600;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      color: #fff;
+      background: var(--accent-2);
+      border-radius: 999px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 92px);
+      border: 1px solid #d9d2cf;
+      border-radius: 10px;
+      background: white;
+    }
+
+    .footnote {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: #6f6562;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 1100px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      .editor {
+        position: static;
+      }
+
+      iframe {
+        height: 70vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="card editor">
+      <h1>Cover Letter Maker</h1>
+      <p class="sub">
+        Write only the body of your cover letter. Header, typography, spacing, and colors come from your existing template.
+      </p>
+
+      <label for="contentInput">Letter content (light Markdown supported)</label>
+      <textarea id="contentInput" placeholder="Dear Hiring Manager,\n\nI am excited to apply for...">Dear *Company* Hiring Team,
+I read through the job listing for IT Systems Administrator and I think I'd make a great fit. [add something for "based on X qualifications" - this paragraph should be short and display confidence in  eligibility based on my background]
+[Paragraph on how specific things in my background make me a good fit]
+[Paragraph on my more general strengths and qualifications - education, certifications, etc]
+[Personal and ideological interest in position]
+Thank you for your consideration,
+Oles Maiovskyi
+
+Sincerely,
+Oles Maiovskyi</textarea>
+
+      <div class="toolbar">
+        <button id="renderBtn" class="primary">Render Preview</button>
+        <button id="clearBtn">Clear</button>
+        <button id="copyBtn">Copy HTML Body</button>
+        <button id="downloadBtn">Download Full HTML</button>
+        <button id="printBtn">Print / Save PDF</button>
+        <button id="resetBtn">Reset Sample</button>
+      </div>
+
+      <p class="footnote">
+        Markdown shortcuts: <b>bold</b> via **text**, italic via *text*, links via [text](url). Use blank lines between paragraphs. Use Shift+Enter for an explicit line break (&lt;br&gt;) without paragraph spacing. Smart apostrophes and em dashes are auto-normalized.
+      </p>
+    </section>
+
+    <section class="card preview-wrap">
+      <div class="preview-head">
+        <h2>Live Preview</h2>
+        <span class="badge">Template-powered</span>
+      </div>
+      <iframe id="previewFrame" title="Cover Letter Preview"></iframe>
+    </section>
+  </div>
+
+  <script>
+    const input = document.getElementById('contentInput');
+    const frame = document.getElementById('previewFrame');
+    const renderBtn = document.getElementById('renderBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const printBtn = document.getElementById('printBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const sampleText = input.value;
+    let renderedDocument = '';
+
+    const templateCss = `
+@media print {
+  @page {
+    margin: 0mm 0mm 0mm 0mm;
+    size: 8.5in 11in;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  header {
+    background-color: #6A3E3C !important;
+    box-shadow: inset 0 0 0 1000px #6A3E3C;
+  }
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  width: 8.5in;
+  height: 11in;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 12pt;
+}
+
+a {
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  text-decoration: inherit;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+  margin: 0;
+}
+
+header {
+  padding: 0.35in 0.5in;
+  color: white;
+  background-color: #6A3E3C;
+}
+header h1 {
+  font-size: 24pt;
+}
+.additional-information {
+  margin-top: 0.13in;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: none;
+}
+
+.additional-information div:first-child {
+  width: 100%;
+  font-size: 14pt;
+}
+.additional-information div:last-child {
+  padding-top: 2pt;
+  display: flex;
+  flex-direction: column;
+  gap: 0.075in;
+}
+.additional-information .flexy {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: none;
+  align-items: center;
+  gap: 0.1in;
+}
+
+.additional-information .flexy svg {
+  width: 13pt;
+  height: 13pt;
+  flex: 0 0 auto;
+}
+
+main {
+  color: #131F17;
+  padding: 0.5in;
+  padding-right: 1in;
+}
+
+main p {
+  /* Adjust paragraph spacing here (increase/decrease this bottom margin) */
+  margin: 0 0 0.18in 0;
+  line-height: 1.32;
+}
+
+main p:last-child {
+  margin-bottom: 0;
+}
+`;
+
+    const templateHtml = `
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cover Letter</title>
+  <style>${templateCss}</style>
+</head>
+<body>
+  <header>
+    <h1>Oles Maiovskyi</h1>
+    <div class="additional-information">
+      <div>
+        <p>Systems Administrator</p>
+        <p>Greater Seattle Area</p>
+      </div>
+      <div>
+        <p class="flexy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="384.137 71.687 13.155 12.96" aria-hidden="true"><path d="M 388.104 71.688 C 388.171 71.688 388.171 71.688 388.236 71.755 C 388.302 71.823 388.502 72.018 388.502 72.153 C 388.502 72.285 388.502 72.615 388.566 72.878 C 388.698 73.209 388.832 74.069 389.029 74.531 C 389.227 74.994 389.294 75.26 389.095 75.523 C 388.897 75.853 387.641 77.112 387.641 77.112 C 387.641 77.112 387.972 77.773 388.367 78.167 C 388.697 78.63 389.227 79.291 389.888 79.82 C 390.549 80.417 391.278 80.944 392.004 81.275 C 392.732 80.549 393.326 79.952 393.524 79.82 C 393.723 79.689 393.723 79.622 394.054 79.756 C 394.384 79.888 394.847 80.087 395.376 80.151 C 395.839 80.218 396.368 80.283 396.698 80.35 C 397.029 80.417 397.029 80.417 397.096 80.548 C 397.228 80.68 397.292 80.879 397.292 80.943 L 397.292 83.655 C 397.292 83.854 397.292 83.854 397.228 83.986 C 397.161 84.118 397.096 84.449 397.096 84.449 C 397.096 84.515 396.765 84.647 396.567 84.647 C 396.368 84.647 395.639 84.647 395.177 84.58 C 394.715 84.515 393.46 84.249 392.995 84.053 C 392.533 83.918 391.012 83.392 389.163 82.002 C 387.443 80.68 386.188 78.895 385.459 77.442 C 384.731 75.985 384.335 74.4 384.269 73.606 C 384.137 72.813 384.137 72.482 384.137 72.284 C 384.204 72.085 384.4 71.886 384.535 71.821 C 384.667 71.754 384.866 71.687 385.061 71.687 L 388.104 71.687 L 388.104 71.688 Z" fill="rgb(255,255,255)"/></svg>(206) 739-1921</p>
+        <p class="flexy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="383.429 91.338 14.571 16.145" aria-hidden="true"><path d="M 398 98.603 C 398 104.017 394.535 103.8 394.095 103.8 C 393.596 103.8 393.165 103.692 392.801 103.478 C 392.44 103.263 392.153 102.942 391.98 102.56 C 391.688 102.964 391.353 103.266 390.968 103.468 C 390.58 103.673 390.148 103.779 389.709 103.775 C 389.288 103.775 388.909 103.68 388.577 103.496 C 388.239 103.307 387.953 103.037 387.745 102.712 C 387.524 102.374 387.369 101.964 387.277 101.488 C 387.183 101.008 387.167 100.476 387.224 99.89 C 387.306 99.149 387.467 98.48 387.707 97.88 C 387.948 97.281 388.245 96.771 388.603 96.352 C 388.938 95.947 389.352 95.614 389.82 95.374 C 390.269 95.147 390.765 95.029 391.268 95.03 C 392.906 95.03 393.763 95.857 393.936 95.976 L 393.494 100.99 C 393.46 101.276 393.329 102.403 394.405 102.403 C 394.689 102.403 396.381 102.034 396.381 98.603 C 396.381 98.496 397.124 92.952 391.059 92.952 C 386.076 92.952 385.048 97.711 385.048 99.41 C 385.048 106.18 389.349 105.868 390.715 105.868 C 392.35 105.868 393.188 105.524 393.371 105.439 L 393.735 106.912 C 393.529 107.044 392.723 107.482 390.715 107.482 C 388.235 107.482 383.429 107.365 383.429 99.41 C 383.429 98.31 384.036 91.338 391.094 91.338 C 397.849 91.338 398 97.443 398 98.603 Z  M 389.152 99.89 C 389.089 100.649 389.155 101.23 389.355 101.627 C 389.551 102.021 389.87 102.219 390.31 102.219 C 391.204 102.219 391.65 101.063 391.755 100.772 L 392.119 96.67 C 391.89 96.613 391.658 96.576 391.423 96.557 C 390.759 96.557 390.241 96.84 389.87 97.408 C 389.504 97.976 389.263 98.802 389.152 99.89 Z" fill="rgb(255,255,255)"/></svg><a href="mailto:oles@mayo.onl">oles@mayo.onl</a></p>
+        <p class="flexy"><svg xmlns="http://www.w3.org/2000/svg" viewBox="382.544 112.482 16.342 16.342" aria-hidden="true"><path d="M 390.715 112.482 C 386.209 112.482 382.544 116.148 382.544 120.653 C 382.544 125.159 386.209 128.824 390.715 128.824 C 395.22 128.824 398.885 125.159 398.885 120.653 C 398.885 116.148 395.22 112.482 390.715 112.482 Z  M 390.715 113.844 C 392.004 113.847 393.266 114.216 394.353 114.908 L 393.8 114.972 L 393.928 116.334 L 393.204 116.014 L 392.608 116.525 L 392.715 117.93 L 394.183 117.461 L 396.013 118.058 L 395.545 118.909 L 394.438 118.228 L 393.247 118.398 L 392.076 119.269 L 391.417 121.312 L 392.736 122.398 C 392.736 122.398 394.09 122.164 394.161 122.164 C 394.233 122.164 394.736 123.397 394.736 123.397 L 393.651 126.802 C 392.765 127.225 391.765 127.462 390.715 127.462 C 390.499 127.462 390.286 127.438 390.076 127.419 L 389.332 126.121 L 390.055 123.397 L 387.31 121.334 L 384.778 121.334 L 384.119 119.994 L 385.948 118.547 L 388.672 117.249 L 388.267 115.44 L 389.438 115.185 L 389.991 115.951 L 392.034 115.568 L 391.672 113.993 L 390.162 113.886 C 390.342 113.874 390.528 113.844 390.715 113.844 Z  M 389.949 113.887 L 388.884 114.334 L 388.374 114.249 C 388.882 114.065 389.411 113.943 389.949 113.886 L 389.949 113.887 Z  M 383.948 121.184 L 384.608 121.95 L 384.608 123.355 L 385.884 124.759 L 386.671 124.759 L 388.608 127.142 C 386.039 126.31 384.164 123.983 383.948 121.184 Z" fill="rgb(255,255,255)"/></svg><a href="https://mayo.onl">mayo.onl</a></p>
+      </div>
+    </div>
+  </header>
+  <main><!--CONTENT--></main>
+</body>
+</html>
+`;
+
+    function escapeHtml(value) {
+      return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function normalizeClankerSigns(value) {
+      return value
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/\s*\u2014\s*/g, ' - ');
+    }
+
+    function miniMarkdownToHtml(text) {
+      const normalized = normalizeClankerSigns(text);
+      const escaped = escapeHtml(normalized.trim());
+      if (!escaped) return '<p></p>';
+
+      const withBreakTokens = escaped.replace(/&lt;\/?br\s*\/?&gt;/gi, '[[BR]]');
+      const paragraphs = withBreakTokens
+        .split(/\n+/g)
+        .map((p) => p.trim())
+        .filter(Boolean);
+
+      const rendered = paragraphs.map((p) => {
+        let line = p.replace(/\[\[BR\]\]/g, '<br>');
+        line = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        line = line.replace(/\*(.+?)\*/g, '<em>$1</em>');
+        line = line.replace(/\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        return `<p>${line}</p>`;
+      });
+
+      return rendered.join('\n');
+    }
+
+    function render() {
+      const bodyHtml = miniMarkdownToHtml(input.value);
+      renderedDocument = templateHtml.replace('<!--CONTENT-->', bodyHtml);
+      frame.srcdoc = renderedDocument;
+    }
+
+    function getRenderedHtmlBody() {
+      return miniMarkdownToHtml(input.value);
+    }
+
+    function fallbackCopy(value) {
+      const helper = document.createElement('textarea');
+      helper.value = value;
+      helper.style.position = 'fixed';
+      helper.style.top = '-9999px';
+      document.body.appendChild(helper);
+      helper.focus();
+      helper.select();
+      try {
+        document.execCommand('copy');
+      } finally {
+        helper.remove();
+      }
+    }
+
+    function copyHtml() {
+      const html = getRenderedHtmlBody();
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(html)
+          .catch(() => fallbackCopy(html))
+          .finally(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => (copyBtn.textContent = 'Copy HTML Body'), 1200);
+          });
+        return;
+      }
+
+      fallbackCopy(html);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => (copyBtn.textContent = 'Copy HTML Body'), 1200);
+    }
+
+    function printPreview() {
+      render();
+
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) return;
+
+      printWindow.document.open();
+      printWindow.document.write(renderedDocument);
+      printWindow.document.close();
+
+      const attemptPrint = () => {
+        printWindow.focus();
+        printWindow.print();
+      };
+
+      if (printWindow.document.readyState === 'complete') {
+        attemptPrint();
+      } else {
+        printWindow.addEventListener('load', attemptPrint, { once: true });
+      }
+    }
+
+    function downloadFullHtml() {
+      render();
+      const html = renderedDocument;
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cover-letter.html';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    renderBtn.addEventListener('click', render);
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      render();
+    });
+    copyBtn.addEventListener('click', copyHtml);
+    printBtn.addEventListener('click', printPreview);
+    downloadBtn.addEventListener('click', downloadFullHtml);
+    resetBtn.addEventListener('click', () => {
+      input.value = sampleText;
+      render();
+    });
+
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' || !event.shiftKey) return;
+
+      event.preventDefault();
+      const start = input.selectionStart;
+      const end = input.selectionEnd;
+      const insertion = '<br>';
+      input.value = input.value.slice(0, start) + insertion + input.value.slice(end);
+      const nextPos = start + insertion.length;
+      input.selectionStart = nextPos;
+      input.selectionEnd = nextPos;
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
