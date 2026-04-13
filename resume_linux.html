@@ -557,13 +557,12 @@
           <section class="summary" aria-labelledby="summary-heading">
             <h2 class="summary-title" id="summary-heading">Summary of Qualifications:</h2>
             <p class="summary-copy">
-              IT professional with experience as a sole IT Administrator managing security operations,
-              infrastructure, and incident response for a law firm. I hold multiple industry-standard
-              certifications across security, networking, and cloud platforms. To complement this
-              background, I independently developed a security application that analyzes Exchange
-              mailbox activity logs to detect malicious behavior, isolate compromised emails, and
-              identify sensitive data for breach disclosure. My formal education provides a strong
-              foundation in security principles, network architecture, and IT infrastructure.
+              IT professional with hands-on experience managing Linux and network infrastructure,
+              writing automation scripts, and maintaining production-grade environments. I hold
+              multiple industry-standard certifications and independently developed and deployed
+              several applications on Ubuntu Linux — from development through hardening and
+              ongoing operations. My formal education provides a strong foundation in security
+              principles, network architecture, and IT infrastructure.
             </p>
           </section>
         </div>
@@ -608,12 +607,13 @@
               </p>
               <ul class="bullets">
                 <li>Monitor and respond to system alerts and tickets, prioritizing issues based on business impact and urgency to maintain operational continuity</li>
-                <li>Manage Windows and Linux systems including OS deployment, system updates, user account administration, and baseline configurations to ensure stable operations</li>
+                <li>Manage Windows and Ubuntu/Linux systems including OS deployment, baseline configuration, and ongoing maintenance to ensure stable operations</li>
                 <li>Maintain comprehensive documentation of network topology, device inventories, configuration files, and standard operating procedures</li>
                 <li>Oversee network infrastructure upgrades, including successful transition to fiber connectivity with minimal downtime</li>
                 <li>Coordinate with vendors and service providers for hardware procurement, software licensing, and technical support escalations</li>
                 <li>Manage Exchange Online environment including user provisioning, mailbox configuration, transport rules, and eDiscovery operations using Microsoft Purview</li>
-                <li>Implement automated solutions to improve operational efficiency and reduce manual administrative overhead</li>
+                <li>Write and maintain Python and Bash scripts for automating administrative tasks, deployments, and system health checks</li>
+                <li>Created a VLAN for IoT devices including security cameras to segment network traffic and reduce attack surface</li>
               </ul>
             </article>
           </div>
@@ -622,9 +622,9 @@
         <section class="section" aria-labelledby="skills-heading">
           <h2 class="section-label" id="skills-heading">Skills:</h2>
           <div class="section-body skills-grid">
-            <p class="skill-item">Linux, Windows, Mac,<br>Nginx, Caddy, Docker<br>AWS, Azure, GCP</p>
-            <p class="skill-item">HTML, CSS, JS<br>Python, Bash, Ansible<br>Exchange, Purview, O365</p>
-            <p class="skill-item">VLANs, DNS, IPSec<br>VPN, Wireshark, Entra ID<br>Forensics, Automation</p>
+            <p class="skill-item">Linux (Ubuntu/Debian)<br>Python, Bash, Ansible<br>VLANs, DNS, IPSec, VPN</p>
+            <p class="skill-item">Nginx, Caddy, Docker<br>AWS, Azure, GCP<br>Wireshark, Entra ID</p>
+            <p class="skill-item">Windows, Exchange, O365<br>Purview, HTML, CSS, JS<br>Forensics, Automation</p>
           </div>
         </section>
 
@@ -655,6 +655,16 @@
           <div class="section-body">
             <article class="project">
               <p class="project-copy">
+                <span class="project-title">Mayo's Mail Converter.</span>
+                Independently developed and deployed a Python email processing application on
+                headless Ubuntu Linux. Includes a modular processing pipeline, Bash scripts for
+                setup and health validation, systemd service deployment, and Cloudflare Tunnel
+                for secure remote access. Adopted for daily use in production at workplace.
+              </p>
+            </article>
+
+            <article class="project">
+              <p class="project-copy">
                 <span class="project-title">Mayo's Outlook Forensics.</span>
                 Independently developed an app for analyzing Microsoft Exchange logs for malicious
                 activity, then extracting and analyzing affected emails for sensitive information.
@@ -666,20 +676,11 @@
 
             <article class="project">
               <p class="project-copy">
-                <span class="project-title">MailConverter.</span>
-                Independently developed a Python desktop application that converts PST, MBOX, EML,
-                and MSG emails (with attachments) into a single chronologically ordered PDF while
-                preserving original formatting; adopted for daily use in production at workplace.
+                <span class="project-title">Homelab.</span>
+                Self-hosted Ubuntu/Debian Linux environment running Caddy, Pi-hole, and various
+                internal services — used for testing deployments, networking configs, and personal
+                projects.
               </p>
-            </article>
-
-            <article class="project">
-              <p class="project-copy">
-                <span class="project-title">Bidding Game.</span>
-                A simple multiplayer auction game. Hosted on Azure Web App service with custom
-                domain enabled by Cloudflare worker proxy.
-              </p>
-              <p class="project-link">Visit: <a href="https://bid.mayos.dev">https://bid.mayos.dev</a></p>
             </article>
           </div>
         </section>

@@ -49,6 +49,7 @@ licensing, and technical support escalations
 configuration, transport rules, and eDiscovery operations using Microsoft Purview
 • Implement automated solutions to improve operational efficiency and reduce
 manual administrative overhead
+• Created a VLAN for IoT devices including security cameras
 
 \[I don't have my FedEx Freight Experience on my Resume, but it might be useful at some point]
 FedEx Freight| January 2021- October 2021 Freight Handler | Kent | WA 
@@ -78,10 +79,6 @@ Microsoft:
 * Azure Administrator (AZ-104)
 * Azure Fundamentals (AZ-900)
 
-Cisco:
-
-* CCNA
-
 PROJECTS:
 Mayo's Outlook Forensics.
 Independently developed an app for analyzing Microsoft
@@ -98,6 +95,33 @@ Bidding Game.
 A simple multiplayer auction game. Hosted on Azure Web App service
 with custom domain enabled by Cloudflare worker proxy.
 Visit: https://bid.mayos.dev
+
+Mayo's Mail Converter / Sorter.
+Independently developed and deployed a Python-based email processing application for eDiscovery and records workflows. Built to process large mailbox datasets and reduce manual review overhead for legal/operations use cases.
+Core capabilities:
+• Converts PST/EML/MSG mailbox data into searchable PDF outputs with chronological naming and combined case output
+• Provides mailbox operations including compare, merge, deduplication, and sender/recipient filtering ("sorter" workflows)
+• Handles attachments and nested email content while preserving important mailbox context for downstream review
+• Includes both desktop UI and web UI paths, with API-backed workflow controls for intake, preview, conversion, and review steps
+Technical implementation:
+• Python application with modular processing pipeline (parsing, normalization, conversion, merge/dedupe/filter logic)
+• Linux automation via Bash scripts for dependency bootstrap, environment setup, and repeatable startup
+• Expanded browser-based review/export workflows for intake, preview, review actions, and markdown/export paths
+• Deployed and operated the application on Ubuntu/Debian Linux for headless/internal use
+• Service deployment with systemd (dedicated service account, auto-restart, loopback binding, hardened unit options)
+• Health validation and update automation scripts (backup snapshot + fast-forward update + post-deploy health checks)
+• Test coverage for core pipeline and web security behavior to reduce regression risk
+Deployment and operations ownership:
+• Deployed on headless Linux with operational guardrails and production-minded defaults
+• Configured secure access pattern using Cloudflare Tunnel/Access for controlled remote use and reduced exposed attack surface
+• Maintains environment allowlists, upload/size constraints, and review workspace controls for safer handling of sensitive files
+• Owns end-to-end lifecycle: feature development, deployment, hardening, troubleshooting, and iterative improvements based on user feedback
+• Used Bash scripts for setup, startup, validation, and update/troubleshooting workflows
+My role: Sole developer and operator (design, build, deploy, support)
+Project: mail_converter (private/internal use context)
+
+HOMELAB:
+Ubuntu/Debian Linux homelab with self-hosted services and projects including Caddy, Minecraft, SilverBullet, and Pi-hole.
 
 \[here are other projects not mentioned on the resume:]
 
