@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interview Cheat Sheet | April 22, 2026</title>
+  <meta
+    name="description"
+    content="Personalized Linux, networking, scripting, and lab infrastructure interview cheat sheet."
+  >
+  <style>
+    :root {
+      --bg: #f2eee6;
+      --paper: #fffdfa;
+      --ink: #14202b;
+      --muted: #5d6b78;
+      --line: #d8d0c3;
+      --accent: #0f5c75;
+      --accent-2: #c96e3d;
+      --accent-3: #e8f3f6;
+      --good: #e8f4ea;
+      --warn: #fff4dd;
+      --shadow: 0 22px 50px rgba(20, 32, 43, 0.12);
+      --sans: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+      --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+      --mono: "SFMono-Regular", "SF Mono", "Menlo", "Consolas", monospace;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --content-width: 1320px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background:
+        radial-gradient(circle at top left, rgba(201, 110, 61, 0.12), transparent 25%),
+        linear-gradient(180deg, #efe7db 0%, #f7f3ec 38%, #f1ece4 100%);
+      color: var(--ink);
+      font: 16px/1.5 var(--sans);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    code,
+    .mono {
+      font-family: var(--mono);
+      font-size: 0.94em;
+    }
+
+    .shell {
+      max-width: var(--content-width);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(15, 92, 117, 0.97), rgba(17, 52, 72, 0.96)),
+        linear-gradient(135deg, #113448, #0f5c75);
+      color: #f5fbfd;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 34px 34px 28px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% -28% auto;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(245, 251, 253, 0.8);
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 900px;
+      font: 700 clamp(2rem, 4vw, 3.6rem)/0.94 var(--serif);
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 14px 0 0;
+      max-width: 900px;
+      color: rgba(245, 251, 253, 0.9);
+      font-size: 1.06rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .action {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.1);
+      color: #f5fbfd;
+      text-decoration: none;
+      padding: 11px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+    }
+
+    button.action {
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 22px;
+      margin-top: 22px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 18px;
+      align-self: start;
+      background: rgba(255, 253, 250, 0.9);
+      border: 1px solid rgba(216, 208, 195, 0.9);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 18px 40px rgba(20, 32, 43, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .sidebar h2,
+    .section h2 {
+      margin: 0 0 12px;
+      font: 700 1.1rem/1.1 var(--sans);
+      letter-spacing: 0.01em;
+    }
+
+    .sidebar ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .sidebar li + li {
+      margin-top: 10px;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .sidebar-note {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--warn);
+      color: #57441a;
+      font-size: 0.94rem;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .section {
+      background: var(--paper);
+      border: 1px solid rgba(216, 208, 195, 0.92);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 14px 34px rgba(20, 32, 43, 0.06);
+    }
+
+    .section h2 {
+      color: var(--accent);
+    }
+
+    .section-intro {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eef5f7;
+      color: #184356;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .grid,
+    .story-grid,
+    .card-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .story-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background:
+        linear-gradient(180deg, rgba(232, 243, 246, 0.52), rgba(255, 253, 250, 0.88));
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font: 700 1rem/1.2 var(--sans);
+      color: var(--ink);
+    }
+
+    .card p,
+    .card ul,
+    .callout p,
+    .callout ul {
+      margin: 0;
+    }
+
+    .card ul,
+    .callout ul,
+    .tight-list {
+      padding-left: 18px;
+    }
+
+    .tight-list li + li,
+    .card li + li,
+    .callout li + li {
+      margin-top: 6px;
+    }
+
+    .callout {
+      border-left: 5px solid var(--accent-2);
+      background: #fff6f0;
+      color: #503528;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: 14px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+      background: white;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid #ece6da;
+    }
+
+    th {
+      background: #eff6f8;
+      color: #184356;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .speak {
+      font-family: var(--serif);
+      font-size: 1.02rem;
+      color: #1d2f3b;
+    }
+
+    .highlight {
+      background: var(--good);
+      border: 1px solid #cfe3d3;
+      color: #22402a;
+    }
+
+    .warn {
+      background: var(--warn);
+      border: 1px solid #e8d9b1;
+      color: #5d4c18;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.94rem;
+      padding: 0 8px 28px;
+    }
+
+    @media (max-width: 1100px) {
+      .layout,
+      .grid,
+      .story-grid,
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        padding: 14px;
+      }
+
+      .hero {
+        padding: 24px 20px;
+        border-radius: 24px;
+      }
+
+      .section {
+        padding: 18px;
+      }
+
+      .hero-actions {
+        gap: 10px;
+      }
+
+      .action {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    @media print {
+      html {
+        background: white;
+      }
+
+      .shell {
+        max-width: none;
+        padding: 0;
+      }
+
+      .hero,
+      .sidebar,
+      .section {
+        box-shadow: none;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        display: none;
+      }
+
+      .sidebar {
+        page-break-inside: avoid;
+      }
+
+      .section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <p class="eyebrow">Interview Quick Sheet • April 22, 2026</p>
+      <h1>Linux, Networking, Scripts, and Lab Ops</h1>
+      <p>
+        Personalized for a lab infrastructure role supporting broadband and networking hardware.
+        Focus on clear troubleshooting, hands-on credibility, and examples pulled from your own
+        background so your answers sound practiced but real.
+      </p>
+      <div class="hero-actions">
+        <a class="action" href="#pitch">Start With Your Pitch</a>
+        <a class="action" href="#linux">Linux Commands</a>
+        <a class="action" href="#hardware">Hardware + Power</a>
+        <button class="action" type="button" onclick="window.print()">Print / Save PDF</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <h2>Jump To</h2>
+        <ol>
+          <li><a href="#pitch">Your Pitch</a></li>
+          <li><a href="#stories">Best Examples To Use</a></li>
+          <li><a href="#linux">Linux / Ubuntu</a></li>
+          <li><a href="#networking">Networking + VLANs</a></li>
+          <li><a href="#scripts">Bash / Python Debugging</a></li>
+          <li><a href="#hardware">Hardware, Storage, Power</a></li>
+          <li><a href="#lab">Lab / Datacenter Answers</a></li>
+          <li><a href="#behavioral">Behavioral Prompts</a></li>
+          <li><a href="#avoid">What To Avoid</a></li>
+        </ol>
+        <div class="sidebar-note">
+          Lead with structure: what you check first, why, what command you run, and how you verify the fix.
+        </div>
+      </aside>
+
+      <main class="content">
+        <section class="section" id="pitch">
+          <h2>Your Pitch</h2>
+          <p class="section-intro">
+            Use this when they ask “Tell me about yourself” or “Why this role?”
+          </p>
+          <div class="card highlight">
+            <p class="speak">
+              I am a systems administrator who has been owning infrastructure end-to-end in a hands-on
+              environment. In my current role, I manage Windows and Linux systems, documentation,
+              alerts, vendor coordination, and network changes including creating a VLAN for IoT and
+              security devices. I also build and operate Linux-hosted tools myself, including a Python
+              application deployed on Ubuntu or Debian with systemd, Bash setup and health-check
+              scripts, and secure remote access. What interests me about this role is the mix of Linux,
+              networking, hardware, and reliability work in a lab environment where good troubleshooting
+              and operational discipline directly improve engineering speed and product quality.
+            </p>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Lead with ownership</span>
+            <span class="pill">Show Linux comfort</span>
+            <span class="pill">Mention VLAN + documentation</span>
+            <span class="pill">Tie scripts to reliability</span>
+            <span class="pill">Connect to real hardware labs</span>
+          </div>
+          <div class="callout">
+            <p><strong>Why you fit this role:</strong> sole-operator mindset, Linux deployment experience, network fundamentals, scripting for ops, home lab credibility, and comfort keeping systems available while working across vendors and stakeholders.</p>
+          </div>
+        </section>
+
+        <section class="section" id="stories">
+          <h2>Best Examples To Use</h2>
+          <p class="section-intro">
+            These are your strongest real examples. Reuse them across technical and behavioral questions.
+          </p>
+          <div class="story-grid">
+            <article class="card">
+              <h3>Linux + Service Ownership</h3>
+              <ul class="tight-list">
+                <li>Deployed a Python app on headless Ubuntu or Debian Linux.</li>
+                <li>Used <code>systemd</code> with a dedicated service account, restart behavior, and hardened unit options.</li>
+                <li>Built Bash scripts for setup, startup, validation, backup, update, and health checks.</li>
+                <li>Good answer angle: “I do not just write software, I make it operable.”</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Networking + VLANs</h3>
+              <ul class="tight-list">
+                <li>Created a VLAN for IoT devices including security cameras.</li>
+                <li>Maintained network topology and configuration documentation.</li>
+                <li>Oversaw a fiber connectivity transition with minimal downtime.</li>
+                <li>Good answer angle: segmentation, reliability, and controlled change management.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Python + Investigation Tooling</h3>
+              <ul class="tight-list">
+                <li>Built Exchange and mailbox analysis tools for malicious activity and large email workflows.</li>
+                <li>Worked with modular pipelines, large datasets, and review/reporting outputs.</li>
+                <li>Good answer angle: Python for automation, data processing, and operator usability.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Home Lab Credibility</h3>
+              <ul class="tight-list">
+                <li>Ubuntu and Debian home lab with self-hosted services.</li>
+                <li>Services mentioned in your background: Caddy, Pi-hole, Minecraft, SilverBullet.</li>
+                <li>Good answer angle: curiosity, hands-on learning, repeatable Linux admin habits.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="linux">
+          <h2>Linux / Ubuntu Cheat Sheet</h2>
+          <p class="section-intro">
+            Keep your answers structured: establish symptoms, check host health, inspect service state, read logs, then verify the network path.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Commands</th>
+                  <th>What To Say</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Access a host</td>
+                  <td><code>ssh user@host</code><br><code>ssh -i ~/.ssh/key.pem user@host</code><br><code>scp file user@host:/tmp/</code><br><code>rsync -avz dir/ user@host:/opt/app/</code></td>
+                  <td>“First I confirm reachability and credentials, then I use SSH to inspect the host directly. For file transfer I prefer <code>scp</code> or <code>rsync</code> depending on size and repeatability.”</td>
+                </tr>
+                <tr>
+                  <td>Basic host triage</td>
+                  <td><code>uptime</code><br><code>top</code> or <code>htop</code><br><code>free -h</code><br><code>df -h</code><br><code>df -i</code></td>
+                  <td>“I check load, CPU, memory, disk space, and inodes first because slowness is often disk or memory pressure, not just CPU.”</td>
+                </tr>
+                <tr>
+                  <td>Service not working</td>
+                  <td><code>systemctl status &lt;service&gt;</code><br><code>journalctl -u &lt;service&gt; -n 100</code><br><code>journalctl -u &lt;service&gt; -f</code></td>
+                  <td>“I read status and logs before restarting so I do not erase the symptom trail.”</td>
+                </tr>
+                <tr>
+                  <td>Logs</td>
+                  <td><code>journalctl -f</code><br><code>tail -f /var/log/syslog</code><br><code>grep -i error app.log</code></td>
+                  <td>“Logs usually tell me whether the problem is config, dependency, permission, startup order, or connectivity.”</td>
+                </tr>
+                <tr>
+                  <td>Permissions</td>
+                  <td><code>ls -l</code><br><code>chmod 755 script.sh</code><br><code>chown user:group file</code></td>
+                  <td>“I check ownership and execute bits early, especially for failed scripts or services running under a dedicated account.”</td>
+                </tr>
+                <tr>
+                  <td>Find large or recent files</td>
+                  <td><code>find / -size +1G 2&gt;/dev/null</code><br><code>find /var -mtime -1 2&gt;/dev/null</code></td>
+                  <td>“Helpful when disk fills up or an app recently changed behavior.”</td>
+                </tr>
+                <tr>
+                  <td>Network on the Linux side</td>
+                  <td><code>ip addr</code><br><code>ip route</code><br><code>ss -tulpn</code><br><code>ping host</code><br><code>curl http://localhost:8080/health</code></td>
+                  <td>“I confirm the interface, route, and listening socket before I blame the firewall or the app.”</td>
+                </tr>
+                <tr>
+                  <td>When a system is slow but CPU is low</td>
+                  <td><code>vmstat 1 5</code><br><code>iostat -xz 1 5</code><br><code>pidstat 1 5</code></td>
+                  <td>“Low CPU does not mean healthy. I look for I/O wait, swapping, blocked processes, or network stalls.”</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid" style="margin-top:14px;">
+            <article class="card">
+              <h3>Good Ubuntu Talking Points</h3>
+              <ul class="tight-list">
+                <li>System boot: BIOS or UEFI, GRUB, kernel, initramfs, systemd.</li>
+                <li>Service management and long-running processes: <code>systemd</code>.</li>
+                <li>Filesystem defaults you can mention: <code>ext4</code> for stability, <code>XFS</code> for large-file throughput.</li>
+                <li>If memory pressure comes up: Linux can use page cache heavily; high usage is not always a leak.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Strong “SSH Not Working” Answer</h3>
+              <ul class="tight-list">
+                <li>Check reachability: ping, route, security group or firewall assumptions.</li>
+                <li>Check daemon: <code>systemctl status sshd</code>.</li>
+                <li>Check logs: <code>journalctl -u sshd</code>.</li>
+                <li>Check disk and inodes: full disks can break logins and services.</li>
+                <li>Verify auth issue versus network issue versus host issue.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="networking">
+          <h2>Networking + VLANs</h2>
+          <p class="section-intro">
+            They do not need you to be a network architect. They want someone who can reason clearly through connectivity, segmentation, and lab reliability.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Topic</th>
+                  <th>Key Point</th>
+                  <th>Good Interview Language</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>VLAN basics</td>
+                  <td>Logical segmentation on the same physical switching infrastructure.</td>
+                  <td>“I use VLANs to separate traffic types, reduce blast radius, and apply clearer policy boundaries.”</td>
+                </tr>
+                <tr>
+                  <td>Access vs trunk</td>
+                  <td>Access ports carry one VLAN. Trunks carry multiple VLANs with 802.1Q tagging.</td>
+                  <td>“Endpoints usually sit on access ports, while uplinks between network devices are commonly trunks.”</td>
+                </tr>
+                <tr>
+                  <td>Inter-VLAN routing</td>
+                  <td>Traffic between VLANs needs a router or Layer 3 switch interface.</td>
+                  <td>“If two devices are in different VLANs, I confirm gateway and routing before assuming the host is broken.”</td>
+                </tr>
+                <tr>
+                  <td>External network trouble</td>
+                  <td>Check local interface, gateway, DNS, routing, firewall, then the remote service.</td>
+                  <td>“I narrow the fault domain one hop at a time instead of guessing.”</td>
+                </tr>
+                <tr>
+                  <td>Useful commands</td>
+                  <td><code>ip addr</code>, <code>ip route</code>, <code>ping</code>, <code>traceroute</code>, <code>dig</code>, <code>ss -tulpn</code>, <code>tcpdump -i eth0</code></td>
+                  <td>“I verify addressing, routes, DNS, listening ports, and packet flow.”</td>
+                </tr>
+                <tr>
+                  <td>Packet loss</td>
+                  <td>Could be interface errors, congestion, drops in the kernel, or the application itself.</td>
+                  <td>“I check interface counters and captures before blaming the network broadly.”</td>
+                </tr>
+                <tr>
+                  <td>LEO / high-latency angle</td>
+                  <td>Expect higher latency and intermittent links; timeouts, retries, and buffering matter.</td>
+                  <td>“For higher-latency networks, I think about retry behavior, queueing, and avoiding assumptions that every timeout means total failure.”</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout">
+            <p><strong>Your real example:</strong> “I created a VLAN for IoT devices including security cameras. That gave me hands-on experience with segmentation, documentation, and making sure devices landed in the right place without disrupting the rest of the environment.”</p>
+          </div>
+          <div class="grid" style="margin-top:14px;">
+            <article class="card">
+              <h3>If RF Comes Up</h3>
+              <ul class="tight-list">
+                <li>Be honest if your direct RF depth is limited.</li>
+                <li>Pivot to adjacent strengths: signal path thinking, interface validation, cabling quality, labeling, and disciplined troubleshooting.</li>
+                <li>Mention that in lab environments you respect physical-layer issues first: connectors, interference sources, antenna or cable path, and whether the link is degraded versus fully down.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Home Lab Answer</h3>
+              <p class="speak">
+                I maintain an Ubuntu and Debian home lab with self-hosted services such as Caddy and Pi-hole.
+                It has been a practical way for me to keep building Linux instincts around deployment, service
+                management, networking, and troubleshooting outside of work.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="scripts">
+          <h2>Bash / Python Debugging</h2>
+          <p class="section-intro">
+            The brief says automation from scratch is not required. They mainly want to know that you can run scripts, inspect failures, and troubleshoot responsibly.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Scenario</th>
+                  <th>What To Run</th>
+                  <th>What To Say</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Bash script failed</td>
+                  <td><code>bash -x script.sh</code><br><code>echo $?</code><br><code>shellcheck script.sh</code> if available</td>
+                  <td>“I rerun with tracing, check the exit code, then isolate whether it is a syntax issue, permission problem, missing dependency, or bad environment variable.”</td>
+                </tr>
+                <tr>
+                  <td>Python script failed</td>
+                  <td><code>python3 script.py</code><br><code>python3 -m pdb script.py</code><br><code>python3 -m pip list</code></td>
+                  <td>“I read the traceback carefully, confirm the interpreter and dependencies, and verify file paths, permissions, and runtime inputs.”</td>
+                </tr>
+                <tr>
+                  <td>Script works manually but not as a service</td>
+                  <td><code>systemctl status app</code><br><code>journalctl -u app</code><br><code>sudo -u serviceuser env</code></td>
+                  <td>“I compare execution context: user, working directory, PATH, secrets, mounted paths, and network assumptions.”</td>
+                </tr>
+                <tr>
+                  <td>Large log or file processing</td>
+                  <td><code>tail -f file.log</code><br><code>grep -n "ERROR" file.log</code><br><code>less</code>, <code>awk</code>, or Python line streaming</td>
+                  <td>“I avoid loading large files into memory unless I need to. I prefer streaming and narrowing.”</td>
+                </tr>
+                <tr>
+                  <td>External command from Python</td>
+                  <td><code>subprocess.run(..., check=True, capture_output=True, text=True)</code></td>
+                  <td>“I want explicit return codes and stderr so failures are observable instead of silent.”</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid" style="margin-top:14px;">
+            <article class="card">
+              <h3>Solid Debugging Flow</h3>
+              <ul class="tight-list">
+                <li>Reproduce the failure.</li>
+                <li>Read the exact error, exit code, or traceback.</li>
+                <li>Check inputs, permissions, paths, dependencies, and environment variables.</li>
+                <li>Check logs if the script is running under cron or <code>systemd</code>.</li>
+                <li>Make one change at a time and verify.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Your Best Real Script Answer</h3>
+              <p>
+                “I have used Bash for dependency bootstrap, environment setup, repeatable startup, validation,
+                backup and update workflows. I have used Python for mailbox processing and security tooling,
+                including handling large datasets and generating operator-friendly outputs.”
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="hardware">
+          <h2>Hardware, Storage, and Power</h2>
+          <p class="section-intro">
+            Recruiter notes say hardware was heavily emphasized. Keep answers practical and safety-aware.
+          </p>
+          <div class="card-grid">
+            <article class="card">
+              <h3>Server / Lab Hardware</h3>
+              <ul class="tight-list">
+                <li>Know the basics: CPU, RAM, NICs, PSUs, fans, storage, rails, and management ports.</li>
+                <li>Emphasize labeling, cable management, airflow, and documenting what is connected where.</li>
+                <li>Say you verify link lights, port mapping, serial or management access, and power redundancy.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Storage Devices</h3>
+              <ul class="tight-list">
+                <li><strong>HDD:</strong> cheaper, slower, mechanical.</li>
+                <li><strong>SATA SSD:</strong> faster than HDD, common general-purpose choice.</li>
+                <li><strong>NVMe SSD:</strong> highest throughput and low latency over PCIe.</li>
+                <li><strong>RAID:</strong> mention tradeoff between performance, redundancy, rebuild time, and usable capacity.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Cabling / Wiring</h3>
+              <ul class="tight-list">
+                <li>Separate power and data cleanly.</li>
+                <li>Label both ends.</li>
+                <li>Avoid strain, sharp bends, and blocked airflow.</li>
+                <li>For lab work, document cable maps and known-good configurations.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Power Topic</th>
+                  <th>Key Formula / Idea</th>
+                  <th>Good Interview Language</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Volts, amps, watts</td>
+                  <td><code>Watts = Volts x Amps</code></td>
+                  <td>“I use volts times amps to estimate load and make sure we are not overcommitting power delivery.”</td>
+                </tr>
+                <tr>
+                  <td>120V 15A example</td>
+                  <td><code>120 x 15 = 1800W</code> theoretical<br>Continuous safe target is often about 80 percent, roughly <code>1440W</code>.</td>
+                  <td>“I care about the continuous load, not just the maximum printed rating.”</td>
+                </tr>
+                <tr>
+                  <td>Redundant PSUs</td>
+                  <td>Spread A and B supplies across separate PDUs or circuits when possible.</td>
+                  <td>“Redundancy only helps if the power paths are actually independent.”</td>
+                </tr>
+                <tr>
+                  <td>Before powering new equipment</td>
+                  <td>Check voltage requirements, connector type, amperage draw, breaker capacity, and upstream PDU.</td>
+                  <td>“I verify compatibility first because a power mistake can take down more than the single device.”</td>
+                </tr>
+                <tr>
+                  <td>Troubleshooting a dead device</td>
+                  <td>Confirm outlet or PDU, PSU status LEDs, cable seating, switch state, and whether one PSU failed versus total power loss.</td>
+                  <td>“I isolate power source, cable, PSU, and device before assuming a board failure.”</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout">
+            <p><strong>If soldering comes up and your experience is limited:</strong> be honest, then pivot to adjacent hands-on strengths like cabling, rack work, hardware swaps, careful labeling, power checks, and following documented procedures around sensitive equipment.</p>
+          </div>
+        </section>
+
+        <section class="section" id="lab">
+          <h2>Lab / Datacenter Answers</h2>
+          <p class="section-intro">
+            This role is about keeping shared test infrastructure available while supporting hardware and software teams.
+          </p>
+          <div class="grid">
+            <article class="card">
+              <h3>If They Ask About Lab Experience</h3>
+              <p class="speak">
+                My current role is not a huge datacenter, but it is hands-on infrastructure ownership. I manage
+                systems, networking changes, documentation, vendors, and operational continuity. I am comfortable
+                working directly with hardware, tracing issues methodically, and building repeatable procedures so
+                the environment stays reliable as it grows.
+              </p>
+            </article>
+            <article class="card">
+              <h3>If They Ask About Ambiguous Hardware Bring-Up</h3>
+              <p class="speak">
+                I would start with power, connectivity, and a known-good baseline. I would document the setup,
+                verify cables and interfaces, confirm the host sees the device, gather logs or serial output,
+                and change one variable at a time. With new hardware, I care a lot about leaving behind a clear
+                SOP so the next person does not rediscover the same problem.
+              </p>
+            </article>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Question Type</th>
+                  <th>Strong Answer Components</th>
+                  <th>Your Tie-In</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>How do you keep labs highly available?</td>
+                  <td>Monitoring, alerts, clear ownership, spare parts, documentation, controlled changes, and post-change verification.</td>
+                  <td>Sole-admin mindset, documentation habits, vendor coordination, and script-based health checks.</td>
+                </tr>
+                <tr>
+                  <td>How do you scale a lab process?</td>
+                  <td>Standardize setup, label everything, create SOPs, define metrics, and reduce one-off manual work.</td>
+                  <td>You already maintain topology, inventories, configs, and operational docs.</td>
+                </tr>
+                <tr>
+                  <td>How do you troubleshoot hardware plus software together?</td>
+                  <td>Separate physical layer, power, OS visibility, service state, and application behavior.</td>
+                  <td>You can connect Linux, networking, and operator workflows instead of treating them separately.</td>
+                </tr>
+                <tr>
+                  <td>How do you work with developers?</td>
+                  <td>Reproducible environments, fast feedback, clear logs, clean handoff notes, and minimal finger-pointing.</td>
+                  <td>Your tooling work shows you think about operator and user experience, not just code.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" id="behavioral">
+          <h2>Behavioral Prompts</h2>
+          <p class="section-intro">
+            Keep answers in STAR format: situation, task, action, result. Pick examples where you acted calmly and created structure.
+          </p>
+          <div class="story-grid">
+            <article class="card">
+              <h3>Tell Me About a Time You Took a Risk</h3>
+              <ul class="tight-list">
+                <li>Use the fiber transition or a meaningful infrastructure change.</li>
+                <li>Frame the risk as controlled: planning, validation, rollback path, communication, low-downtime execution.</li>
+                <li>End with the result and what you documented afterward.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Tell Me About a Time You Solved an Ambiguous Problem</h3>
+              <ul class="tight-list">
+                <li>Use your Linux application deployment, service hardening, or troubleshooting work.</li>
+                <li>Highlight unknowns, hypotheses, logs, isolated tests, and final operational guardrails.</li>
+                <li>Result can be reliability, easier maintenance, or faster recovery.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Tell Me About a Time You Improved a Process</h3>
+              <ul class="tight-list">
+                <li>Use Bash scripts, health validation, update automation, or documentation improvements.</li>
+                <li>Focus on reducing manual work and making future troubleshooting faster.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Tell Me About a Time You Worked Cross-Functionally</h3>
+              <ul class="tight-list">
+                <li>Use vendor coordination, supporting users, or bridging technical issues to non-technical stakeholders.</li>
+                <li>Good framing: translated requirements, kept people informed, reduced downtime.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="avoid">
+          <h2>What To Avoid</h2>
+          <div class="grid">
+            <article class="card warn">
+              <h3>Answers That Hurt You</h3>
+              <ul class="tight-list">
+                <li>“I would reboot it first.”</li>
+                <li>Listing random commands with no reasoning.</li>
+                <li>Ignoring logs, service status, or disk and inode checks.</li>
+                <li>Claiming deep expertise you cannot defend.</li>
+                <li>Talking only about software when the question is clearly about hardware or lab operations.</li>
+              </ul>
+            </article>
+            <article class="card highlight">
+              <h3>Answers That Help You</h3>
+              <ul class="tight-list">
+                <li>Start with fault isolation.</li>
+                <li>Explain why each command matters.</li>
+                <li>Mention verification after the fix.</li>
+                <li>Talk about documentation, SOPs, alarms, and repeatability.</li>
+                <li>Use your real examples instead of generic textbook answers.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="callout">
+            <p><strong>Best overall pattern:</strong> symptom -> scope -> command -> evidence -> fix -> verification -> prevention.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <p class="footer-note">
+    Built from your background, recruiter prep notes, and the Linux or Python interview docs. Review the pitch,
+    the examples section, and the hardware plus power table first if you are short on time.
+  </p>
+</body>
+</html>
