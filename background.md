@@ -96,7 +96,7 @@ A simple multiplayer auction game. Hosted on Azure Web App service
 with custom domain enabled by Cloudflare worker proxy.
 Visit: https://bid.mayos.dev
 
-Mayo's Mail Converter / Sorter.
+MailReview App.
 Independently developed and deployed a Python-based email processing application for eDiscovery and records workflows. Built to process large mailbox datasets and reduce manual review overhead for legal/operations use cases.
 Core capabilities:
 • Converts PST/EML/MSG mailbox data into searchable PDF outputs with chronological naming and combined case output
