@@ -7,7 +7,7 @@
   <title>{% if title %}{{ title | escape }} · {% endif %}{{ site.name }}</title>
   <meta name="description" content="{{ description or site.description | escape }}">
   <link rel="canonical" href="{{ page.url | absolute }}">
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/jpeg" href="/assets/favicon.jpg">
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="alternate" type="application/rss+xml" title="Oles Maiovskyi — Blog" href="/feed.xml">
   <meta property="og:type" content="{% if post %}article{% else %}website{% endif %}">
@@ -29,7 +29,7 @@
       </nav>
     </header>
     <main id="main" class="{% if post %}article-main{% endif %}" tabindex="-1">{{ content | safe }}</main>
-    <footer class="site-footer"><div class="footer-contact" id="contact-title"><div><p class="eyebrow">REACH ME</p><a class="email" href="mailto:{{ site.email }}">{{ site.email }} <span aria-hidden="true">↗</span></a></div><div class="socials"><a href="{{ site.github }}">GitHub ↗</a><a href="{{ site.linkedin }}">LinkedIn ↗</a><a href="{{ site.instagram }}">Instagram ↗</a></div></div><div class="footer-bottom"><span>Oles Maiovskyi · 2026</span><a href="/feed.xml">RSS</a></div></footer>
+    <footer class="site-footer"><div class="footer-contact" id="contact-title"><div><p class="eyebrow">REACH ME</p><a class="email" href="mailto:{{ site.email }}">{{ site.email }}</a></div><div class="socials"><a href="{{ site.github }}">GitHub ↗</a><a href="{{ site.linkedin }}">LinkedIn ↗</a><a href="{{ site.instagram }}">Instagram ↗</a></div></div><div class="footer-bottom"><span>Oles Maiovskyi · 2026</span><a href="/feed.xml">RSS</a></div></footer>
   </div>
 </body>
 </html>

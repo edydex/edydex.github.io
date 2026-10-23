@@ -2,7 +2,7 @@
 
 Oles Maiovskyi's personal website and blog. Built with Eleventy 3.1.7.
 
-The design retains mayo.onl's warm dark background, monospace identity and three-part navigation. A site-wide Reach Me footer includes the existing public email and social links. Projects retain the original vertical rules and SVG artwork, with MailReview and three church tools added. Monochrome artwork uses explicit white paint for the dark portfolio. Blog has generated tag pages, RSS, and a small browser-side search script inspired by CampGamesDB's DOM filtering. Everything can be read and navigated without JavaScript; search is an enhancement. No analytics, external fonts, or client framework.
+The design retains mayo.onl's monospace identity, original favicon, monochrome dark palette, and three-part navigation. A site-wide Reach Me footer includes the existing public email and social links. Projects retain the original vertical rules and SVG artwork, with MailReview and three church tools added. Monochrome artwork uses explicit white paint for the dark portfolio. Blog has generated tag pages, RSS, and a small browser-side search script inspired by CampGamesDB's DOM filtering. Everything can be read and navigated without JavaScript; search is an enhancement. No analytics, external fonts, or client framework.
 
 ## Edit and build
 
