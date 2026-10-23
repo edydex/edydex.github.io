@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://libre.show/sitemap.xml
