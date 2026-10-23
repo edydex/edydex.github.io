@@ -1,5 +1,36 @@
 [
   {
+    "name": "MailReview",
+    "url": "https://mailreview.app/",
+    "category": "Software",
+    "description": "Search, preview, and organize emails and their attachments, then turn them into PDFs for legal review.",
+    "role": "Solo project",
+    "icon": "/assets/project-icons/mailreview-white.svg"
+  },
+  {
+    "name": "Heritage Bible",
+    "url": "https://heritage.faith/",
+    "category": "Church",
+    "description": "A study Bible for web and Android, with commentary, notes, reading plans, and an offline library.",
+    "role": "Solo project",
+    "icon": "/assets/project-icons/heritage-bible.png"
+  },
+  {
+    "name": "Heritage Community",
+    "url": "https://github.com/edydex/heritage_study_bible/tree/main/community-server",
+    "category": "Church",
+    "description": "A self-hosted church hub for resources, memberships, events, and RSVPs. The companion to Heritage Bible and SyncShow.",
+    "role": "Solo project"
+  },
+  {
+    "name": "SyncShow",
+    "url": "https://github.com/edydex/SyncShow",
+    "category": "Church",
+    "description": "Plan and run church services with synchronized lyrics, Bible passages, and media across multiple screens.",
+    "role": "Solo project",
+    "icon": "/assets/project-icons/syncshow.png"
+  },
+  {
     "name": "Outlook Forensics",
     "url": "https://forensics.mayos.dev/",
     "category": "Security",
