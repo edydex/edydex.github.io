@@ -80,7 +80,7 @@ body=body.replace('assets/','/assets/benchmark/').replace('../../benchmarks/qwen
 header='''---
 layout: post.njk
 title: "Qwen 27B vs Flash-Next on RTX 5060 Ti GPUs"
-description: "A local AI experiment: two models, one borrowed GPU, and a surprisingly capable single-card setup."
+description: "A local AI model experiment: Qwen 27b vs Flash-Next. 1 vs 2 GPUs."
 date: 2026-10-22
 readingTime: 3 min read
 tags: [post]
