@@ -2,7 +2,7 @@
 
 Oles Maiovskyi's personal website and blog. Built with Eleventy 3.1.7.
 
-The design retains mayo.onl's warm dark background, monospace identity and three-part navigation. A site-wide Reach Me footer includes the existing public email and social links. Projects preserve the original eight entries, vertical rules and original SVG icons. Blog has generated tag pages, RSS, and a small browser-side search script inspired by CampGamesDB's DOM filtering. Everything can be read and navigated without JavaScript; search is an enhancement. No analytics, external fonts, or client framework.
+The design retains mayo.onl's warm dark background, monospace identity and three-part navigation. A site-wide Reach Me footer includes the existing public email and social links. Projects retain the original vertical rules and SVG artwork, with MailReview and three church tools added. Monochrome artwork uses explicit white paint for the dark portfolio. Blog has generated tag pages, RSS, and a small browser-side search script inspired by CampGamesDB's DOM filtering. Everything can be read and navigated without JavaScript; search is an enhancement. No analytics, external fonts, or client framework.
 
 ## Edit and build
 
@@ -35,7 +35,11 @@ python3 scripts/import-benchmark.py --source-root /path/to/original/workspace
 
 ## Hosting
 
-The site is prepared for Cloudflare static hosting in the owner's account. Upload the contents of `_site/`, not the source directory or `node_modules`. For a Git-connected Pages deployment, use `npm run build` and output directory `_site`; root directory is the folder containing this package.json. For Workers Static Assets, use the included Wrangler configuration.
+The live site uses Cloudflare Worker `mayos-dev` with static assets. An exact `mayos.dev/*` route serves the site through the existing proxied apex records. Other DNS records and subdomains are preserved. Deployments currently use reviewed manual static uploads; GitHub automatic deployment is not connected.
+
+The related product landing pages live in `../church-sites/` and are hosted by separate static Workers at libre.faith, libre.show, and libre.church.
+
+To update this site, Upload the contents of `_site/`, not the source directory or `node_modules`. For a Git-connected Pages deployment, use `npm run build` and output directory `_site`; root directory is the folder containing this package.json. For Workers Static Assets, use the included Wrangler configuration.
 
 The original mayo.onl repository and its main branch are preserved. The new source is kept separately on the `codex/mayos-dev` branch under `mayos-dev/`.
 
