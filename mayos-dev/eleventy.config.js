@@ -9,7 +9,7 @@ export default function (config) {
     return `${value}?v=${version}`;
   });
   config.ignores.add('src/evidence/**');
-  config.addPassthroughCopy({'src/assets':'assets','src/evidence':'evidence','src/_headers':'_headers','src/_redirects':'_redirects'});
+  config.addPassthroughCopy({'src/assets':'assets','src/resume.pdf':'resume.pdf','src/evidence':'evidence','src/_headers':'_headers','src/_redirects':'_redirects'});
   config.addFilter('pad2', value => String(value).padStart(2,'0'));
   config.addFilter('dateLabel', date => new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric',timeZone:'UTC'}).format(new Date(date)));
   config.addFilter('rssDate', date => new Date(date).toUTCString());
