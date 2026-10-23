@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-24. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA woman entered a jewelry store and asked the store's owner if he had any bracelets with turquoise and mother-of-pearl inlay. The owner answered affirmatively and showed the woman two display trays of bracelets. As the woman was looking at a few of the pieces, the telephone in the store began to ring. The owner excused himself and walked to the rear of the store where he answered the telephone call. While the owner was speaking on the phone, the woman placed one of the bracelets in her pocketbook and walked a few feet toward the front door of the store. She was about to leave the store, without paying for the bracelet, when she suddenly noticed one of the other employees. Thinking that the employee had seen her place the bracelet in her pocketbook, the woman walked back to the counter and returned the bracelet to the display tray. In fact, the employee had seen the woman take the bracelet but decided not to say anything after she put it back. If the woman is subsequently prosecuted for larceny of the bracelet, she will most likely be found\nA. guilty, because it is not relevant that she returned the bracelet to the display tray.\nB. guilty, because the employee had actually seen her place the bracelet in her pocketbook.\nC. not guilty, because she returned the bracelet to the display tray.\nD. not guilty, because she didn't leave the store with the bracelet in her possession.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

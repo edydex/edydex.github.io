@@ -1,0 +1,10 @@
+---
+layout: base.njk
+section: blog
+post: true
+---
+<article class="blog-article" data-pagefind-body>
+  <header class="article-header"><a class="back-link" href="/blog/">← All notes</a><div class="post-meta"><time datetime="{{ date | isoDate }}">{{ date | dateLabel }}</time><span>{{ readingTime }}</span></div><h1>{{ title }}</h1><p class="article-deck">{{ description }}</p><div class="post-tags">{% for topic in topics %}<a href="/blog/tags/{{ topic | slugify }}/">#{{ topic }}</a>{% endfor %}</div></header>
+  <div class="article-content">{{ content | safe }}</div>
+  <aside class="evidence-links"><p class="eyebrow">THE FULL RECORD</p><p>The short version is above. Every question, retained answer, rubric, grading explanation, and GPU comparison is in the supporting report.</p><a href="/evidence/qwen-strata-2026-10-22/">Read the full test report →</a><a href="/evidence/qwen-strata-2026-10-22.zip">Download the evidence bundle ↓</a></aside>
+</article>

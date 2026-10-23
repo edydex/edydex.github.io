@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-19. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA passenger on a subway car placed her pocketbook on the seat next to her and began to zip up her jacket. Defendant was standing in front of the passenger and holding on to the hand rail. Seeing the pocketbook unattended, he suddenly grabbed it and tried to run away. As he did so, the passenger became very frightened and fell backward. She struck her head against the window and was knocked unconscious. In the commotion, Defendant dropped the pocketbook and hurriedly exited the subway car empty-handed. Defendant should be found guilty of\nA. larceny.\nB. attempted larceny.\nC. assault.\nD. robbery.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

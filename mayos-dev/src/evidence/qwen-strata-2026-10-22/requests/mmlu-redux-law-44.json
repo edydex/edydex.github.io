@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-44. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nAn avowed member of an antigovernment organization was elected president of a union. A senator, in his investigation of infiltration by antigovernment organizations of national labor unions, found a provision in a law passed by Congress that makes it a crime for a member of an antigovernment organization to act as an official of a labor union. After a subsequent legislative hearing, the president is dismissed from his position by the executive committee of the union. During a legislative hearing, the senator made derogatory statements about the president's involvement in an antigovernment organization. In determining whether the president has a valid cause of action against the senator for defamation, which of the following most accurately summarizes the applicable rule of law?\nA. Congressional committees do not have the authority to violate a person's Fifth Amendment privilege against self-incrimination.\nB. A congressman shall not be questioned in any other place for any speech or debate made by him during a congressional hearing.\nC. The constitutional requirement for actual malice must be proved by the party defamed in order to recover in a defamation suit.\nD. It is not a denial of due process or of First Amendment rights for a congressional investigative committee member to make such utterances.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

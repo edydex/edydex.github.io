@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-65. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA plaintiff has sued a defendant in a court of the state in which both parties reside. The plaintiff alleges only a cause of action arising under a federal statute, although state law provides a similar cause of action. The federal statute provides that claims under the statute can be brought in any court of competent jurisdiction. The statute has not yet been interpreted by any federal court. Should the state court hear the case?\nA. No, because cases arising under federal law must be decided in federal court.\nB. No, because state courts must abstain in cases arising under federal law until a federal court has decided the federal issue.\nC. Yes, because state courts may not discriminate against cases arising under discriminate against cases arising under federal law.\nD. Yes, because the parties cannot proceed in federal court since there is no diversity of citizenship.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

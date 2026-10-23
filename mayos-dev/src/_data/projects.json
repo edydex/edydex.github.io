@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Outlook Forensics",
+    "url": "https://forensics.mayos.dev/",
+    "category": "Security",
+    "description": "Analyze Exchange mailbox activity, investigate malicious behavior, and work through affected emails.",
+    "role": "Solo project",
+    "icon": "/assets/project-icons/project-1.svg"
+  },
+  {
+    "name": "CampGamesDB",
+    "url": "https://campgamesdb.com/",
+    "category": "Web",
+    "description": "A searchable collection of camp games and group activities, built on the static PagesDB framework.",
+    "role": "Creative direction, project management & deployment",
+    "icon": "/assets/project-icons/project-2.svg"
+  },
+  {
+    "name": "Dune Companion",
+    "url": "https://dune.how/",
+    "category": "Games",
+    "description": "Battle wheels, a dynamic rulebook, and faction tools for the Dune board game.",
+    "role": "Sole developer",
+    "icon": "/assets/project-icons/project-3.svg"
+  },
+  {
+    "name": "Bidding Game",
+    "url": "https://bid.mayos.dev/",
+    "category": "Games",
+    "description": "A multiplayer bidding game with private rooms, hosted on Azure behind a Cloudflare proxy.",
+    "role": "Solo project",
+    "icon": "/assets/project-icons/project-4.svg"
+  },
+  {
+    "name": "Foolish & Weak",
+    "url": "https://foolishandweak.org/",
+    "category": "Notes",
+    "description": "A home for my research into biblical topics, lessons, and sermons.",
+    "role": "Solo project · built on PagesDB",
+    "icon": "/assets/project-icons/project-5.svg"
+  },
+  {
+    "name": "United Youth",
+    "url": "https://unitedyouth.us/",
+    "category": "Web",
+    "description": "A website for United Youth, part of the Assemblies of God Northwest Ministry Network.",
+    "role": "Solo project",
+    "icon": "/assets/project-icons/project-6.svg"
+  },
+  {
+    "name": "hard.pictures",
+    "url": "https://hard.pictures/",
+    "category": "Web",
+    "description": "A simple static photo album for a small community.",
+    "role": "Solo project",
+    "icon": "/assets/project-icons/project-7.svg"
+  },
+  {
+    "name": "Youth Ministry Website",
+    "url": "https://ico.unitedyouth.us/",
+    "category": "Web",
+    "description": "A website for a local youth ministry I’m part of.",
+    "role": "HTML, CSS & deployment",
+    "icon": "/assets/project-icons/project-8.svg"
+  }
+]

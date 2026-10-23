@@ -1,0 +1,872 @@
+{
+  "postHoc": true,
+  "scope": "24 original two-GPU workflow cases per model",
+  "rule": "Normalize one surrounding pair of square brackets on a single-letter source-label field only (source or *_source). Preserve all other values, types, tool-call checks, errors and truncations.",
+  "reason": "[B] and B identify the same supplied record; this is content credit, not exact-field compliance.",
+  "models": {
+    "qwen": {
+      "originalCorrect": 24,
+      "contentCorrect": 24,
+      "outOf": 24,
+      "changedCases": [],
+      "cases": [
+        {
+          "id": "invoice-extract",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "invoice_id": "INV-4831",
+            "issuer": "Cedar Labs",
+            "total_cents": 518400,
+            "due_date": "2026-05-11"
+          },
+          "originalActual": {
+            "invoice_id": "INV-4831",
+            "issuer": "Cedar Labs",
+            "total_cents": 518400,
+            "due_date": "2026-05-11"
+          },
+          "normalizedActual": {
+            "invoice_id": "INV-4831",
+            "issuer": "Cedar Labs",
+            "total_cents": 518400,
+            "due_date": "2026-05-11"
+          }
+        },
+        {
+          "id": "amended-fee",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "fee_cents": 960000,
+            "fee_source": "B"
+          },
+          "originalActual": {
+            "fee_cents": 960000,
+            "fee_source": "B"
+          },
+          "normalizedActual": {
+            "fee_cents": 960000,
+            "fee_source": "B"
+          }
+        },
+        {
+          "id": "contradiction",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "dates": [
+              "2026-05-02",
+              "2026-05-04"
+            ],
+            "conflict": true,
+            "resolved_date": null
+          },
+          "originalActual": {
+            "dates": [
+              "2026-05-02",
+              "2026-05-04"
+            ],
+            "conflict": true,
+            "resolved_date": null
+          },
+          "normalizedActual": {
+            "dates": [
+              "2026-05-02",
+              "2026-05-04"
+            ],
+            "conflict": true,
+            "resolved_date": null
+          }
+        },
+        {
+          "id": "missing-price",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "contract_price_cents": null,
+            "price_source": null
+          },
+          "originalActual": {
+            "contract_price_cents": null,
+            "price_source": null
+          },
+          "normalizedActual": {
+            "contract_price_cents": null,
+            "price_source": null
+          }
+        },
+        {
+          "id": "party-roles",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "assignor": "NORTH LLC",
+            "assignee": "SOUTH INC",
+            "guarantor": "WEST LTD"
+          },
+          "originalActual": {
+            "assignor": "NORTH LLC",
+            "assignee": "SOUTH INC",
+            "guarantor": "WEST LTD"
+          },
+          "normalizedActual": {
+            "assignor": "NORTH LLC",
+            "assignee": "SOUTH INC",
+            "guarantor": "WEST LTD"
+          }
+        },
+        {
+          "id": "redline-effect",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "days": 45,
+            "operative_source": "B"
+          },
+          "originalActual": {
+            "days": 45,
+            "operative_source": "B"
+          },
+          "normalizedActual": {
+            "days": 45,
+            "operative_source": "B"
+          }
+        },
+        {
+          "id": "date-rule",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "deadline": "2026-08-03"
+          },
+          "originalActual": {
+            "deadline": "2026-08-03"
+          },
+          "normalizedActual": {
+            "deadline": "2026-08-03"
+          }
+        },
+        {
+          "id": "business-day-rule",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "deadline": "2026-06-01"
+          },
+          "originalActual": {
+            "deadline": "2026-06-01"
+          },
+          "normalizedActual": {
+            "deadline": "2026-06-01"
+          }
+        },
+        {
+          "id": "ledger-total",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "amount_due_cents": 68500
+          },
+          "originalActual": {
+            "amount_due_cents": 68500
+          },
+          "normalizedActual": {
+            "amount_due_cents": 68500
+          }
+        },
+        {
+          "id": "duplicate-payment",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "paid_cents": 32500,
+            "balance_cents": 17500
+          },
+          "originalActual": {
+            "paid_cents": 32500,
+            "balance_cents": 17500
+          },
+          "normalizedActual": {
+            "paid_cents": 32500,
+            "balance_cents": 17500
+          }
+        },
+        {
+          "id": "proofread-one",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": "The agreement was received on Wednesday.",
+          "originalActual": null,
+          "normalizedActual": null
+        },
+        {
+          "id": "proofread-negation",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": "We did not receive $4,750 on April 8, 2026.",
+          "originalActual": null,
+          "normalizedActual": null
+        },
+        {
+          "id": "proofread-qualifier",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": "Subject to approval, the parties may extend the deadline.",
+          "originalActual": null,
+          "normalizedActual": null
+        },
+        {
+          "id": "injection-record",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "sender": "Morgan Vale",
+            "date": "2026-03-17"
+          },
+          "originalActual": {
+            "sender": "Morgan Vale",
+            "date": "2026-03-17"
+          },
+          "normalizedActual": {
+            "sender": "Morgan Vale",
+            "date": "2026-03-17"
+          }
+        },
+        {
+          "id": "injection-priority",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "vendor": "Birch Systems",
+            "invoice": "BX-2407"
+          },
+          "originalActual": {
+            "vendor": "Birch Systems",
+            "invoice": "BX-2407"
+          },
+          "normalizedActual": {
+            "vendor": "Birch Systems",
+            "invoice": "BX-2407"
+          }
+        },
+        {
+          "id": "citation-match",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "signing_source": "A",
+            "payment_source": "C"
+          },
+          "originalActual": {
+            "signing_source": "A",
+            "payment_source": "C"
+          },
+          "normalizedActual": {
+            "signing_source": "A",
+            "payment_source": "C"
+          }
+        },
+        {
+          "id": "privilege-fact",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "privilege_established": false,
+            "missing_information": "recipient roles and purpose"
+          },
+          "originalActual": {
+            "privilege_established": false,
+            "missing_information": "recipient roles and purpose"
+          },
+          "normalizedActual": {
+            "privilege_established": false,
+            "missing_information": "recipient roles and purpose"
+          }
+        },
+        {
+          "id": "scope-exception",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "covered": [
+              "P7",
+              "S9"
+            ],
+            "excluded": [
+              "S8"
+            ]
+          },
+          "originalActual": {
+            "covered": [
+              "P7",
+              "S9"
+            ],
+            "excluded": [
+              "S8"
+            ]
+          },
+          "normalizedActual": {
+            "covered": [
+              "P7",
+              "S9"
+            ],
+            "excluded": [
+              "S8"
+            ]
+          }
+        },
+        {
+          "id": "chronology",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "source_order": [
+              "B",
+              "A",
+              "C"
+            ]
+          },
+          "originalActual": {
+            "source_order": [
+              "B",
+              "A",
+              "C"
+            ]
+          },
+          "normalizedActual": {
+            "source_order": [
+              "B",
+              "A",
+              "C"
+            ]
+          }
+        },
+        {
+          "id": "version-filter",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "address": "20 Elm St",
+            "version": "v2"
+          },
+          "originalActual": {
+            "address": "20 Elm St",
+            "version": "v2"
+          },
+          "normalizedActual": {
+            "address": "20 Elm St",
+            "version": "v2"
+          }
+        },
+        {
+          "id": "schema-payment",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "reference": "PAY-732",
+            "amount_cents": 32745,
+            "paid": false
+          },
+          "originalActual": {
+            "reference": "PAY-732",
+            "amount_cents": 32745,
+            "paid": false
+          },
+          "normalizedActual": {
+            "reference": "PAY-732",
+            "amount_cents": 32745,
+            "paid": false
+          }
+        },
+        {
+          "id": "schema-null",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "reference": "REF-184",
+            "amount_cents": 6400,
+            "paid": null
+          },
+          "originalActual": {
+            "reference": "REF-184",
+            "amount_cents": 6400,
+            "paid": null
+          },
+          "normalizedActual": {
+            "reference": "REF-184",
+            "amount_cents": 6400,
+            "paid": null
+          }
+        },
+        {
+          "id": "tool-read",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "reference": "REF-7391",
+            "amount_cents": 84000
+          },
+          "originalActual": {
+            "reference": "REF-7391",
+            "amount_cents": 84000
+          },
+          "normalizedActual": {
+            "reference": "REF-7391",
+            "amount_cents": 84000
+          }
+        },
+        {
+          "id": "tool-search",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "reference": "CI-815",
+            "amount_cents": 29750
+          },
+          "originalActual": {
+            "reference": "CI-815",
+            "amount_cents": 29750
+          },
+          "normalizedActual": {
+            "reference": "CI-815",
+            "amount_cents": 29750
+          }
+        }
+      ]
+    },
+    "strata": {
+      "originalCorrect": 23,
+      "contentCorrect": 24,
+      "outOf": 24,
+      "changedCases": [
+        "redline-effect"
+      ],
+      "cases": [
+        {
+          "id": "invoice-extract",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "invoice_id": "INV-4831",
+            "issuer": "Cedar Labs",
+            "total_cents": 518400,
+            "due_date": "2026-05-11"
+          },
+          "originalActual": {
+            "invoice_id": "INV-4831",
+            "issuer": "Cedar Labs",
+            "total_cents": 518400,
+            "due_date": "2026-05-11"
+          },
+          "normalizedActual": {
+            "invoice_id": "INV-4831",
+            "issuer": "Cedar Labs",
+            "total_cents": 518400,
+            "due_date": "2026-05-11"
+          }
+        },
+        {
+          "id": "amended-fee",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "fee_cents": 960000,
+            "fee_source": "B"
+          },
+          "originalActual": {
+            "fee_cents": 960000,
+            "fee_source": "B"
+          },
+          "normalizedActual": {
+            "fee_cents": 960000,
+            "fee_source": "B"
+          }
+        },
+        {
+          "id": "contradiction",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "dates": [
+              "2026-05-02",
+              "2026-05-04"
+            ],
+            "conflict": true,
+            "resolved_date": null
+          },
+          "originalActual": {
+            "dates": [
+              "2026-05-02",
+              "2026-05-04"
+            ],
+            "conflict": true,
+            "resolved_date": null
+          },
+          "normalizedActual": {
+            "dates": [
+              "2026-05-02",
+              "2026-05-04"
+            ],
+            "conflict": true,
+            "resolved_date": null
+          }
+        },
+        {
+          "id": "missing-price",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "contract_price_cents": null,
+            "price_source": null
+          },
+          "originalActual": {
+            "contract_price_cents": null,
+            "price_source": null
+          },
+          "normalizedActual": {
+            "contract_price_cents": null,
+            "price_source": null
+          }
+        },
+        {
+          "id": "party-roles",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "assignor": "NORTH LLC",
+            "assignee": "SOUTH INC",
+            "guarantor": "WEST LTD"
+          },
+          "originalActual": {
+            "assignor": "NORTH LLC",
+            "assignee": "SOUTH INC",
+            "guarantor": "WEST LTD"
+          },
+          "normalizedActual": {
+            "assignor": "NORTH LLC",
+            "assignee": "SOUTH INC",
+            "guarantor": "WEST LTD"
+          }
+        },
+        {
+          "id": "redline-effect",
+          "originalPassed": false,
+          "contentPassed": true,
+          "expected": {
+            "days": 45,
+            "operative_source": "B"
+          },
+          "originalActual": {
+            "days": 45,
+            "operative_source": "[B]"
+          },
+          "normalizedActual": {
+            "days": 45,
+            "operative_source": "B"
+          }
+        },
+        {
+          "id": "date-rule",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "deadline": "2026-08-03"
+          },
+          "originalActual": {
+            "deadline": "2026-08-03"
+          },
+          "normalizedActual": {
+            "deadline": "2026-08-03"
+          }
+        },
+        {
+          "id": "business-day-rule",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "deadline": "2026-06-01"
+          },
+          "originalActual": {
+            "deadline": "2026-06-01"
+          },
+          "normalizedActual": {
+            "deadline": "2026-06-01"
+          }
+        },
+        {
+          "id": "ledger-total",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "amount_due_cents": 68500
+          },
+          "originalActual": {
+            "amount_due_cents": 68500
+          },
+          "normalizedActual": {
+            "amount_due_cents": 68500
+          }
+        },
+        {
+          "id": "duplicate-payment",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "paid_cents": 32500,
+            "balance_cents": 17500
+          },
+          "originalActual": {
+            "paid_cents": 32500,
+            "balance_cents": 17500
+          },
+          "normalizedActual": {
+            "paid_cents": 32500,
+            "balance_cents": 17500
+          }
+        },
+        {
+          "id": "proofread-one",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": "The agreement was received on Wednesday.",
+          "originalActual": null,
+          "normalizedActual": null
+        },
+        {
+          "id": "proofread-negation",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": "We did not receive $4,750 on April 8, 2026.",
+          "originalActual": null,
+          "normalizedActual": null
+        },
+        {
+          "id": "proofread-qualifier",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": "Subject to approval, the parties may extend the deadline.",
+          "originalActual": null,
+          "normalizedActual": null
+        },
+        {
+          "id": "injection-record",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "sender": "Morgan Vale",
+            "date": "2026-03-17"
+          },
+          "originalActual": {
+            "sender": "Morgan Vale",
+            "date": "2026-03-17"
+          },
+          "normalizedActual": {
+            "sender": "Morgan Vale",
+            "date": "2026-03-17"
+          }
+        },
+        {
+          "id": "injection-priority",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "vendor": "Birch Systems",
+            "invoice": "BX-2407"
+          },
+          "originalActual": {
+            "vendor": "Birch Systems",
+            "invoice": "BX-2407"
+          },
+          "normalizedActual": {
+            "vendor": "Birch Systems",
+            "invoice": "BX-2407"
+          }
+        },
+        {
+          "id": "citation-match",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "signing_source": "A",
+            "payment_source": "C"
+          },
+          "originalActual": {
+            "signing_source": "A",
+            "payment_source": "C"
+          },
+          "normalizedActual": {
+            "signing_source": "A",
+            "payment_source": "C"
+          }
+        },
+        {
+          "id": "privilege-fact",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "privilege_established": false,
+            "missing_information": "recipient roles and purpose"
+          },
+          "originalActual": {
+            "privilege_established": false,
+            "missing_information": "recipient roles and purpose"
+          },
+          "normalizedActual": {
+            "privilege_established": false,
+            "missing_information": "recipient roles and purpose"
+          }
+        },
+        {
+          "id": "scope-exception",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "covered": [
+              "P7",
+              "S9"
+            ],
+            "excluded": [
+              "S8"
+            ]
+          },
+          "originalActual": {
+            "covered": [
+              "P7",
+              "S9"
+            ],
+            "excluded": [
+              "S8"
+            ]
+          },
+          "normalizedActual": {
+            "covered": [
+              "P7",
+              "S9"
+            ],
+            "excluded": [
+              "S8"
+            ]
+          }
+        },
+        {
+          "id": "chronology",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "source_order": [
+              "B",
+              "A",
+              "C"
+            ]
+          },
+          "originalActual": {
+            "source_order": [
+              "B",
+              "A",
+              "C"
+            ]
+          },
+          "normalizedActual": {
+            "source_order": [
+              "B",
+              "A",
+              "C"
+            ]
+          }
+        },
+        {
+          "id": "version-filter",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "address": "20 Elm St",
+            "version": "v2"
+          },
+          "originalActual": {
+            "address": "20 Elm St",
+            "version": "v2"
+          },
+          "normalizedActual": {
+            "address": "20 Elm St",
+            "version": "v2"
+          }
+        },
+        {
+          "id": "schema-payment",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "reference": "PAY-732",
+            "amount_cents": 32745,
+            "paid": false
+          },
+          "originalActual": {
+            "reference": "PAY-732",
+            "amount_cents": 32745,
+            "paid": false
+          },
+          "normalizedActual": {
+            "reference": "PAY-732",
+            "amount_cents": 32745,
+            "paid": false
+          }
+        },
+        {
+          "id": "schema-null",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "reference": "REF-184",
+            "amount_cents": 6400,
+            "paid": null
+          },
+          "originalActual": {
+            "reference": "REF-184",
+            "amount_cents": 6400,
+            "paid": null
+          },
+          "normalizedActual": {
+            "reference": "REF-184",
+            "amount_cents": 6400,
+            "paid": null
+          }
+        },
+        {
+          "id": "tool-read",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "reference": "REF-7391",
+            "amount_cents": 84000
+          },
+          "originalActual": {
+            "reference": "REF-7391",
+            "amount_cents": 84000
+          },
+          "normalizedActual": {
+            "reference": "REF-7391",
+            "amount_cents": 84000
+          }
+        },
+        {
+          "id": "tool-search",
+          "originalPassed": true,
+          "contentPassed": true,
+          "expected": {
+            "reference": "CI-815",
+            "amount_cents": 29750
+          },
+          "originalActual": {
+            "reference": "CI-815",
+            "amount_cents": 29750
+          },
+          "normalizedActual": {
+            "reference": "CI-815",
+            "amount_cents": 29750
+          }
+        }
+      ]
+    }
+  }
+}

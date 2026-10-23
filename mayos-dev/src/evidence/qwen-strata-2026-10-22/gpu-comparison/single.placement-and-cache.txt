@@ -1,0 +1,23 @@
+[strata] 2026-10-22 16:16:04 engine started: /path/to/workspace/.runtime/strata-trial/components/engine/0.1.47-linux-x86_64-cuda-cuda13/strata --serve --pack /path/to/workspace/.runtime/strata-trial/models/packs/iq3_s --native /path/to/workspace/.runtime/strata-trial/models/models/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf --ple-gguf /path/to/workspace/.runtime/strata-trial/models/models/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00002-of-00002.gguf --expert-profile /path/to/workspace/.runtime/strata-trial/source/data/expert-profile.bin --expert-cache auto --prefill auto --spec 4 --spec-min-p 0.5 --mtp /path/to/workspace/.runtime/strata-trial/models/mtp/rt --max-context 131072 --kv int8 --mmap-experts --kv-resident 32768 --vision --vram-reserve-mib 2048
+strata generate: CPU pool tasks/phase: 48 (automatic), participating threads: 16
+strata generate: CPU pool: 15 workers by default (16 physical cores, 32 logical processors; bounded by every physical core but the host's)
+strata generate: expert cache auto: 7.28 GiB free, 2048 MiB reserved (+218 MiB for the draft head) -> 2044 slots
+strata generate: expert cache 2642 slots, 5.07 GiB of VRAM; policy is
+prefill: the CPU share is ON by default for prompt chunks below 1024 tokens (the idle CPU takes some of the experts the GPU would stream; answers can differ slightly from 0.1.40.3, mean KL ~0.004). STRATA_PREFILL_CPU_SHARE=0 turns it off.
+strata: prefill plan: chunk 8192, ring 96 kept: file set 45.6 GiB does not fit the page cache 44.1 GiB -> about 98.6 GB read from the drive per 32768-token prompt (4 chunks); no option does better (the set cannot fit: fewest passes win)
+strata: prefill plan inputs: 46.8 GiB experts, 5.1 GiB in the GPU caches, 0.0 GiB RAM copy (0 lend slots kept), file tier 41.8 GiB; 44.1 GiB available for the page cache; PCIe 28.7 GB/s; drive 2.50 GB/s (nvme0n1 is NVMe); a 32768-token prompt
+strata serve: the prompt path borrows 1850 CUDA0 cache slots (3.53 GiB)
+strata hc: CUDA0: the hyper-connection read runs as staged (the norm per token and stream, the down projection's activations staged ahead by cp.async); checked bit for bit against the plain read on this card (STRATA_HC_SPLIT=1 or 0 for the earlier ones)
+strata serve: decode expert cache hit rate: 20.8% (401 hits / 1930 lookups)
+strata serve: PCIe share: the CPU pool takes 133 us per missed expert (15.3 GB/s of expert bytes), the link 28.7 GB/s -> pcie_frac 0.50 (was 0.55; --pcie-frac N fixes it, STRATA_PCIE_FRAC_DEFAULT=old keeps the start-up rule)
+strata serve: decode expert cache hit rate: 55.8% (43186 hits / 77424 lookups)
+strata serve: decode expert cache hit rate: 73.9% (52387 hits / 70863 lookups)
+strata serve: PCIe share: the CPU pool takes 99 us per missed expert (20.8 GB/s of expert bytes), the link 28.7 GB/s -> pcie_frac 0.45 (was 0.50; --pcie-frac N fixes it, STRATA_PCIE_FRAC_DEFAULT=old keeps the start-up rule)
+strata serve: decode expert cache hit rate: 79.4% (55437 hits / 69820 lookups)
+strata serve: decode expert cache hit rate: 81.8% (56187 hits / 68655 lookups)
+strata serve: PCIe share: the CPU pool takes 72 us per missed expert (28.6 GB/s of expert bytes), the link 28.7 GB/s -> pcie_frac 0.35 (was 0.45; --pcie-frac N fixes it, STRATA_PCIE_FRAC_DEFAULT=old keeps the start-up rule)
+strata serve: decode expert cache hit rate: 81.3% (53879 hits / 66303 lookups)
+strata serve: decode expert cache hit rate: 79.7% (55388 hits / 69491 lookups)
+strata serve: decode expert cache hit rate: 79.0% (56508 hits / 71566 lookups)
+strata serve: decode expert cache hit rate: 81.2% (50774 hits / 62505 lookups)
+strata serve: decode expert cache hit rate: 81.7% (58221 hits / 71296 lookups)

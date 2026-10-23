@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-34. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA well-established paper mill and a logging company signed a written contract in which the mill agreed to buy from the company all the logs the mill would need for one year. The company was unable to keep up with the mill's needs, and its log deliveries fell short by 10% to 15% in each of the four quarters of the year. The mill paid the company on time for all delivered logs. The mill paid an attorney $2,000 for advice concerning its options in enforcing the contract. It paid a broker a reasonable fee of $5,000 to find additional logs to make up for the company's shortfall. The mill also incurred reasonable costs of $25,000 to transport the additional logs to its facility. Despite the mill's efforts to mitigate damages, it sustained $200,000 in losses because of the company's failure to timely deliver enough logs. The mill has sued the company for breach of contract. If the court finds for the mill, how much should it award in damages?\nA. $205,000.00\nB. $225,000.00\nC. $230,000.00\nD. $232,000.00\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

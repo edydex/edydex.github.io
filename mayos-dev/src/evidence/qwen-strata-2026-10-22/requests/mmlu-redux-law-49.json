@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-49. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA woman was employed as a sales clerk at a department store. She worked in the women's lingerie section. One evening around closing time, the woman took a diamond necklace from a cabinetin the jewelry section of the department store and wrapped it in tissue paper. The woman then surreptitiously stuffed the necklace in a shopping bag, intending to remove it when she left the store. Moments later, the store owner approached the woman and told her she needed to stay late in order to do inventory. While the woman was completing inventory, the owner discovered the necklace and called the police. The woman is most likely guilty of\nA. attempted larceny.\nB. larceny.\nC. false pretenses.\nD. embezzlement.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

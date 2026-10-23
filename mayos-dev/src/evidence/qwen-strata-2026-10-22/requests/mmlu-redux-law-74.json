@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-74. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA business purchased a computer from a seller's web site. The purchase form had a prominent hyperlink connection to a page that contained \"important additional terms and conditions of sale,\" but the purchaser did not access that page. The delivered product included the additional terms in writing, along with a bold-lettered notice requiring the purchaser to return the product within 30 days if it did not accept the stated terms and conditions. After 35-days, the business became dissatisfied with the computer, and sued the seller for breach of contract. The seller demanded that the dispute be decided by private arbitration as per the additional terms and conditions to the agreement. Is the purchaser legally bound to participate in arbitration?\nA. Yes, because by not returning the computer within 30 days, the purchaser was bound to the additional terms and conditions that were a part of the contract.\nB. Yes, because federal law requires that arbitration must be used to attempt an initial resolution with respect to sales that take place on the internet.\nC. No, because there was no contract formed due to the purchaser's lack of assent to the additional terms and conditions.\nD. No, because federal law requires that a company give 90 days for return and the 30-day provision was null and void.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-61. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA man was driving his car when he suddenly hit a pedestrian as she was crossing the street. Following the accident, an ambulance was summoned and the pedestrian was taken to a nearby hospital. The man, who also drove to the hospital, approached the pedestrian in the emergency room while she was being treated for her injuries. When the pedestrian saw the man, she told him, \"You went through that red light. You could have killed me. \" She then asked the man for $5,000 to cover her anticipated medical expenses. The man replied that he would have to think about it. Shortly thereafter, the man sent a letter to the pedestrian in which he wrote, \"I realize I drove through the red light. Naturally, I would like to settle this without any litigation. I'm willing to pay all your medical expenses and give you $2,000 if you don't sue me. \" The pedestrian did not accept the man's offer and brought suit against him. At trial, the pedestrian's attorney offers the first sentence of the letter into evidence, and the man objects. The trial judge should rule the evidence\nA. admissible as an admission.\nB. inadmissible as an admission made in connection with an offer to pay medical expenses.\nC. inadmissible as an admission made in connection with settlement negotiations.\nD. inadmissible, because documents must be offered in their entirety.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

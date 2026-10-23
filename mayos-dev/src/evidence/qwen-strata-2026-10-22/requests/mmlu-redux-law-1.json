@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-1. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nAs a result of the increasing northward movement of the population from a nearby city, a town enacted a zoning ordinance restricting present and future land use in the town to single family dwellings, except in the downtown commercial shopping area, and except for a small area in which multifamily dwellings not over 40 feet in height were permitted. In addition, all new construction or exterior modifications of existing buildings required prior approval of an aesthetic control board. The zoning ordinance defined the term \"family\" in the context of single family dwellings to mean only one or more persons related by marriage, blood, or adoption, thereby excluding unrelated, unmarried persons from residing in a single residence unit. The enabling legislation contained the following provision:\"This enactment is necessary to preserve the physical and social homogeneity of this community, and preserve and protect the quality of life of its citizens. \"A town resident owns a single family residence with five bedrooms. Prior to the enactment of the zoning ordinance, the resident leased the premises on a month-to-month basis to a boyfriend and girlfriend and three other male law students. The five individuals are all unmarried and attend the nearby law school. The resident now brings suit to enjoin enforcement of the ordinance against himself. Which of the following is the most accurate statement regarding the constitutionality of the zoning ordinance provision that prohibits unrelated, unmarried persons from residing in a single family residence?\nA. The zoning ordinance provision would be declared unconstitutional as violative of the due process clause of the Fourteenth Amendment.\nB. The zoning ordinance would be declared unconstitutional as violative of the equal protection clause of the Fourteenth Amendment.\nC. The zoning ordinance provision would be declared unconstitutional as violative of the resident's rights under the contract clause.\nD. The zoning ordinance provision would be upheld as constitutional under the state's police power.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

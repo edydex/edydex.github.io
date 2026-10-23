@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-22. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA defendant was arrested and charged with conspiracy to receive stolen property. At his arraignment, the defendant was represented by counsel. He was then released after posting bond. Following his release, the defendant resumed his job as a bartender at a local bar. Three weeks before the defendant's scheduled trial, an informant entered the bar. After a few drinks, the informant began conversing with the defendant, who was on duty at the time. Unknown to the defendant, the man was a paid police informant. During the course of their conversation, the informant told the defendant that he had read about his arrest in the newspapers and questioned the defendant about the names of his accomplices. Unsuspectingly, the defendant made some admissions, which the informant then passed on to the prosecuting attorney. At trial, the prosecution tried to introduce into evidence the defendant's admissions. The defendant's motion to exclude this offer of proof will most likely be\nA. denied, because the defendant's statements were voluntary.\nB. denied, because the defendant assumed the risk that his confidence in the informant was not misplaced.\nC. granted, because the defendant's Sixth Amendment right to counsel was violated.\nD. granted, because the defendant's Fifth Amendment privilege against self-incrimination was violated.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

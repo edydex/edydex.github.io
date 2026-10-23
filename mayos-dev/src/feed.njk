@@ -1,0 +1,6 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Oles Maiovskyi — Blog</title><link>{{ site.url }}/blog/</link><description>{{ site.description | escape }}</description><language>en</language><atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml"/>{% for entry in collections.posts %}<item><title>{{ entry.data.title | escape }}</title><link>{{ entry.url | absolute }}</link><guid>{{ entry.url | absolute }}</guid><pubDate>{{ entry.date | rssDate }}</pubDate><description>{{ entry.data.description | escape }}</description>{% for topic in entry.data.topics %}<category>{{ topic }}</category>{% endfor %}</item>{% endfor %}</channel></rss>

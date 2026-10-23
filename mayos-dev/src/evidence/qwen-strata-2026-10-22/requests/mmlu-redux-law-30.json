@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-30. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA state's attorney was convicted in federal court of taking bribes to drop charges against an oil company. He was sentenced to probation. The state's attorney had served long enough to become fully qualified for his pension upon retirement. The state's attorney retired and immediately started receiving monthly pension checks. Subsequently, the governor signed into law a statute which provided in part:\"Section 8. Any member of the state attorneys staff who is convicted of. . . bribery . . . shall not beentitled to receive any retirement or other benefit or payment of any kind from the state . Such conviction shall be considered a breach of the staff member's employment contract. \"Following the enactment of the statute, the state's attorney received a letter from the state which stated they are immediately discontinuing pension benefit payments to him on account of his bribery conviction. The state's attorney contacted an attorney, who challenged the discontinuance of benefits on the grounds that the new law was unconstitutional. In order to reinstate the state attorney's pension on the grounds that the statute is unconstitutional, the attorney's strongest argument would be that\nA. the state attorney was retroactively punished.\nB. the statute is an ex post facto law\nC. the supremacy clause invalidates the state law, because there is federal legislation regulating pension and profit sharing plans.\nD. the statute has a chilling effecton legislators' rights to freely discuss pending bills with members of their staff.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-52. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA city enacted an ordinance prohibiting the singing and chanting of songs from 1:00P. M. to 1:00A. M. by two or more persons if such noise is audible off the premises where the singing takes place. The ordinance expressly exempted from its purview the singing or chanting of religious songs. After the ordinance was enacted and went into effect, several college students were walking down the street on their way to a victory celebration following a big college football game. They began loudly chanting, \"We're number 1. . . we're number 1. \" One of the residents who lived on the street was greatly disturbed by the noise and reported the incident to the police, who were immediately summoned to the scene. The students who engaged in the chanting were arrested and charged with violating the ordinance. The students who were prosecuted now bring suit challenging the constitutionality of the city ordinance. Which of the following would constitute their WEAKEST argument against enforcement of the city ordinance?\nA. The ordinance deprives persons of their freedom of expression, in violation of the First andFourteenth Amendments.\nB. The ordinance deprives persons of their liberty without due process of law because the ordinance is not related to any legitimate community interest.\nC. The statutory language of the ordinance is vague and overbroad since it attempts to encompass all forms of singing.\nD. The ordinance deprives the persons of the equal protection of the laws by impermissibly distinguishing between religiously inspired singing and all forms of singing.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

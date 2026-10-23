@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-69. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA repairman repaired damaged electrical power lines and replaced old, worn-out equipment whenever necessary for the local municipal electrical company. After a violent tornado had ripped through the city, the electrical company was busily trying to restore electrical power to its customers. The morning after the storm, the repairman was perched on a ladder trying to repair a high-voltage power line. As he was removing the cover of the transformer box, the ladder suddenly slipped on the wet ground, even though it had been properly fixed into position. The repairman struggled to maintain his balance and, luckily, the ladder came to rest against the transformer box. A pedestrian, who was walking on the street below, saw the repairman's predicament and began to climb the ladder to aid him. As the pedestrian was ascending the ladder, his foot slipped, and he fell to the ground. His fall caused the ladder to jar loose the transformer box, which in turn sent the repairman falling to the pavement. The repairman and the pedestrian both suffered serious injuries. If the pedestrian asserts a claim against the electrical company for his injuries, he will most likely\nA. prevail, because he was attempting to rescue the repairman.\nB. prevail, because a public utility company is strictly liable in tort.\nC. not prevail, because he was negligent in climbing the ladder.\nD. not prevail, because the repairman was not negligent in not affixing the ladder properly.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

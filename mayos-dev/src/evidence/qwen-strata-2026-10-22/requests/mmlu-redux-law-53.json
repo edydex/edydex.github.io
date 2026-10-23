@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-53. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA buyer signed a contract to purchase a tract of land from a seller. The contract was signed on May 1, 2006, and the closing is set for June 15, 2006. The land was located in a jurisdiction that has in force the following statute:Statute of Limitations \"an action to recover the possession of land shall be brought within twenty- one (21) years after the cause thereof accrued, but if a person who is entitled to bring such action at the time the cause accrued is within the age of minority (under 21) or of unsound mind, such action may be brought within ten (10) years after such disability is removed. \"This statute was enacted in the jurisdiction in 1930. The land in question had been owned by a rancher in 1960. On September 1, 1960, the rancher died intestate, leaving his nephew as his only heir. The nephew had been born on October 1, 1954. In addition, there is a deed from the rancher's administrator to the seller dated November 1, 1960, which the latter recorded on the same date. During his title search, the buyer learned that the administrator had never obtained any license to sell the land in question; and also he (the administrator) never formally received the approval of any court with respect to the administration of the rancher's estate. Moreover, the buyer ascertained that the seller entered into possession of the land in question on November 1, 1960. On the assumption that there are no additional facts, the buyer should be advised that the seller became or will become the owner of the land in question\nA. on November 1, 1960.\nB. on November 12, 1981.\nC. on October 1, 1985.\nD. when the nephew dies.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

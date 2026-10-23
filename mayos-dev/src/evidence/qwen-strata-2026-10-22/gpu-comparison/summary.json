@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-22",
+  "scope": "Same Flash-Next IQ3_S model and speed protocol, GPU selection only; no new accuracy evaluation.",
+  "originalArchiveSha256": "1a0ef98f0007de143ee63cde094ef376059a5b09379c2ff2fe818c85c14cf65e",
+  "originalDual": [
+    {
+      "inputTokens": 84,
+      "generationTokensPerSecond": 48.0,
+      "generationRange": [
+        34.7,
+        76.4
+      ],
+      "serverPromptSeconds": 1.785,
+      "firstContentSeconds": 1.8052198940131348,
+      "replySeconds": 4.369044443999883,
+      "replyRangeSeconds": [
+        3.4626010450010654,
+        7.83752790701692
+      ],
+      "samples": 3
+    },
+    {
+      "inputTokens": 6586,
+      "generationTokensPerSecond": 70.4,
+      "generationRange": [
+        69.7,
+        80.6
+      ],
+      "serverPromptSeconds": 12.9026,
+      "firstContentSeconds": 12.934985511004925,
+      "replySeconds": 14.579910433996702,
+      "replyRangeSeconds": [
+        14.495574722997844,
+        23.170635463000508
+      ],
+      "samples": 3
+    },
+    {
+      "inputTokens": 26087,
+      "generationTokensPerSecond": 71.0,
+      "generationRange": [
+        70.9,
+        72.7
+      ],
+      "serverPromptSeconds": 31.2185,
+      "firstContentSeconds": 31.31999467301648,
+      "replySeconds": 33.09755272499751,
+      "replyRangeSeconds": [
+        32.990750141005265,
+        33.11324697799864
+      ],
+      "samples": 3
+    }
+  ],
+  "single": [
+    {
+      "inputTokens": 84,
+      "generationTokensPerSecond": 43.6,
+      "generationRange": [
+        25.4,
+        58.1
+      ],
+      "serverPromptSeconds": 0.8148,
+      "firstContentSeconds": 0.8437469839700498,
+      "replySeconds": 3.7535743420012295,
+      "replyRangeSeconds": [
+        2.9644604650093243,
+        6.923110231000464
+      ],
+      "samples": 3
+    },
+    {
+      "inputTokens": 6586,
+      "generationTokensPerSecond": 64.3,
+      "generationRange": [
+        60.8,
+        69.8
+      ],
+      "serverPromptSeconds": 6.915,
+      "firstContentSeconds": 7.00753857701784,
+      "replySeconds": 8.811793345026672,
+      "replyRangeSeconds": [
+        7.729012405034155,
+        20.62433022801997
+      ],
+      "samples": 3
+    },
+    {
+      "inputTokens": 26087,
+      "generationTokensPerSecond": 61.4,
+      "generationRange": [
+        60.4,
+        76.6
+      ],
+      "serverPromptSeconds": 21.4322,
+      "firstContentSeconds": 21.477734987973236,
+      "replySeconds": 23.527468657994177,
+      "replyRangeSeconds": [
+        23.09518915397348,
+        23.855831029010005
+      ],
+      "samples": 3
+    }
+  ],
+  "dualControl": [
+    {
+      "inputTokens": 84,
+      "generationTokensPerSecond": 52.1,
+      "generationRange": [
+        46.8,
+        55.0
+      ],
+      "serverPromptSeconds": 2.1332,
+      "firstContentSeconds": 2.1556457889964804,
+      "replySeconds": 4.592119049979374,
+      "replyRangeSeconds": [
+        4.014223173027858,
+        5.330337706953287
+      ],
+      "samples": 3
+    },
+    {
+      "inputTokens": 6586,
+      "generationTokensPerSecond": 74.1,
+      "generationRange": [
+        70.6,
+        75.9
+      ],
+      "serverPromptSeconds": 13.848,
+      "firstContentSeconds": 13.881859596993309,
+      "replySeconds": 15.539650093996897,
+      "replyRangeSeconds": [
+        15.01139640796464,
+        19.53027624503011
+      ],
+      "samples": 3
+    },
+    {
+      "inputTokens": 26087,
+      "generationTokensPerSecond": 72.9,
+      "generationRange": [
+        71.3,
+        79.3
+      ],
+      "serverPromptSeconds": 31.3914,
+      "firstContentSeconds": 31.43026108603226,
+      "replySeconds": 33.19659616204444,
+      "replyRangeSeconds": [
+        32.970629458955955,
+        33.44298199896002
+      ],
+      "samples": 3
+    }
+  ],
+  "gpu0": "RTX 5060 Ti 16GB, PCIe 5 x8",
+  "gpu1": "RTX 5060 Ti 16GB, PCIe 3 x1, borrowed",
+  "onlyInferenceProfileDifference": "gpu: 0 versus [0,1]; engine log destination also differs",
+  "requestsIdenticalToOriginal": true,
+  "thinking": false,
+  "outputTokens": 128,
+  "promptCacheTokens": 0,
+  "samplesPerCell": 3,
+  "rawReasoningRetained": false,
+  "speedAnswersRetainedInFollowup": true,
+  "accuracyRetested": false,
+  "runOrder": [
+    "single",
+    "dual-control"
+  ],
+  "productionUnchanged": true,
+  "comparisons": [
+    {
+      "inputTokens": 84,
+      "singleGenerationFractionOfFreshDual": 0.836852207293666,
+      "freshDualGenerationSpeedup": 1.1949541284403669,
+      "singleReplySpeedupVsFreshDual": 1.2233989876249718,
+      "singleReplyPercentChangeVsFreshDual": -18.26051761401767,
+      "freshDualGenerationChangeVsOriginalPercent": 8.54166666666667
+    },
+    {
+      "inputTokens": 6586,
+      "singleGenerationFractionOfFreshDual": 0.8677462887989204,
+      "freshDualGenerationSpeedup": 1.1524105754276828,
+      "singleReplySpeedupVsFreshDual": 1.763505961333897,
+      "singleReplyPercentChangeVsFreshDual": -43.29477631912224,
+      "freshDualGenerationChangeVsOriginalPercent": 5.255681818181812
+    },
+    {
+      "inputTokens": 26087,
+      "singleGenerationFractionOfFreshDual": 0.8422496570644717,
+      "freshDualGenerationSpeedup": 1.1872964169381108,
+      "singleReplySpeedupVsFreshDual": 1.410971857814584,
+      "singleReplyPercentChangeVsFreshDual": -29.126864262985887,
+      "freshDualGenerationChangeVsOriginalPercent": 2.6760563380281877
+    }
+  ],
+  "resources": {
+    "single": {
+      "observedModelGpus": [
+        0
+      ],
+      "sampledPeakModelVramMiB": {
+        "0": 11790,
+        "1": 0
+      },
+      "sampledPeakHostPssGiB": 47.128790855407715,
+      "loadSeconds": 7.013078836956993
+    },
+    "dual-control": {
+      "observedModelGpus": [
+        0,
+        1
+      ],
+      "sampledPeakModelVramMiB": {
+        "0": 11832,
+        "1": 13806
+      },
+      "sampledPeakHostPssGiB": 53.79621696472168,
+      "loadSeconds": 31.022083163028583
+    }
+  }
+}

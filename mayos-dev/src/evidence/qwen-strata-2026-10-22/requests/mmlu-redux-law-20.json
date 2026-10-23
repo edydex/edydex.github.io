@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-20. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA protester brought an action in federal court against a police officer, alleging that the officer's use of force in arresting the protester violated the protester's federal civil rights. During the jury trial, eyewitnesses gave conflicting testimony on the arrest. At the close of evidence, the protester moved for judgment as a matter of law, which the court denied. The court instructed the jury that the protester's burden of proof was clear and convincing evidence, rather than the correct burden of preponderance of the evidence. The jury returned a verdict for the officer, and the court entered judgment accordingly. What is the protester's best option for challenging the judgment?\nA. Seek a new trial, because the jury instruction affected the protester's substantial rights.\nB. Seek a new trial, because the verdict was against the clear weight of the evidence.\nC. Seek judgment as a matter of law, because the jury did not have legally sufficient evidence to find for the officer.\nD. Seek judgment as a matter of law, because the jury's findings were clearly erroneous.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

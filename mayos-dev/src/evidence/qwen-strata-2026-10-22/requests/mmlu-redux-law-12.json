@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-12. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA man was prosecuted for the alleged murder of his estranged wife. At trial, the government was allowed to present the testimony of several women who testified to having flirtatious or sexual encounters with the defendant over the past 20 years prior to the homicide. None of the testimony showed any such activity within three years of the murder date, and none of it showed any violent tendencies of the defendant or intentions expressed that he wanted to kill his wife. The defendant had an alibi for the time of the crime and presented many alibi witnesses. The government claimed that it was showing motive by proving the defendant's proclivity for extra-marital affairs over the years and therefore his bad relationship with his wife. The jury convicted him after hearing the testimony of 10 women regarding defendant's various sexual contacts with them over prior years. The defendant appealed the murder conviction, claiming that the women's testimony was prejudicial and inflammatory and showed only bad character, which is not admissible under evidentiary rules. Will the appeals court likely reverse the conviction and order a new trial?\nA. Yes, the trial was unfair in presenting testimony of women going back over 20 years; it would have been proper to admit such testimony only as to the five years preceding the crime.\nB. Yes, the defendant did not receive a fair trial; the testimony of the women only showed his bad character but because they were old incidents and not continuing, they did not allow a permissible inference that these affairs gave him a motive to kill his spouse.\nC. No, if the testimony was admitted in error it was harmless error that did not sway the jury one way or another and so the defendant got a fair trial in all other respects.\nD. No, the testimony was admissible because it tended to show a pattern of \"transferred intent\" that proved the defendant's great hostility to his wife, and his need to eliminate her from his life so that he could go back to having a wild life.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

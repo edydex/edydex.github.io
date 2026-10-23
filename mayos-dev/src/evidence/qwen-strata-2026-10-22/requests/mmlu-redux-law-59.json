@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-59. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nIn an automobile accident case, the defendant claimed that the plaintiff was contributorily negligent by driving at an excessive speed. The defendant's attorney calls its first witness, who was standing along the side of the road when the plaintiff's and defendant's cars collided. The defendant's attorney asks the witness: \"Is it a fact that in your estimation, plaintiff was traveling at a speed of 45 m. p. h. in a 35 m. p. h. speed zone at the time of the accident?\" The plaintiff objects. The trial judge should\nA. overrule the objection, because the judge may take judicial notice of the speed limit within the jurisdiction.\nB. overrule the objection if the witness has already been shown to be an experienced driver who was able to estimate the approximate speed of moving vehicles.\nC. sustain the objection if the witness has not been qualified as an expert witness.\nD. sustain the objection, because the witness is not an adverse witness.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

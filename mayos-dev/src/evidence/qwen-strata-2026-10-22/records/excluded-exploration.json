@@ -1,0 +1,137 @@
+[
+  {
+    "report": "qwen-exploratory-original-mmlu.json",
+    "reason": "Superseded original MMLU sample; documented answer-key concerns; excluded from all comparison totals.",
+    "accuracy": [
+      {
+        "id": "citation-match",
+        "category": "grounding",
+        "repeat": 0,
+        "seed": 42,
+        "answer": "{\"signing_source\":\"A\",\"payment_source\":\"C\"}",
+        "tool_calls": [],
+        "reasoningChars": 447,
+        "elapsedSeconds": 14.99819425100577,
+        "firstEventSeconds": 0.8107896980072837,
+        "firstContentSeconds": 13.838864994002506,
+        "usage": {
+          "completion_tokens": 148,
+          "prompt_tokens": 113,
+          "total_tokens": 261,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 113,
+          "prompt_ms": 808.731,
+          "prompt_per_token_ms": 7.156911504424778,
+          "prompt_per_second": 139.72507545772328,
+          "predicted_n": 148,
+          "predicted_ms": 14187.316,
+          "predicted_per_token_ms": 96.5123537414966,
+          "predicted_per_second": 10.361367858444824
+        },
+        "finishReason": "stop",
+        "grade": {
+          "passed": true,
+          "strictJson": true,
+          "expected": {
+            "signing_source": "A",
+            "payment_source": "C"
+          },
+          "actual": {
+            "signing_source": "A",
+            "payment_source": "C"
+          }
+        }
+      },
+      {
+        "id": "mmlu-law-753",
+        "category": "public-law",
+        "repeat": 0,
+        "seed": 42,
+        "answer": "{\"answer\":\"A\"}",
+        "tool_calls": [],
+        "reasoningChars": 3781,
+        "elapsedSeconds": 79.9089739099727,
+        "firstEventSeconds": 1.187696093984414,
+        "firstContentSeconds": 79.43881566799246,
+        "usage": {
+          "completion_tokens": 844,
+          "prompt_tokens": 262,
+          "total_tokens": 1106,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 262,
+          "prompt_ms": 1185.155,
+          "prompt_per_token_ms": 4.5234923664122135,
+          "prompt_per_second": 221.0681303289443,
+          "predicted_n": 844,
+          "predicted_ms": 78721.142,
+          "predicted_per_token_ms": 93.38213760379598,
+          "predicted_per_second": 10.708686111286342
+        },
+        "finishReason": "stop",
+        "grade": {
+          "passed": false,
+          "strictJson": true,
+          "expected": {
+            "answer": "D"
+          },
+          "actual": {
+            "answer": "A"
+          }
+        }
+      },
+      {
+        "id": "mmlu-law-751",
+        "category": "public-law",
+        "repeat": 0,
+        "seed": 42,
+        "answer": "{\"answer\":\"B\"}",
+        "tool_calls": [],
+        "reasoningChars": 6536,
+        "elapsedSeconds": 134.55618367900024,
+        "firstEventSeconds": 1.1403146240045317,
+        "firstContentSeconds": 134.09214658397832,
+        "usage": {
+          "completion_tokens": 1431,
+          "prompt_tokens": 246,
+          "total_tokens": 1677,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 246,
+          "prompt_ms": 1138.235,
+          "prompt_per_token_ms": 4.626971544715447,
+          "prompt_per_second": 216.12408685376923,
+          "predicted_n": 1431,
+          "predicted_ms": 133415.615,
+          "predicted_per_token_ms": 93.29763286713286,
+          "predicted_per_second": 10.718385550297093
+        },
+        "finishReason": "stop",
+        "grade": {
+          "passed": false,
+          "strictJson": true,
+          "expected": {
+            "answer": "C"
+          },
+          "actual": {
+            "answer": "B"
+          }
+        }
+      }
+    ],
+    "fixtures": null
+  }
+]

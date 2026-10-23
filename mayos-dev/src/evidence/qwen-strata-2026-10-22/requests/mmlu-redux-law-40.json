@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-40. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nAn obese woman signed up for a weight loss program that promised weight loss down to her medicallyrecommended range. The promotional material claimed patented methods and nutritional supplements that were a \"miraculous discovery\" that would work for anyone within 24 months. The cost was $1,000 per month; the woman paid a total of $24,000 for two years but she lost only 6 pounds and remained excessively obese. A former program employee told her that there was no patent, no miraculous discovery, and the supplements were the same as a common vitamin brand. She sued the program for misrepresentation. Will she likely prevail?\nA. No, because statements that are mere \"puffing\" or opinions cannot be the basis for misrepresentation.\nB. Yes, because the program had a fiduciary duty to make full disclosure to her of all of the facts.\nC. No, because she did not justifiably rely on the incredible representations that were made.\nD. Yes, because the program knowingly made false factual representations that the customer relied on.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

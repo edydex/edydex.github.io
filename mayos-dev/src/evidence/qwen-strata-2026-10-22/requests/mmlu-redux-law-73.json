@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-73. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA university student, a citizen of State A, believes that her university violated federal law when it eliminated funding for the women's varsity volleyball team. She has sued the university, a nonprofit corporation located and incorporated in State B, and the university's athletic director, a citizen of State B, in federal court in State B. What is the best method of serving the defendants?\nA. Service as required by State B's rules of civil procedure.\nB. Service by a process server's leaving copies of the summons and complaint with copies of the summons and complaint with secretaries in the respective offices of the athletic director and the university president.\nC. Service by emailing copies of the summons and complaint to the athletic director and the university president.\nD. Service by the student herself on the athletic director and the university president.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

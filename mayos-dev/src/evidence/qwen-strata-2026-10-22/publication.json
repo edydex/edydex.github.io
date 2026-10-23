@@ -1,0 +1,18 @@
+{
+  "edition": "public supporting evidence",
+  "date": "2026-10-22",
+  "originalResultsJsonSha256": "1a0ef98f0007de143ee63cde094ef376059a5b09379c2ff2fe818c85c14cf65e",
+  "originalResultsRetainedPrivately": true,
+  "changes": [
+    "Omitted unrelated application integration checks, application runtime helpers and host process dumps.",
+    "Generalized local filesystem roots in method snapshots and surrounding prose.",
+    "Removed speculative home-PC portability discussion from this experiment.",
+    "Candidate prompts, final answers, recorded grades, timings, source anchors and rubric are unchanged.",
+    "Separate post-hoc workflow content audit is included; original exact-field grades remain intact."
+  ],
+  "sourceRepositories": {
+    "mayo": "https://github.com/edydex/edydex.github.io",
+    "strata": "https://github.com/Niko1221/Strata"
+  },
+  "lawDatasetAttribution": "Edinburgh Dataset Analytics Working Group, MMLU-Redux 2.0, CC BY 4.0; https://huggingface.co/datasets/edinburgh-dawg/mmlu-redux-2.0"
+}

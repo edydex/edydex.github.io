@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-39. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA college student and a man got into a fight at a bar while playing pooi. The college student allegedly started the fight when he struck the man in the head with a pool cue after the man sank a game-winning shot. At the college student's trial for assault, the prosecution called one of the college student's classmates to testify. The classmate was not at the bar during the fight. The classmate offered to testify that the next day at class, he approached the college student and said, \"It was wrong of you to start a fight with the man over a game of pool,\" at which point, the college student bowed his head and walked away. The classmate's testimony is\nA. admissible as part of the res gestae.\nB. admissible as an admission.\nC. inadmissible as hearsay not within any recognized exception.\nD. inadmissible as self-serving.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

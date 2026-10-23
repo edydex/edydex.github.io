@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-0. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA nephew was short of cash and was waiting for his elderly aunt to die. His aunt was currently in the hospital on a ventilator. Her condition was terminal, and the nephew could not wait to get his hands on his inheritance. One night, his girlfriend demanded that he buy her an engagement ring or she would break up with him. Out of time, the nephew went to the hospital and broke into the cabinet where the drugs were kept. Unbeknownst to the defendant, a nurse in the hospital, the nephew injected 1,000 mg's of a powerful muscle relaxant into the IV bag bound for his aunt's room. Ten mg's is the prescribed dosage of the muscle relaxant. The defendant, unaware of the IV's lethal capability, attached the new bag to the aunt's IV drip. The aunt's death was swift, and attempts to revive her were futile. The nephew celebrated his inheritance with a bottle of Champagne with his girlfriend. Unfortunately for the nephew, his aunt had changed her will some months prior to this, and all the aunt's money was left to her dog. If the defendant is prosecuted for administering the IV, she will most likely be found\nA. guilty, as a principal in the first degree.\nB. guilty, as a principal in the second degree.\nC. guilty, as an accessory after the fact.\nD. not guilty.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

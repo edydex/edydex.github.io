@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-15. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA defendant was prosecuted for assault and battery after he admitted striking the victim with a pool cue during a barroom argument. The defendant claimed that he acted in self-defense after he was attacked by the victim, who was drunk and belligerent. At trial, the defendant called a witness who testified that the victim was the aggressor in the altercation. On cross-examination of the witness, the prosecuting attorney asked the witness the following question:\"Isn't it true that when you filed your federal income tax return last year, you failed to report the interest income from your savings accounts?\" The prosecuting attorney was informed of this fact by the witness's accountant. Upon objection by the defendant's attorney, the prosecutor's question is\nA. improper, because it is not relevant to the issues in the case.\nB. improper, because the defendant has not been convicted of any crime in connection with the tax return.\nC. within the court's discretion to allow, because filing a false income tax return is an act that bears on the witness's truthfulness.\nD. within the court's discretion to allow, because federal income tax evasion is a crime punishable by imprisonment in excess of one year.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

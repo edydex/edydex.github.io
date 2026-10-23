@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-45. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA defendant is on trial for attempting to cash a forged check at a bank. A teller at the bank is called to testify. The teller testified that she was on duty when the defendant came to her station and handed her a check drawn on the account of another customer. She recognized the forgery because she knew the other customer's signature since he was one of her regulars. The teller further testified that after becoming suspicious, she placed the check down on the counter and turned to talk to her supervisor. As she did so, the defendant picked up the check and left the bank before she could say anything. The check that the defendant presented at the bank was not recovered by law enforcement authorities and was not offered as evidence. The teller's testimony regarding the forged signature on the check is\nA. inadmissible, because the witness is at fault in allowing the loss of the original by failing to secure the check.\nB. inadmissible, because it is not possible for the jury to compare the signature on the check since it was not presented as evidence.\nC. admissible, because it is rationally related to the witness's perception.\nD. admissible, because the witness was familiar with the alleged victim's handwriting.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

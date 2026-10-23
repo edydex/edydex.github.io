@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-48. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA manager's competitor sent a defamatory letter to the manager accusing him of professional incompetence and calling him one of the worst businessmen in town. It was addressed to the manager. He read it, put it in a private drawer, and did not read it again. Later, he tried to sue the competitor for defamation as a result of the letter. Will the court likely grant the defendant's motion to dismiss, and on what grounds? Base your answer on the common law definition of defamation.\nA. Yes, it will dismiss on the basis that the publication is made to the manager alone.\nB. Yes, it will dismiss on the basis that the language is not damaging to the manager's reputation.\nC. No, it will not dismiss because the circumstances show that all of the elements of defamation are all present.\nD. No, it will not dismiss because a plaintiff in a defamatory action has an absolute right to a jury trial to prove defamation.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>{% if title %}{{ title | escape }} · {% endif %}{{ site.name }}</title>
+  <meta name="description" content="{{ description or site.description | escape }}">
+  <link rel="canonical" href="{{ page.url | absolute }}">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="alternate" type="application/rss+xml" title="Oles Maiovskyi — Blog" href="/feed.xml">
+  <meta property="og:type" content="{% if post %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ title or site.name | escape }}">
+  <meta property="og:description" content="{{ description or site.description | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute }}">
+  {% if post %}<meta property="article:published_time" content="{{ date | isoDate }}">{% endif %}
+  {% if searchable %}<script src="/assets/search.js" defer></script>{% endif %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="site-name" href="/">Oles Maiovskyi</a>
+      <nav aria-label="Main navigation">
+        <a href="/projects/"{% if section == 'projects' %} aria-current="page"{% endif %}>Projects</a>
+        <a href="/"{% if section == 'about' %} aria-current="page"{% endif %}>About Me</a>
+        <a href="/blog/"{% if section == 'blog' %} aria-current="{% if post %}true{% else %}page{% endif %}"{% endif %}>Blog</a>
+      </nav>
+    </header>
+    <main id="main" class="{% if post %}article-main{% endif %}" tabindex="-1">{{ content | safe }}</main>
+    <footer class="site-footer"><div class="footer-contact" id="contact-title"><div><p class="eyebrow">REACH ME</p><a class="email" href="mailto:{{ site.email }}">{{ site.email }} <span aria-hidden="true">↗</span></a></div><div class="socials"><a href="{{ site.github }}">GitHub ↗</a><a href="{{ site.linkedin }}">LinkedIn ↗</a><a href="{{ site.instagram }}">Instagram ↗</a></div></div><div class="footer-bottom"><span>Oles Maiovskyi · 2026</span><a href="/feed.xml">RSS</a></div></footer>
+  </div>
+</body>
+</html>

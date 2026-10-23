@@ -1,0 +1,3 @@
+On this workstation, one RTX 5060 Ti on the PCIe 5 ×8 slot was sufficient for the tested workload. It retained 84–87% of the fresh two-GPU generation rate and completed the 128-token replies 18–43% sooner. The second card on PCIe 3 ×1 offered a modest generation gain without improving those full-reply times.
+
+This supports using one GPU for these short-reply workloads. We did not isolate the bus’s contribution or test a faster second slot. Longer reasoning-heavy replies and single-GPU accuracy were not retested.

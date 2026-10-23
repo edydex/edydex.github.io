@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-13. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nAn on-duty Police Officer hears breaking glass and a blaring alarm, and sees Stan run out of a darkened liquor store at 3 a.m. Stan runs around the corner, out of Officer's view, and hops into a car. Officer sees Stan drive away and pursues, lights flashing. Stan pulls over and Officer arrests him. Officer sees nothing in the passenger compartment, but pops the trunk and finds cash and a baseball bat. Stan's motion to suppress the cash and baseball bat as evidence will likely be\nA. Denied, because the Officer had probable cause to search the trunk.\nB. Denied, because a search incident to a valid arrest in an automobile always includes the trunk of the automobile.\nC. Granted, because the trunk area was out of the range of Stan's control.\nD. Granted, because the arrest was illegal and therefore the evidence is considered to be fruit of the poisonous tree.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

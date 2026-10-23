@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-18. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA man was charged with first-degree murder. Two lawyers were appointed to represent him because the prosecution planned to seek the death penalty. On the first day of trial, the air-conditioning malfunctioned in the courtroom, so the judge directed that the selection of the jurors take place in his chambers. Because of the large number of potential jurors, the judge directed that only one lawyer for the prosecution and one for the defense participate in the jury selection process. The defendant remained in the courtroom during the questioning of the jurors. Once the jury was selected, the trial was postponed until the next day, when the air-conditioning was again working. Did the court's jury selection process violate the defendant's federal constitutional rights?\nA. No, because a defendant's confrontation rights are limited to witnesses rather than jurors.\nB. No, because there was good cause to conduct jury selection outside the defendant's presence.\nC. Yes, because excluding the defendant undercut the presumption of innocence.\nD. Yes, because jury selection is a critical stage at which a defendant is entitled to be present.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

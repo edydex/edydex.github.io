@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-41. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA company owned a night club that was built on a pier extending into a major riverbed. For several months sections of the building had been wobbling noticeably, particularly during inclement weather, when the river pounded more aggressively against the structure. Several employees and customers complained but the general manager did not respond. One windy night a section of the pier collapsed into the river, killing 28 customers and employees. It was revealed that officials had on several prior occasions cited the club for violating applicable safety regulations. The police arrested the general manager and charged him with involuntary manslaughter. He defended on the basis that his omissions to act were legally insufficient to establish manslaughter. What will the court decide?\nA. This was not manslaughter because the omission to respond to safety citations is not enough to establish the high degree of criminal negligence that is required.\nB. The failure to act is much less culpable than active recklessness, and therefore there was insufficient evidence to charge manslaughter.\nC. A corporate employee cannot be prosecuted for the crime of manslaughter with respect to the performance or nonperformance of his duties on behalf of the corporation.\nD. The charge of involuntary manslaughter is legally sufficient because the manager's omissions were reckless and unlawful under the circumstances.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

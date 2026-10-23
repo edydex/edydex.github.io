@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-43. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA plaintiff sued a defendant for leg injuries stemming from a collision between their cars at an intersection. Each party was driving his own car, and the plaintiff alleged that the defendant had sped through a red light and collided with the plaintiff's car. The defendant denied this allegation. During the trial, the plaintiff testified that he and the defendant had conferred after the accident and that the defendant had said, \"Don't worry about anything; I'll see to it that your doctor's bills are paid. \" The defendant's attorney immediately objected. The trial judge should rule this testimony\nA. admissible, because the defendant admitted his negligence.\nB. admissible, because it is a declaration against interest.\nC. inadmissible, because the prejudice in admitting the testimony outweighs its probative value.\nD. inadmissible, because an offer to pay medical bills is not admissible to prove negligence.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

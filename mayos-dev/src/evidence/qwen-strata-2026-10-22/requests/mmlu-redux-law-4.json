@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-4. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nA landowner and a developer own adjoining lots in the central portion of the city. Each of their lots had an office building built on it. The developer decided to raze the existing building on her lot and to erect a building of greater height. The developer has received all governmental approvals required to pursue her project. When the building was completed, the homeowner discovered that the shadow created by the new higher building placed her building in such deep shade that her ability to lease space was diminished and that the rent she could charge and the occupancy rate were substantially lower. Assume that these facts are proved in an appropriate action that the landowner instituted against the developer for all and any relief available. Which of the following is the most appropriate comment concerning this lawsuit?\nA. The landowner is entitled to a mandatory injunction requiring the developer to restore conditions to those existing with the prior building insofar as the shadow is concerned.\nB. The court should award permanent damages, in lieu of an injunction, equal to the present value of all rents lost and loss on rents for the reasonable life of the building.\nC. The court should award damages for losses suffered to the date of trial and leave open recovery of future damages.\nD. Judgment should be for the developer, because the investor has no cause of action.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}

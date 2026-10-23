@@ -1,0 +1,13 @@
+---
+layout: base.njk
+section: blog
+searchable: true
+pagination:
+  data: collections.topics
+  size: 1
+  alias: selectedTopic
+permalink: /blog/tags/{{ selectedTopic | slugify }}/index.html
+eleventyComputed:
+  title: "{{ selectedTopic }}"
+---
+{% include 'post-list.njk' %}

@@ -1,0 +1,34 @@
+{
+  "origin": "reconstructed from frozen harness",
+  "initial": {
+    "model": "monolaw-qwen",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Trial 0-mmlu-redux-law-38. Answer the academic multiple-choice question using your knowledge and reasoning. Select the single best answer and follow the requested JSON format."
+      },
+      {
+        "role": "user",
+        "content": "Answer this academic professional-law multiple-choice question.\nFor many years, a husband and a wife tried to have a child, but the wife was unable to get pregnant. Her family physician had advised her that she was infertile and that it was impossible for her to become pregnant. After missing her period for three months and experiencing other symptoms of pregnancy, the wife consulted the physician. Without administering a pregnancy test, the physician examined the wife and concluded that she had the flu. He prescribed tetracycline, an antibiotic drug, which the wife took for two weeks. After discontinuing the tetracycline, the wife continued to experience nausea, fatigue, and other symptoms of pregnancy. She then consulted a different doctor, who administered a pregnancy test, which revealed that the wife was, in fact, four months pregnant. Thereafter, she gave birth to a child. When the child developed teeth, they were black and discolored. At the age of 12, the child learned that the black discoloration of his teeth resulted from the tetracycline that the wife took during her pregnancy. If a claim is brought on the child's behalf against the physician based on malpractice in not administering a pregnancy test to the woman and prescribing tetracycline, judgment is likely to be for whom?\nA. The physician, because an unborn child does not have legal rights stemming from conduct that occurred before birth.\nB. The physician, because no duty of care is owed to an unborn child not in existence at the time medical treatment is rendered.\nC. The child, because a child, if born alive, is permitted to maintain an action for the consequences of prenatal injuries.\nD. The child, because the wife was negligent in failing to seek proper prenatal care.\nReturn only JSON {\"answer\":\"A\"} with the single best choice letter A, B, C or D."
+      }
+    ],
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "presence_penalty": 0,
+    "seed": 42,
+    "max_tokens": 3072,
+    "reasoning_effort": "medium",
+    "chat_template_kwargs": {
+      "enable_thinking": true,
+      "preserve_thinking": false
+    },
+    "cache_prompt": false,
+    "strata_checkpoint": false,
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "continuations": {}
+}
