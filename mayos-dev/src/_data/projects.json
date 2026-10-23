@@ -56,6 +56,14 @@
     "icon": "/assets/project-icons/project-3.svg"
   },
   {
+    "name": "LibreAuto",
+    "url": "https://libreauto.org/",
+    "category": "Leisure",
+    "description": "An Android Auto replacement that uses song titles and album artwork to show navigation prompts and map previews on older car displays.",
+    "role": "Personal project",
+    "icon": "/assets/project-icons/libreauto-white.svg"
+  },
+  {
     "name": "Bidding Game",
     "url": "https://bid.mayos.dev/",
     "category": "Games",
