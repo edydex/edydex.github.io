@@ -3,4 +3,4 @@ permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{% for item in collections.all %}{% if item.url and item.url != '/404.html' %}<url><loc>{{ item.url | absolute }}</loc></url>{% endif %}{% endfor %}</urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://mayos.dev/</loc></url><url><loc>https://mayos.dev/projects/</loc></url><url><loc>https://mayos.dev/blog/</loc></url>{% for post in collections.posts %}<url><loc>{{ post.url | absolute }}</loc></url>{% endfor %}{% for topic in collections.topics %}<url><loc>https://mayos.dev/blog/tags/{{ topic | slugify }}/</loc></url>{% endfor %}</urlset>
