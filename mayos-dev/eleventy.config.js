@@ -1,4 +1,13 @@
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+
 export default function (config) {
+  config.addFilter('assetUrl', value => {
+    if (!String(value).startsWith('/assets/')) return value;
+    const source = new URL(`./src${value}`, import.meta.url);
+    const version = createHash('sha256').update(readFileSync(source)).digest('hex').slice(0, 12);
+    return `${value}?v=${version}`;
+  });
   config.ignores.add('src/evidence/**');
   config.addPassthroughCopy({'src/assets':'assets','src/evidence':'evidence','src/_headers':'_headers','src/_redirects':'_redirects'});
   config.addFilter('pad2', value => String(value).padStart(2,'0'));
